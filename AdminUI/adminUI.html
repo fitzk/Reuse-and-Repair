@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Admin UI</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="teal darken-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" class="brand-logo white-text">Corvallis Sustainability Coalition</a>
+      <!--<ul class="right hide-on-med-and-down">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>-->
+    </div>
+  </nav>
+
+  <!--<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+      </div>
+    </div>
+    <div class="parallax"><img src="background3.jpg" alt="Unsplashed background img 3"></div>
+  </div>-->
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center teal-text text-lighten-2"></h1>
+        <div class="row center">
+          <h5 class="header col s12 light"></h5>
+        </div>
+        <div class="row center">
+          <!--<a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>-->
+        </div>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img src="background3.jpg" alt="Unsplashed background img 1"></div>
+  </div>
+  
+  <div class="row">
+    <div class="col l12">
+      <ul class="tabs">
+        <li class="tab col l2"><a class="active teal-text waves-effect" href="#home">Home</a></li>
+        <li class="tab col l2"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
+        <li class="tab col l2"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
+        <!--<li class="tab col l2"><a class="teal-text" href="#other">Other Stuff</a></li>-->
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="container" id="home">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><i class="material-icons">business</i></h2>
+            <h5 class="center">This is the home page</h5>
+
+            <p class="light">Upon loading the site, the admin should land here by default.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><i class="material-icons">supervisor_account</i></h2>
+            <h5 class="center">Admin should see something here</h5>
+
+            <p class="light">This space is modifiable. It might display some news or content important to the admin. Perhaps mobile app metrics or database metrics.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Info</h5>
+
+            <p class="light">There can be info here too. It depends what though.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send teal-text"></i></h3>
+          <h4>Additional Content</h4>
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container" id="view">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+
+            <!--<ul class="collection">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">format_color_text</i>
+                    <span class="title">View All</span>
+                    <p>
+                       Show all businesses
+                    </p>
+                  <i class="material-icons secondary-content">keyboard_arrow_right</i>
+                </li>
+              <li class="collection-item avatar">
+                <i class="material-icons circle red">cached</i>
+                <span class="title">View by Recycle</span>
+                <p>
+                   Show reuse businesses only
+                </p>
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+              </li>
+
+              <li class="collection-item avatar">
+                <i class="material-icons circle blue">build</i>
+                <span class="title">View by Repair</span>
+                <p>
+                   Show repair businesses only
+                </p>
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+              </li>
+
+              <li class="collection-item avatar">
+                <i class="material-icons circle yellow darken-2">view_module</i>
+                <span class="title">View by Category</span>
+                <p>
+                   Show by category selection
+                </p>
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+              </li>
+            </ul>-->
+
+            <!--THIS IS THE COLLAPSIBLE COLLECTION MIXED WITH THE AVATAR COLLECTION ITEM STYLE-->
+            <ul class="collapsible collection" data-collapsible="accordion">
+
+              <li class="collection-item avatar">
+                <div class="collapsible-header">
+                  <i class="material-icons circle green">format_color_text</i>
+                  <span class="title">View All</span>                
+                  <p>
+                   Show all businesses
+                  </p>
+                </div>
+
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+              </li>
+
+              <li class="collection-item avatar">
+                
+                <div class="collapsible-header">
+                  <i class="material-icons circle red">cached</i>
+                  <span class="title">View by Recycle</span>
+                  <p>
+                   Show reuse businesses only
+                  </p>
+                </div>
+
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+              </li>
+
+              <li class="collection-item avatar">
+                
+                <div class="collapsible-header">
+                  <i class="material-icons circle blue">build</i>
+                  <span class="title">View by Repair</span>
+                  <p>
+                   Show repair businesses only
+                  </p>
+                </div>
+
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+              </li>
+
+              <li class="collection-item avatar">
+                
+                <div class="collapsible-header">
+                  <i class="material-icons circle yellow darken-2">view_module</i>
+                  <span class="title">View by Category</span>
+                  <p>
+                   Show by category selection
+                  </p>
+                </div>
+
+                <i class="material-icons secondary-content">keyboard_arrow_right</i>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+              </li>
+            </ul>
+
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+
+      <!--
+      <div class="fixed-action-btn" style="bottom: 100px; right: 24px;">
+        <a class="buttons1 btn-floating btn-large teal darken-4 rotate">
+          <i class="large material-icons ">add</i>
+        </a>
+        <ul>
+          <li><a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
+          <li><a class="btn-floating green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
+        </ul>
+      </div>-->
+
+      <div class="fixed-action-btn container1">
+        <a class="buttons1"><span><span class="rotate"></span></span></a>
+        <ul>
+        <li><a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
+        <li><a class="btn-floating green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container" id="addir">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send teal-text"></i></h3>
+          <h4>The Directory for The Admin Goes Here!</h4>
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="white-text">The Corvallis Sustainability Coalition is a network of organizations and individual volunteers in Corvallis, Oregon, who are working together to create a sustainable community.  It includes businesses, non-profits, faith communities, educational institutions, and government entities...</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright teal darken-1">
+      <div class="container">
+      Made by <a class="white-text" href=" ">CS 419 Group 6 - Winter 2016 - Materialize Framework</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
