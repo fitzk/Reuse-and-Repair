@@ -8359,7 +8359,7 @@ button.btn-floating {
 .waves-effect {
   position: relative;
   cursor: pointer;
-  display: inline-block;
+  /*display: inline-block;*/
   overflow: hidden;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -8509,7 +8509,8 @@ a.waves-effect .waves-ripple {
 
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
   float: right;
-  margin: 6px 0;
+  margin: 8px 8px;
+
 }
 
 .lean-overlay {
@@ -8555,6 +8556,13 @@ a.waves-effect .waves-ripple {
   will-change: bottom, opacity;
 }
 
+/*ADDED BY PHILIP TAN CS 419 WINTER 2016 1/30 - CONTROL OF LOGIN SUCCESS GREETING MODAL*/
+.modal.bottom-sheet.loginsuccess {
+  background: #424242;
+  /*-webkit-transition: opacity 1s ease-in-out;*/
+  /*transition: visibility 10s, opacity 0s ease-in-out;*/
+}
+
 .collapsible {
   border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
@@ -8582,15 +8590,29 @@ a.waves-effect .waves-ripple {
   margin-right: 1rem;
 }
 
+
+.arrowtate {
+  transition: .4s ease all;
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+
+.arrowtate.active {
+  transition: .4s ease all;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
 .collapsible-body {
   display: none;
   /*border-bottom: 1px solid #ddd;*/
   box-sizing: border-box;
 }
 
+/*CHANGED FROM 2 REM TO 0.5 REM*/
 .collapsible-body p {
   margin: 0;
-  padding: 2rem;
+  padding: 0.5rem;
 }
 
 .side-nav .collapsible {

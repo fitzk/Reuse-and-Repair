@@ -13,12 +13,49 @@
 <body>
   <nav class="teal darken-1" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" class="brand-logo white-text">Corvallis Sustainability Coalition</a>
-      <!--<ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>-->
+      <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
+      </ul>
     </div>
   </nav>
+
+  <!-- Modal for admin login -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 class="center ">Administrator Login</h4>
+        <br>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" class="validate">
+                <label for="email" data-error="Invalid">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" type="password" class="validate">
+                <label for="password" data-error="Invalid Password">Password</label>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#modal2" class="modal-action modal-close waves-effect waves-green btn modal-trigger loginenter">Login</a>
+    </div>
+  </div>
+
+  <!--Modal when login is successful-->
+  <div id="modal2" class="modal bottom-sheet loginsuccess">
+    <div class="modal-content">
+      <h5 class="center white-text">Welcome Admin</h5>
+    </div>
+  </div>
+
 
   <!--<div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
@@ -29,29 +66,25 @@
   </div>-->
 
   <div id="index-banner" class="parallax-container">
-    <div class="section no-pad-bot">
+    <!--<div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center teal-text text-lighten-2"></h1>
         <div class="row center">
-          <h5 class="header col s12 light"></h5>
-        </div>
-        <div class="row center">
-          <!--<a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>-->
+          <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
         </div>
         <br><br>
 
       </div>
-    </div>
+    </div>-->
     <div class="parallax"><img src="background3.jpg" alt="Unsplashed background img 1"></div>
   </div>
   
   <div class="row">
-    <div class="col l12">
+    <div class="col s12 m12 l12">
       <ul class="tabs">
-        <li class="tab col l2"><a class="active teal-text waves-effect" href="#home">Home</a></li>
-        <li class="tab col l2"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
-        <li class="tab col l2"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
+        <li class="tab col s12 m12 l12"><a class="active teal-text waves-effect" href="#home">Home</a></li>
+        <li class="tab col s12 m12 l12"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
+        <li class="tab col s12 m12 l12"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
         <!--<li class="tab col l2"><a class="teal-text" href="#other">Other Stuff</a></li>-->
       </ul>
     </div>
@@ -112,76 +145,46 @@
       <div class="row">
         <div class="col s12">
 
-            <!--<ul class="collection">
-                <li class="collection-item avatar">
-                    <i class="material-icons circle green">format_color_text</i>
-                    <span class="title">View All</span>
-                    <p>
-                       Show all businesses
-                    </p>
-                  <i class="material-icons secondary-content">keyboard_arrow_right</i>
-                </li>
-              <li class="collection-item avatar">
-                <i class="material-icons circle red">cached</i>
-                <span class="title">View by Recycle</span>
-                <p>
-                   Show reuse businesses only
-                </p>
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-              </li>
-
-              <li class="collection-item avatar">
-                <i class="material-icons circle blue">build</i>
-                <span class="title">View by Repair</span>
-                <p>
-                   Show repair businesses only
-                </p>
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-              </li>
-
-              <li class="collection-item avatar">
-                <i class="material-icons circle yellow darken-2">view_module</i>
-                <span class="title">View by Category</span>
-                <p>
-                   Show by category selection
-                </p>
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-              </li>
-            </ul>-->
-
             <!--THIS IS THE COLLAPSIBLE COLLECTION MIXED WITH THE AVATAR COLLECTION ITEM STYLE-->
             <ul class="collapsible collection" data-collapsible="accordion">
 
               <li class="collection-item avatar">
-                <div class="collapsible-header">
+                <div class="collapsible-header firstbox">
                   <i class="material-icons circle green">format_color_text</i>
                   <span class="title">View All</span>                
                   <p>
                    Show all businesses
                   </p>
+                  
                 </div>
+                <i class="material-icons secondary-content arrowtate firstbox">keyboard_arrow_right</i>
+                
+                <div class="collapsible-body">
+                  <p>Lorem ipsum dolor sit amet.</p>
 
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </div>
               </li>
 
               <li class="collection-item avatar">
                 
-                <div class="collapsible-header">
+                <div class="collapsible-header secondbox">
                   <i class="material-icons circle red">cached</i>
                   <span class="title">View by Recycle</span>
                   <p>
                    Show reuse businesses only
                   </p>
+                  
                 </div>
-
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <i class="material-icons secondary-content arrowtate secondbox">keyboard_arrow_right</i>
+                
+                <div class="collapsible-body">
+                  <p>Lorem ipsum dolor sit amet.</p>
+                </div>
               </li>
 
               <li class="collection-item avatar">
                 
-                <div class="collapsible-header">
+                <div class="collapsible-header thirdbox">
                   <i class="material-icons circle blue">build</i>
                   <span class="title">View by Repair</span>
                   <p>
@@ -189,13 +192,15 @@
                   </p>
                 </div>
 
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <i class="material-icons secondary-content arrowtate thirdbox">keyboard_arrow_right</i>
+                <div class="collapsible-body">
+                  <p>Lorem ipsum dolor sit amet.</p>
+                </div>
               </li>
 
               <li class="collection-item avatar">
                 
-                <div class="collapsible-header">
+                <div class="collapsible-header fourthbox">
                   <i class="material-icons circle yellow darken-2">view_module</i>
                   <span class="title">View by Category</span>
                   <p>
@@ -203,8 +208,10 @@
                   </p>
                 </div>
 
-                <i class="material-icons secondary-content">keyboard_arrow_right</i>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <i class="material-icons secondary-content arrowtate fourthbox">keyboard_arrow_right</i>
+                <div class="collapsible-body">
+                  <p>Lorem ipsum dolor sit amet.</p>
+                </div>
               </li>
             </ul>
 
@@ -212,22 +219,11 @@
         </div>
       </div>
 
-      <!--
-      <div class="fixed-action-btn" style="bottom: 100px; right: 24px;">
-        <a class="buttons1 btn-floating btn-large teal darken-4 rotate">
-          <i class="large material-icons ">add</i>
-        </a>
-        <ul>
-          <li><a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
-          <li><a class="btn-floating green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
-        </ul>
-      </div>-->
-
       <div class="fixed-action-btn container1">
         <a class="buttons1"><span><span class="rotate"></span></span></a>
         <ul>
-        <li><a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
-        <li><a class="btn-floating green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
+        <li><a class="btn-floating waves-effect yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
+        <li><a class="btn-floating waves-effect green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
         </ul>
       </div>
 

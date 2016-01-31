@@ -334,6 +334,80 @@ if ($) {
        /****************
        Helper Functions
        ****************/
+		 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/26 - HOLDS ROTATION ON CLICK
+		  //$('.btn-floating').active(function() {
+		  // $(this).toggleClass('active');
+		  //});
+		 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
+		$(".collapsible-header").click(function() {
+		    if ($(this).hasClass("firstbox")) {
+			    if ($(".arrowtate.firstbox").hasClass("active")) {
+			    	$(".arrowtate.firstbox").removeClass("active");
+			   	} else {
+			   		$(".arrowtate.firstbox").toggleClass("active");
+			    	$(".arrowtate.secondbox").removeClass("active");
+			    	$(".arrowtate.thirdbox").removeClass("active");
+			    	$(".arrowtate.fourthbox").removeClass("active");
+			   	}
+		    }
+		    else if ($(this).hasClass("secondbox")) {
+			   	if ($(".arrowtate.secondbox").hasClass("active")) {
+			    	$(".arrowtate.secondbox").removeClass("active");
+			   	} else {
+			   		$(".arrowtate.secondbox").toggleClass("active");
+			    	$(".arrowtate.firstbox").removeClass("active");
+			    	$(".arrowtate.thirdbox").removeClass("active");
+			    	$(".arrowtate.fourthbox").removeClass("active");
+			   	}
+			}
+		    else if ($(this).hasClass("thirdbox")) {
+			   	if ($(".arrowtate.thirdbox").hasClass("active")) {
+			    	$(".arrowtate.thirdbox").removeClass("active");
+			   	} else {
+			   		$(".arrowtate.thirdbox").toggleClass("active");
+			    	$(".arrowtate.firstbox").removeClass("active");
+			    	$(".arrowtate.secondbox").removeClass("active");
+			    	$(".arrowtate.fourthbox").removeClass("active");
+			   	}
+			}
+		    else if ($(this).hasClass("fourthbox")) {
+			   	if ($(".arrowtate.fourthbox").hasClass("active")) {
+			    	$(".arrowtate.fourthbox").removeClass("active");
+			   	} else {
+			   		$(".arrowtate.fourthbox").toggleClass("active");
+			    	$(".arrowtate.firstbox").removeClass("active");
+			    	$(".arrowtate.secondbox").removeClass("active");
+			    	$(".arrowtate.thirdbox").removeClass("active");
+			   	}
+		    }
+		});
+
+		//JS FOR MODAL TRIGGER
+		$(document).ready(function(){
+			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+
+			//DO BELOW FOR ADMINISTRATOR LOGIN BUTTON
+			$('.loginbutton').leanModal({
+		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		      opacity: .5, // Opacity of modal background
+		      in_duration: 300, // Transition in duration
+		      out_duration: 200, // Transition out duration
+		      //ready: function() { alert('Ready'); }, // Callback for Modal open
+		      //complete: function() { alert('Closed'); } // Callback for Modal close
+		    });
+		    //DO BELOW IF LOGIN IS SUCCESSFUL
+			$('.loginenter').leanModal({
+		      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+		      opacity: 0, // Opacity of modal background
+		      in_duration: 800, // Transition in duration
+		      out_duration: 1000,//700, // Transition out duration
+		      //ready: function() { alert('Ready'); }, // Callback for Modal open
+		      //complete: function() { alert('Closed'); } // Callback for Modal close
+		    });
+			$('.loginenter').click(function() {
+				$('.modal.loginsuccess').delay(5000).fadeOut(500).closeModal();
+			});
+		});
 
       // Accordion Open
       function accordionOpen(object) {
@@ -403,8 +477,6 @@ if ($) {
       }
 
       /*****  End Helper Functions  *****/
-
-
 
       // Add click handler to only direct collapsible header children
       $this.on('click.collapse', '> li > .collapsible-header', function(e) {
@@ -3615,11 +3687,6 @@ $(document).ready(function(){
       closeFABMenu($(this));
     }
   });
-
-  //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/26 - HOLDS ROTATION ON CLICK
-  //$('.btn-floating').active(function() {
-  // $(this).toggleClass('active');
-  //});
 
   var openFABMenu = function (btn) {
     $this = btn;
