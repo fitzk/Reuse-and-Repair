@@ -2913,8 +2913,8 @@ ul.staggered-list li {
 }
 
 footer.page-footer {
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 10px;
+  padding-top: 10px;
   background-color: #ee6e73;
 }
 
@@ -6715,7 +6715,16 @@ span.rotate {
   transition: .3s;
 }
 
+/*CONTROLS TOP OF PAGE LOGO SIZE*/
+.logocontrol {
+  /*width:64px;*/
+  height:45px;
+}
 
+.csclogo {
+  margin-top: 11px;
+  position: relative;
+}
 
 
 @media only screen and (min-width: 601px) {
@@ -7894,7 +7903,7 @@ small {
 }
 
 .card .card-content {
-  padding: 20px;
+  padding: 10px; /*CHANGED FROM 20PX TO 10PX*/
   border-radius: 0 0 2px 2px;
 }
 

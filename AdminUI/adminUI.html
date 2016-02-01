@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
@@ -10,17 +11,23 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
+
 <body>
-  <nav class="teal darken-1" role="navigation">
+
+  <!--NAV BANNER AT TOP OF PAGE-->
+  <nav class="teal darken-2" role="navigation">
     <div class="nav-wrapper container">
-      <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
-      </ul>
+      <div class="row">
+        <a href="adminUI.html"><img class="logocontrol csclogo" src="logoheader.png"><a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a></a>
+        
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <!-- Modal for admin login -->
+  <!--MODAL FOR ADMIN LOGIN FORM-->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4 class="center ">Administrator Login</h4>
@@ -49,86 +56,63 @@
     </div>
   </div>
 
-  <!--Modal when login is successful-->
+  <!--MODAL FOR LOGIN SUCCESS-->
   <div id="modal2" class="modal bottom-sheet loginsuccess">
     <div class="modal-content">
       <h5 class="center white-text">Welcome Admin</h5>
     </div>
   </div>
 
-
-  <!--<div id="index-banner" class="parallax-container">
-    <div class="section no-pad-bot">
-      <div class="container">
-      </div>
-    </div>
-    <div class="parallax"><img src="background3.jpg" alt="Unsplashed background img 3"></div>
-  </div>-->
-
+  <!--PARALLAX BANNER-->
   <div id="index-banner" class="parallax-container">
-    <!--<div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <div class="row center">
-          <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
-        </div>
-        <br><br>
-
-      </div>
-    </div>-->
     <div class="parallax"><img src="background3.jpg" alt="Unsplashed background img 1"></div>
   </div>
   
+  <!--TABBED PAGE NAVIGATION-->
   <div class="row">
     <div class="col s12 m12 l12">
       <ul class="tabs">
-        <li class="tab col s12 m12 l12"><a class="active teal-text waves-effect" href="#home">Home</a></li>
-        <li class="tab col s12 m12 l12"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
-        <li class="tab col s12 m12 l12"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
+        <li class="tab"><a class="active teal-text waves-effect" href="#home">Home</a></li>
+        <li class="tab"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
+        <li class="tab"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
         <!--<li class="tab col l2"><a class="teal-text" href="#other">Other Stuff</a></li>-->
       </ul>
     </div>
   </div>
 
-
+  <!--HOME PAGE SECTION-->
   <div class="container" id="home">
+   
     <div class="section">
-
       <!--   Icon Section   -->
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center teal-text"><i class="material-icons">business</i></h2>
             <h5 class="center">This is the home page</h5>
-
             <p class="light">Upon loading the site, the admin should land here by default.</p>
           </div>
         </div>
-
+        <!--   Icon Section   -->
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center teal-text"><i class="material-icons">supervisor_account</i></h2>
             <h5 class="center">Admin should see something here</h5>
-
             <p class="light">This space is modifiable. It might display some news or content important to the admin. Perhaps mobile app metrics or database metrics.</p>
           </div>
         </div>
-
+        <!--   Icon Section   -->
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center teal-text"><i class="material-icons">settings</i></h2>
             <h5 class="center">Info</h5>
-
             <p class="light">There can be info here too. It depends what though.</p>
           </div>
         </div>
       </div>
-
     </div>
 
-
     <div class="section">
-
       <div class="row">
         <div class="col s12 center">
           <h3><i class="mdi-content-send teal-text"></i></h3>
@@ -136,10 +120,11 @@
           <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
       </div>
-
     </div>
+
   </div>
 
+  <!--VIEW BUSINESSES SECTION-->
   <div class="container" id="view">
     <div class="section">
       <div class="row">
@@ -147,7 +132,6 @@
 
             <!--THIS IS THE COLLAPSIBLE COLLECTION MIXED WITH THE AVATAR COLLECTION ITEM STYLE-->
             <ul class="collapsible collection" data-collapsible="accordion">
-
               <li class="collection-item avatar">
                 <div class="collapsible-header firstbox">
                   <i class="material-icons circle green">format_color_text</i>
@@ -155,35 +139,28 @@
                   <p>
                    Show all businesses
                   </p>
-                  
                 </div>
                 <i class="material-icons secondary-content arrowtate firstbox">keyboard_arrow_right</i>
-                
                 <div class="collapsible-body">
                   <p>Lorem ipsum dolor sit amet.</p>
-
                 </div>
               </li>
 
               <li class="collection-item avatar">
-                
                 <div class="collapsible-header secondbox">
                   <i class="material-icons circle red">cached</i>
                   <span class="title">View by Recycle</span>
                   <p>
                    Show reuse businesses only
                   </p>
-                  
                 </div>
                 <i class="material-icons secondary-content arrowtate secondbox">keyboard_arrow_right</i>
-                
                 <div class="collapsible-body">
                   <p>Lorem ipsum dolor sit amet.</p>
                 </div>
               </li>
 
               <li class="collection-item avatar">
-                
                 <div class="collapsible-header thirdbox">
                   <i class="material-icons circle blue">build</i>
                   <span class="title">View by Repair</span>
@@ -191,7 +168,6 @@
                    Show repair businesses only
                   </p>
                 </div>
-
                 <i class="material-icons secondary-content arrowtate thirdbox">keyboard_arrow_right</i>
                 <div class="collapsible-body">
                   <p>Lorem ipsum dolor sit amet.</p>
@@ -199,7 +175,6 @@
               </li>
 
               <li class="collection-item avatar">
-                
                 <div class="collapsible-header fourthbox">
                   <i class="material-icons circle yellow darken-2">view_module</i>
                   <span class="title">View by Category</span>
@@ -207,7 +182,6 @@
                    Show by category selection
                   </p>
                 </div>
-
                 <i class="material-icons secondary-content arrowtate fourthbox">keyboard_arrow_right</i>
                 <div class="collapsible-body">
                   <p>Lorem ipsum dolor sit amet.</p>
@@ -215,10 +189,11 @@
               </li>
             </ul>
 
-          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
       </div>
 
+      <!--FLOATING ACTION BUTTON-->
       <div class="fixed-action-btn container1">
         <a class="buttons1"><span><span class="rotate"></span></span></a>
         <ul>
@@ -230,53 +205,109 @@
     </div>
   </div>
 
+  <!--ADMIN DIRECTORY SECTION-->
   <div class="container" id="addir">
     <div class="section">
       <div class="row">
         <div class="col s12 center">
           <h3><i class="mdi-content-send teal-text"></i></h3>
-          <h4>The Directory for The Admin Goes Here!</h4>
+          <h4>The Admins</h4>
           <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col s12 m6 l4">
+          <div class="card medium">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="background4.jpg">
+              <span class="card-title">Philip T.</span>
+            </div>
+            <div class="card-content">
+              Phone: (503)-123-1234
+              <br>
+              Email: ptptpt@csc.org
+            </div>
+            <!--<div class="card-content">
+              Phone: (503)-123-1234
+              <br>
+              Email: tanp@oregonstate.edu
+            </div>-->
+          </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <div class="card medium">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img src="background4.jpg">
+              <span class="card-title">Kayla F.</span>
+            </div>
+            <div class="card-content">
+              Phone: (503)-123-1234
+              <br>
+              Email: kfkfkf@csc.org
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+          <div class="card medium">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img src="background4.jpg">
+              <span class="card-title">Brian T.</span>
+            </div>
+            <div class="card-content">
+              Phone: (503)-123-1234
+              <br>
+              Email: btbtbt@csc.org
+            </div>
+          </div>
+        </div> 
       </div>
 
     </div>
   </div>
 
 
-
+  <!--FOOTER-->
   <footer class="page-footer teal">
     <div class="container">
       <div class="row">
+
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
-          <p class="white-text">The Corvallis Sustainability Coalition is a network of organizations and individual volunteers in Corvallis, Oregon, who are working together to create a sustainable community.  It includes businesses, non-profits, faith communities, educational institutions, and government entities...</p>
-
-
+          <p class="white-text">The Corvallis Sustainability Coalition is a network of organizations and individual volunteers in Corvallis, Oregon, who are working together to create a sustainable community.  It includes businesses, non-profits, faith communities, educational institutions, and government entities that are committed to creating a community that values environmental quality, social equity, and economic vitality.  Our primary purpose is to foster communication and collaboration so that we can accelerate progress toward a sustainable future.</p>
         </div>
+
         <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
+          <h5 class="white-text">Contact Us</h5>
+          <p class="white-text">
+            Corvallis Sustainability Coalition
+            <br>
+            P.O. Box 2310
+            <br>
+            Corvallis, OR 97339
+          </p>
         </div>
+
         <div class="col l3 s12">
           <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
+            <p class="white-text">Visit our other sites:</p>
+            <a class="white-text" target="_blank" href="http://sustainablecorvallis.org/"><img class="logocontrol" src="logofulltrim.png"></a>
+            <a class="white-text" target="_blank" href="https://www.facebook.com/SustainableCorvallis"><img class="logocontrol" src="FBWhite512.png"></a>
+            <a class="white-text" target="_blank" href="https://twitter.com/sustaincorv"><img class="logocontrol" src="TwitterLogo_white.png"></a>
         </div>
+
       </div>
     </div>
-    <div class="footer-copyright teal darken-1">
-      <div class="container">
-      Made by <a class="white-text" href=" ">CS 419 Group 6 - Winter 2016 - Materialize Framework</a>
+    <div class="footer-copyright teal darken-2">
+      <div class="container col s12 m6 l4">
+        <p class="white-text">Made by CS 419 Group 6: Philip Tan, Kayla Fitzsimmons, Brian Tiegs - Winter 2016 - <a class="white-text" target="_blank" href="http://materializecss.com/">Materialize Framework</a> - 
+          <a class="white-text" target="_blank" href="#!">Report a problem</a></p>
+      </div>
+      <div class="container col s12 m6 l4">
+        
       </div>
     </div>
   </footer>
