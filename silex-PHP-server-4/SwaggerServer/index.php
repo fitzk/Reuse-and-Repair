@@ -10,40 +10,18 @@ $app = new Silex\Application();
     
         
             
-
-$app->PUT('/category/add', function(Application $app, Request $request, $category_name) {
-            
-            
-            return new Response('How about implementing categoryAddPut as a PUT method ?');
-            });
+// Category Routes
 
             
 
-$app->GET('/category/all', function(Application $app, Request $request) {
+$app->GET('/{category}', function(Application $app, Request $request) {
             
             
             return new Response('How about implementing categoryAllGet as a GET method ?');
             });
 
             
-
-$app->GET('/category/repair', function(Application $app, Request $request) {
-            
-            
-            return new Response('How about implementing categoryRepairGet as a GET method ?');
-            });
-
-            
-
-$app->GET('/category/reuse', function(Application $app, Request $request) {
-            
-            
-            return new Response('How about implementing categoryReuseGet as a GET method ?');
-            });
-
-            
-
-$app->PUT('/category/{category_id}', function(Application $app, Request $request, $category_id) {
+$app->PUT('/categories', function(Application $app, Request $request, $category_id) {
             
             
             return new Response('How about implementing categoryCategoryIdPut as a PUT method ?');
@@ -51,7 +29,7 @@ $app->PUT('/category/{category_id}', function(Application $app, Request $request
 
             
 
-$app->DELETE('/category/{category_id}', function(Application $app, Request $request, $category_id) {
+$app->DELETE('/{category}', function(Application $app, Request $request, $category_id) {
             
             
             return new Response('How about implementing categoryCategoryIdDelete as a DELETE method ?');
@@ -61,9 +39,8 @@ $app->DELETE('/category/{category_id}', function(Application $app, Request $requ
         
     
         
-            
-
-$app->GET('/subcategory', function(Application $app, Request $request) {
+// subcategory routes           
+$app->GET('/{subcategory}', function(Application $app, Request $request) {
             
             
             return new Response('How about implementing subcategoryGet as a GET method ?');
@@ -71,7 +48,7 @@ $app->GET('/subcategory', function(Application $app, Request $request) {
 
             
 
-$app->PUT('/subcategory/add', function(Application $app, Request $request, $subcategory_name) {
+$app->PUT('/subcategories', function(Application $app, Request $request, $subcategory_name) {
             
             
             return new Response('How about implementing subcategoryAddPut as a PUT method ?');
