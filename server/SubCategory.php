@@ -6,7 +6,7 @@
  * Date: 2/4/16
  * Time: 8:49 PM
  */
-class SubCategory implements SubCategoryInterface
+class Subcategory implements SubcategoryInterface
 {
 
 }
