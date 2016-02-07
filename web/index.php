@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ .'/../vendor/autoload.php';
 
 
 use Symfony\Component\HttpFoundation\Request;
@@ -8,16 +8,25 @@ use Silex\Application;
 
 $app = new Silex\Application();
 
+$app['debug'] = true;
 
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
-        'driver' => 'pdo_mysql',
-        'dbhost' => 'localhost',
-        'dbname' => 'mydbname',
-        'user' => 'root',
-        'password' => '',
-    ),
-));
+// Request::setTrustedProxies(array($ip));
+
+//$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+//    'db.options' => array(
+//        'driver' => 'pdo_mysql',
+//        'dbhost' => 'localhost',
+//        'dbname' => 'mydbname',
+//        'user' => 'root',
+//        'password' => '',
+//    ),
+//));
+
+// Create
+$app->GET('/', function (Application $app, Request $request) {
+
+    return new Response("<p>All good</p>!", 200);
+});
 // Category Routes
 // All categories
 // Create

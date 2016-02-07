@@ -1,6 +1,6 @@
 <?php
 
-$loader = require __DIR__.'/../vendor/autoload.php';
+$loader = require __DIR__.'../vendor/autoload.php';
 $loader->add('Silex\Tests', __DIR__);
 
 if (!class_exists('Symfony\Component\Form\Form')) {
