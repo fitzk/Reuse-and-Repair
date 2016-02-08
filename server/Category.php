@@ -8,11 +8,16 @@
  */
 class Category implements CategoryInterface
 {
+    
     private $id;
     private $name;
-    public function getSubcategories(){
+    public Database $dbh;
+    public function getAllCategories(){
     }
-    public function addSubcategory(SubCategory $sub){
+    public function addCategory(){
+    
+    }
+    public function associateBusiness(){
 
     }
 
