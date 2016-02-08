@@ -8,8 +8,8 @@
  */
 interface CategoryInterface
 {
-    public function getSubcategories();
-    public function addSubcategory(Subcategory $sub);
-    public function updateSubcategory(Subcategory $sub, $id);
-    public function removeSubcategory($id);
+    public function getCategories();
+    public function addCategory();
+    public function updateCategory();
+    public function removeCategory();
 }
