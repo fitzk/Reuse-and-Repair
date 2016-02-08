@@ -1,23 +1,15 @@
-CREATE TABLE Category
-(
-	category_name VARCHAR (255) NOT NULL,
-	PRIMARY KEY (category_name)
-) ENGINE=INNODB;
+#CREATE DATABASE reuse_and_repair_db
 
 CREATE TABLE Subcategory
 (
 	subcategory_name VARCHAR (255) NOT NULL,
-	category_name VARCHAR (255) NOT NULL,
-	PRIMARY KEY (subcategory_name),
-	FOREIGN KEY (category_name)
-		REFERENCES Category (category_name)
+	PRIMARY KEY (subcategory_name)
 ) ENGINE=INNODB;
 
-CREATE TABLE Business_Type
+CREATE TABLE Category
 (
-	type_id INT NOT NULL AUTO_INCREMENT,
-	type_name VARCHAR (255) NOT NULL,
-	PRIMARY KEY (type_id)
+	category_name VARCHAR (255) NOT NULL,
+	PRIMARY KEY (category_name)
 ) ENGINE=INNODB;
 
 CREATE TABLE Address
@@ -26,6 +18,7 @@ CREATE TABLE Address
 	street_number VARCHAR (255),
 	street_name VARCHAR (255),
 	city VARCHAR (255),
+	state VARCHAR (255),
 	zip VARCHAR (255),
 	geolocation VARCHAR (255),
 	PRIMARY KEY (address_id)
@@ -41,7 +34,7 @@ CREATE TABLE Hours
 CREATE TABLE Business
 (
 	business_id INT NOT NULL AUTO_INCREMENT,
-	type_id INT NOT NULL,
+	category_name VARCHAR (255) NOT NULL,
 	name VARCHAR (255),
 	address_id INT,
 	phone VARCHAR (255),
@@ -49,8 +42,8 @@ CREATE TABLE Business
 	hours_id INT,
 	website VARCHAR (255),
 	PRIMARY KEY (business_id),
-	FOREIGN KEY (type_id)
-		REFERENCES Business_Type (type_id),
+	FOREIGN KEY (category_name)
+		REFERENCES Category (category_name),
 	FOREIGN KEY (address_id)
 		REFERENCES Address (address_id),
 	FOREIGN KEY (hours_id)
