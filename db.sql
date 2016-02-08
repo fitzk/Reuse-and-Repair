@@ -18,6 +18,7 @@ CREATE TABLE Address
 	street_number VARCHAR (255),
 	street_name VARCHAR (255),
 	city VARCHAR (255),
+	state VARCHAR (255),
 	zip VARCHAR (255),
 	geolocation VARCHAR (255),
 	PRIMARY KEY (address_id)
