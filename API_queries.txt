@@ -1,0 +1,35 @@
+Return all businesses
+SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id ORDER BY Business.name;
+
+Return reuse businesses
+SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id WHERE Business.category_name = 'Reuse' ORDER BY Business.name;
+
+Return reuse businesses based on subcategory
+SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id 
+	INNER JOIN Business_Subcategory ON Business.business_id = Business_Subcategory.business_id
+	INNER JOIN Subcategory ON Business_Subcategory.subcategory_name = Subcategory.subcategory_name
+	WHERE Business.category_name = 'Reuse' AND Subcategory.subcategory_name = ((Add subcategory here)) ORDER BY Business.name;
+
+Return repair businesses
+SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id WHERE Business.category_name = 'Repair' ORDER BY Business.name;
+
+Return repair businesses based on subcategory
+SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id 
+	INNER JOIN Business_Subcategory ON Business.business_id = Business_Subcategory.business_id
+	INNER JOIN Subcategory ON Business_Subcategory.subcategory_name = Subcategory.subcategory_name
+	WHERE Business.category_name = 'Repair' AND Subcategory.subcategory_name = ((Add subcategory here)) ORDER BY Business.name;
+
+Return all subcategories
+SELECT * FROM Subcategory ORDER BY Subcategory.subcategory_name;
+
+Return reuse subcategories
+SELECT DISTINCT(Subcategory.subcategory_name) FROM Business INNER JOIN Business_Subcategory ON Business.business_id = Business_Subcategory.business_id
+	INNER JOIN Subcategory ON Business_Subcategory.subcategory_name = Subcategory.subcategory_name
+	WHERE Business.category_name = 'Reuse'
+	ORDER BY Subcategory.subcategory_name;
+
+Return repair subcategories
+SELECT DISTINCT(Subcategory.subcategory_name) FROM Business INNER JOIN Business_Subcategory ON Business.business_id = Business_Subcategory.business_id
+	INNER JOIN Subcategory ON Business_Subcategory.subcategory_name = Subcategory.subcategory_name
+	WHERE Business.category_name = 'Repair'
+	ORDER BY Subcategory.subcategory_name;
