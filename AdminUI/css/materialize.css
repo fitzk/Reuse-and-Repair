@@ -6715,18 +6715,6 @@ span.rotate {
   transition: .3s;
 }
 
-/*CONTROLS TOP OF PAGE LOGO SIZE*/
-.logocontrol {
-  /*width:64px;*/
-  height:45px;
-}
-
-.csclogo {
-  margin-top: 11px;
-  position: relative;
-}
-
-
 @media only screen and (min-width: 601px) {
   .container {
     width: 85%;
@@ -7422,6 +7410,19 @@ nav .button-collapse i {
   line-height: 56px;
 }
 
+/*CONTROLS TOP OF PAGE LOGO SIZE*/
+.logocontrol {
+  /*width:64px;*/
+  height:45px;
+  margin: 4px;
+}
+
+.csclogo {
+  margin-top: 10px;
+  margin-bottom: 9px;
+  position: relative;
+}
+
 nav .brand-logo {
   position: absolute;
   color: #fff;
@@ -8039,7 +8040,8 @@ small {
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  overflow-x: auto;
+  /*overflow-x: auto;*/
+  overflow-x: hidden;
   overflow-y: hidden;
   height: 48px;
   background-color: #fff;
@@ -8490,6 +8492,39 @@ a.waves-effect .waves-ripple {
   will-change: top, opacity;
 }
 
+/*LOGINMODAL CHANGES*/
+
+.modal.loginmodal {
+  width: 500px;
+}
+
+/*BUSINESSMODAL CHANGES*/
+.modal.businessmodal {
+  width: 1300px;
+  height: 800px;
+  max-height: 80%;
+  overflow: hidden;
+}
+
+
+.modalheader {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: #00796b;
+}
+
+.modalheader h4 {
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+.modalheader .modalclosex {
+  float: right;
+  font-size: 37px;
+}
+
 @media only screen and (max-width: 992px) {
   .modal {
     width: 80%;
@@ -8501,7 +8536,11 @@ a.waves-effect .waves-ripple {
 }
 
 .modal .modal-content {
-  padding: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+
 }
 
 .modal .modal-close {
@@ -8518,7 +8557,7 @@ a.waves-effect .waves-ripple {
 
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
   float: right;
-  margin: 8px 8px;
+  margin: 6px 0;
 
 }
 
@@ -8547,6 +8586,7 @@ a.waves-effect .waves-ripple {
   max-height: 100%;
   width: 100%;
   overflow-y: auto;
+  /*overflow: hidden;*/
 }
 
 .modal.modal-fixed-footer .modal-footer {
@@ -8561,17 +8601,92 @@ a.waves-effect .waves-ripple {
   margin: 0;
   width: 100%;
   max-height: 45%;
-  border-radius: 0;
+  border-radius: 0;  
+
   will-change: bottom, opacity;
 }
 
 /*ADDED BY PHILIP TAN CS 419 WINTER 2016 1/30 - CONTROL OF LOGIN SUCCESS GREETING MODAL*/
 .modal.bottom-sheet.loginsuccess {
-  background: #424242;
+  width: 50%;
+  background-color: rgba(25, 25, 25, 0.9);
+  margin: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
   /*-webkit-transition: opacity 1s ease-in-out;*/
   /*transition: visibility 10s, opacity 0s ease-in-out;*/
 }
 
+.bottom-sheet.loginsuccess .modal-content {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  display: inline-block;
+}
+
+.bottom-sheet.loginsuccess .row{
+  margin: auto;
+  height: 36px;
+  padding-top: 7px;
+}
+
+.bottom-sheet.loginsuccess .btn-flat{
+  margin: auto;
+  height: 36px;
+  padding: 0;
+}
+
+.bottom-sheet.loginsuccess .h5bordering {
+  margin: auto;
+  display: inline-block;
+}
+.bottom-sheet.loginsuccess .dismissit {
+  float: right;
+}
+
+/*THIS CONTROLS THE ADD BUSINESS MODALS*/
+.modal.bottom-sheet.addbussuccess {
+  width: 50%;
+  background-color: rgba(25, 25, 25, 0.9);
+  margin: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  /*-webkit-transition: opacity 1s ease-in-out;*/
+  /*transition: visibility 10s, opacity 0s ease-in-out;*/
+}
+
+.bottom-sheet.addbussuccess .modal-content {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  display: inline-block;
+}
+
+.bottom-sheet.addbussuccess .row{
+  margin: auto;
+  height: 36px;
+  padding-top: 7px;
+}
+
+.bottom-sheet.addbussuccess .btn-flat{
+  margin: auto;
+  height: 36px;
+  padding: 0;
+}
+
+.bottom-sheet.addbussuccess .h5bordering {
+  margin: auto;
+  display: inline-block;
+}
+.bottom-sheet.addbussuccess .dismissit {
+  float: right;
+}
 .collapsible {
   border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;

@@ -5,11 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Admin UI</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../AdminUI/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../AdminUI/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../AdminUI/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/><!--css/materialize.css-->
+  <link href="../AdminUI/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/><!--css/style.css-->
 </head>
 
 <body>
@@ -18,54 +17,56 @@
   <nav class="teal darken-2" role="navigation">
     <div class="nav-wrapper container">
       <div class="row">
-        <a href="adminUI.html"><img class="logocontrol csclogo" src="../AdminUI/logoheader.png"><a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a></a>
-        
+        <a href="adminUI.html"><img class="logocontrol csclogo" src="../AdminUI/logoheader.png"></a><!--logoheader.png-->
+        <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
+            <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
         </ul>
-      </div>
+      </div> 
     </div>
   </nav>
 
   <!--MODAL FOR ADMIN LOGIN FORM-->
-  <div id="modal1" class="modal">
+  <div id="modal1" class="modal loginmodal">
     <div class="modal-content">
-      <h4 class="center ">Administrator Login</h4>
-        <br>
-        <div class="row">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s12 m12 l12">
-                <i class="material-icons prefix">email</i>
-                <input id="email" type="email" class="validate">
-                <label for="email" data-error="Invalid">Email</label>
-              </div>
+      <h4>Administrator Login</h4>
+      <p>
+      <div class="row">
+        <form class="col s12 m12 l12">
+          <div class="row">
+            <div class="input-field">
+              <!--<i class="material-icons prefix">email</i>-->
+              <input id="email" type="email" class="validate">
+              <label for="email" data-error="Invalid">Email</label>
             </div>
-            <div class="row">
-              <div class="input-field col s12 m12 l12">
-                <i class="material-icons prefix">lock</i>
-                <input id="password" type="password" class="validate">
-                <label for="password" data-error="Invalid Password">Password</label>
-              </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <!--<i class="material-icons prefix">lock</i>-->
+              <input id="password" type="password" class="validate">
+              <label for="password" data-error="Invalid Password">Password</label>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
+      </p>
     </div>
     <div class="modal-footer">
-      <a href="#modal2" class="modal-action modal-close waves-effect waves-green btn modal-trigger loginenter">Login</a>
+      <a href="#modal2" class="modal-action modal-close waves-effect waves-green btn-flat modal-trigger loginenter teal-text text-darken-2">Login</a>
     </div>
   </div>
 
   <!--MODAL FOR LOGIN SUCCESS-->
   <div id="modal2" class="modal bottom-sheet loginsuccess">
-    <div class="modal-content">
-      <h5 class="center white-text">Welcome Admin</h5>
+    <div class="row">    
+      <h5 class="white-text h5bordering">Welcome Admin</h5>
+      <a class="dismissit btn-flat h5bordering" id="dismissit"><h5 class="teal-text text-darken-2 h5bordering ">DISMISS</h5></a>
     </div>
   </div>
 
   <!--PARALLAX BANNER-->
   <div id="index-banner" class="parallax-container">
-    <div class="parallax"><img src="../AdminUI/background3.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="../AdminUI/background3.jpg" alt="Unsplashed background img 1"></div><!--background3.jpg-->
   </div>
   
   <!--TABBED PAGE NAVIGATION-->
@@ -106,12 +107,12 @@
           <div class="icon-block">
             <h2 class="center teal-text"><i class="material-icons">settings</i></h2>
             <h5 class="center">Info</h5>
-            <p class="light">There can be info here too. It depends what though.</p>
+            <p class="light">There can be info here too. It depends what though. Perhaps here we can place a link to the app in the Google Play store.</p>
           </div>
         </div>
       </div>
     </div>
-
+    <!--Full text section-->
     <div class="section">
       <div class="row">
         <div class="col s12 center">
@@ -121,7 +122,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!--VIEW BUSINESSES SECTION-->
@@ -129,67 +129,83 @@
     <div class="section">
       <div class="row">
         <div class="col s12">
-
-            <!--THIS IS THE COLLAPSIBLE COLLECTION MIXED WITH THE AVATAR COLLECTION ITEM STYLE-->
-            <ul class="collapsible collection" data-collapsible="accordion">
-              <li class="collection-item avatar">
-                <div class="collapsible-header firstbox">
-                  <i class="material-icons circle green">format_color_text</i>
-                  <span class="title">View All</span>                
-                  <p>
-                   Show all businesses
-                  </p>
-                </div>
-                <i class="material-icons secondary-content arrowtate firstbox">keyboard_arrow_right</i>
-                <div class="collapsible-body">
-                  <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-              </li>
-
-              <li class="collection-item avatar">
-                <div class="collapsible-header secondbox">
-                  <i class="material-icons circle red">cached</i>
-                  <span class="title">View by Recycle</span>
-                  <p>
-                   Show reuse businesses only
-                  </p>
-                </div>
-                <i class="material-icons secondary-content arrowtate secondbox">keyboard_arrow_right</i>
-                <div class="collapsible-body">
-                  <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-              </li>
-
-              <li class="collection-item avatar">
-                <div class="collapsible-header thirdbox">
-                  <i class="material-icons circle blue">build</i>
-                  <span class="title">View by Repair</span>
-                  <p>
-                   Show repair businesses only
-                  </p>
-                </div>
-                <i class="material-icons secondary-content arrowtate thirdbox">keyboard_arrow_right</i>
-                <div class="collapsible-body">
-                  <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-              </li>
-
-              <li class="collection-item avatar">
-                <div class="collapsible-header fourthbox">
-                  <i class="material-icons circle yellow darken-2">view_module</i>
-                  <span class="title">View by Category</span>
-                  <p>
-                   Show by category selection
-                  </p>
-                </div>
-                <i class="material-icons secondary-content arrowtate fourthbox">keyboard_arrow_right</i>
-                <div class="collapsible-body">
-                  <p>Lorem ipsum dolor sit amet.</p>
-                </div>
-              </li>
-            </ul>
-
-            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+          <div class="col s12 center">
+            <h1 class="icon-block teal-text"><i class="material-icons">format_list_bulleted</i></h1>
+            <h4>View Businesses Below</h4>
+            <p class="left-align light">You may view all businesses, view recycling businesses, view repair businesses, or view by the item category that those businesses take.
+              Business name, address, phone number, hours of operation, website are displayed. Additional information about the business may be viewed by expanding the business
+              selection.
+            </p>
+          </div>
+          <!--THIS IS THE COLLAPSIBLE COLLECTION MIXED WITH THE AVATAR COLLECTION ITEM STYLE-->
+          <ul class="collapsible collection" data-collapsible="accordion">
+            <li class="collection-item avatar">
+              <div class="collapsible-header firstbox">
+                <i class="material-icons circle green">format_color_text</i>
+                <span class="title">View All</span>                
+                <p>
+                 Show all businesses
+                </p>
+              </div>
+              <i class="material-icons secondary-content arrowtate firstbox">keyboard_arrow_right</i>
+              <div class="collapsible-body">
+                <p>CONTENT SPACING TEST</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+              </div>
+            </li>
+            <li class="collection-item avatar">
+              <div class="collapsible-header secondbox">
+                <i class="material-icons circle red">cached</i>
+                <span class="title">View by Recycle</span>
+                <p>
+                 Show reuse businesses only
+                </p>
+              </div>
+              <i class="material-icons secondary-content arrowtate secondbox">keyboard_arrow_right</i>
+              <div class="collapsible-body">
+                <p>Lorem ipsum dolor sit amet.</p>
+              </div>
+            </li>
+            <li class="collection-item avatar">
+              <div class="collapsible-header thirdbox">
+                <i class="material-icons circle blue">build</i>
+                <span class="title">View by Repair</span>
+                <p>
+                 Show repair businesses only
+                </p>
+              </div>
+              <i class="material-icons secondary-content arrowtate thirdbox">keyboard_arrow_right</i>
+              <div class="collapsible-body">
+                <p>Lorem ipsum dolor sit amet.</p>
+              </div>
+            </li>
+            <li class="collection-item avatar">
+              <div class="collapsible-header fourthbox">
+                <i class="material-icons circle yellow darken-2">view_module</i>
+                <span class="title">View by Category</span>
+                <p>
+                 Show by category selection
+                </p>
+              </div>
+              <i class="material-icons secondary-content arrowtate fourthbox">keyboard_arrow_right</i>
+              <div class="collapsible-body">
+                <p>Lorem ipsum dolor sit amet.</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -197,11 +213,94 @@
       <div class="fixed-action-btn container1">
         <a class="buttons1"><span><span class="rotate"></span></span></a>
         <ul>
-        <li><a class="btn-floating waves-effect yellow darken-2 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Category"><i class="material-icons">view_module</i></a></li>
-        <li><a class="btn-floating waves-effect green tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business"><i class="material-icons">mode_edit</i></a></li>
+          <li>
+            <a href="#modal5" class="btn-floating waves-effect yellow darken-2 tooltipped addcategory" data-position="left" data-delay="40" data-tooltip="Add Category">
+              <i class="material-icons">view_module</i>
+            </a>
+          </li>
+          <li>
+            <a href="#modal3" class="btn-floating waves-effect green tooltipped addbusiness modal-action modal-trigger" data-position="left" data-delay="40" data-tooltip="Add Business" >
+              <i class="material-icons">mode_edit</i>
+            </a>
+          </li>
         </ul>
       </div>
 
+    </div>
+  </div>
+
+    <!--MODAL FOR ADD BUSINESS FORM-->
+  <div id="modal3" class="modal businessmodal modal-fixed-footer">
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader white-text col s12 m12 l12">
+      <h4>Add Business</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
+    </div>
+
+    <div class="modal-content">
+      
+        <form class="col s12">
+            <div class="row address">
+              <div class="input-field col s6 m6 l6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Phone:</label>
+              </div>
+            </div>
+            <div class="row address">
+              <div class="input-field col s6 m6 l6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Address</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Website</label>
+              </div>
+            </div>
+
+            <div class="row address">
+              <div class="input-field col s3 m3 l3">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">City</label>
+              </div>
+              <div class="input-field col s1 m1 l1">
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name">State</label>
+              </div>
+              <div class="input-field col s2 m2 l2">
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name">Zipcode</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Hours</label>
+              </div>
+
+            </div>
+          <div class="row">
+            <div class="input-field col s12 m12 l12">
+              <textarea id="textarea1" class="materialize-textarea" length="500"></textarea>
+              <label for="textarea1">Description</label>
+            </div>
+          </div>
+
+        </form>
+      
+    </div>
+
+    <div class="modal-footer">
+      <a href="#modal4" class="modal-action modal-close waves-effect waves-green btn-flat modal-trigger addsubmit teal-text text-darken-2">Submit</a>
+    </div>
+  </div>
+
+  <!--MODAL FOR ADD BUSINESS SUCCESS-->
+  <div id="modal4" class="modal bottom-sheet addbussuccess">
+    <div class="row">    
+      <h5 class="white-text h5bordering">Business Successfully Added</h5>
+      <a class="dismissit btn-flat h5bordering" id="dismissit"><h5 class="teal-text text-darken-2 h5bordering ">DISMISS</h5></a>
     </div>
   </div>
 
@@ -210,18 +309,16 @@
     <div class="section">
       <div class="row">
         <div class="col s12 center">
-          <h3><i class="mdi-content-send teal-text"></i></h3>
+          <h1 class="icon-block teal-text"><i class="material-icons">people</i></h1>
           <h4>The Admins</h4>
           <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
       </div>
-
       <div class="row">
-        
         <div class="col s12 m6 l4">
           <div class="card medium">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="background4.jpg">
+              <img class="activator" src="../AdminUI/background4.jpg"><!--background4.jpg-->
               <span class="card-title">Philip T.</span>
             </div>
             <div class="card-content">
@@ -236,11 +333,10 @@
             </div>-->
           </div>
         </div>
-
         <div class="col s12 m6 l4">
           <div class="card medium">
             <div class="card-image waves-effect waves-block waves-light">
-              <img src="background4.jpg">
+              <img src="../AdminUI/background4.jpg">
               <span class="card-title">Kayla F.</span>
             </div>
             <div class="card-content">
@@ -250,11 +346,10 @@
             </div>
           </div>
         </div>
-
         <div class="col s12 m6 l4">
           <div class="card medium">
             <div class="card-image waves-effect waves-block waves-light">
-              <img src="background4.jpg">
+              <img src="../AdminUI/background4.jpg">
               <span class="card-title">Brian T.</span>
             </div>
             <div class="card-content">
@@ -265,7 +360,15 @@
           </div>
         </div> 
       </div>
+    </div>
 
+
+    <!--FLOATING ACTION BUTTON-->
+    <div class="fixed-action-btn container1">
+      <a class="buttons1"><span><span class="rotate"></span></span></a>
+      <ul>
+        <li><a class="btn-floating waves-effect red tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator"><i class="material-icons">mode_edit</i></a></li>
+      </ul>
     </div>
   </div>
 
@@ -276,7 +379,7 @@
       <div class="row">
 
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
+          <h5 class="white-text">About Us</h5>
           <p class="white-text">The Corvallis Sustainability Coalition is a network of organizations and individual volunteers in Corvallis, Oregon, who are working together to create a sustainable community.  It includes businesses, non-profits, faith communities, educational institutions, and government entities that are committed to creating a community that values environmental quality, social equity, and economic vitality.  Our primary purpose is to foster communication and collaboration so that we can accelerate progress toward a sustainable future.</p>
         </div>
 
@@ -294,17 +397,17 @@
         <div class="col l3 s12">
           <h5 class="white-text">Connect</h5>
             <p class="white-text">Visit our other sites:</p>
-            <a class="white-text" target="_blank" href="http://sustainablecorvallis.org/"><img class="logocontrol" src="../AdminUI/logofulltrim.png"></a>
-            <a class="white-text" target="_blank" href="https://www.facebook.com/SustainableCorvallis"><img class="logocontrol" src="../AdminUI/FBWhite512.png"></a>
-            <a class="white-text" target="_blank" href="https://twitter.com/sustaincorv"><img class="logocontrol" src="../AdminUI/TwitterLogo_white.png"></a>
+            <a class="" target="_blank" href="http://sustainablecorvallis.org/"><img class="logocontrol" src="../AdminUI/logofulltrim.png"></a><!--logofulltrim.png-->
+            <a class="" target="_blank" href="https://www.facebook.com/SustainableCorvallis"><img class="logocontrol" src="../AdminUI/FBWhite512.png"></a><!--FBWhite512.png-->
+            <a class="" target="_blank" href="https://twitter.com/sustaincorv"><img class="logocontrol" src="../AdminUI/TwitterLogo_white.png"></a><!--TwitterLogo_white.png-->
         </div>
 
       </div>
     </div>
     <div class="footer-copyright teal darken-2">
-      <div class="container col s12 m6 l4">
+      <div class="container col s4 m4 l4">
         <p class="white-text">Made by CS 419 Group 6: Philip Tan, Kayla Fitzsimmons, Brian Tiegs - Winter 2016 - <a class="white-text" target="_blank" href="http://materializecss.com/">Materialize Framework</a> - 
-          <a class="white-text" target="_blank" href="#!">Report a problem</a></p>
+          <a class="white-text" target="_blank" href=" ">Feedback</a></p>
       </div>
       <div class="container col s12 m6 l4">
         
@@ -315,8 +418,8 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="../AdminUI/js/materialize.js"></script>
-  <script src="../AdminUI/js/init.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
 
   </body>
 </html>
