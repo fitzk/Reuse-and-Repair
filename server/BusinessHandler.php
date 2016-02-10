@@ -1,5 +1,6 @@
 <?php
 require_once 'Business.php';
+require_once 'Address.php';
 /**
  * Created by PhpStorm.
  * User: kaylafitzsimmons
@@ -126,8 +127,9 @@ class BusinessHandler extends Handler
         $all = $prepared->fetchAll();
         //var_dump($all);
         foreach ($all as $row) {
+            $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
 	// $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['category_name'],$row['name'], $row['address_id'],$row['hours_id'],$row['website']);
+          $business = new Business($row['business_id'],$row['category_name'],$row['name'],$address,$row['hours_id'],$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();

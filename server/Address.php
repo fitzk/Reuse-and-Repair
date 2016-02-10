@@ -14,6 +14,7 @@ class Address implements JsonSerializable
     private $street_number;
     private $street_name;
     private $city;
+    private $state;
     private $zip;
     private $geolocation;
 
@@ -24,15 +25,17 @@ class Address implements JsonSerializable
      * @param $street_number
      * @param $street_name
      * @param $city
+     * @param $state
      * @param $zip
      * @param $geolocation
      */
-    public function __construct($address_id, $street_number, $street_name, $city, $zip, $geolocation)
+    public function __construct($address_id, $street_number, $street_name, $city, $state, $zip, $geolocation)
     {
         $this->address_id = $address_id;
         $this->street_number = $street_number;
         $this->street_name = $street_name;
         $this->city = $city;
+        $this->state = $state;
         $this->zip = $zip;
         $this->geolocation = $geolocation;
     }
@@ -111,7 +114,21 @@ class Address implements JsonSerializable
     {
         $this->city = $city;
     }
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
 
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
     /**
      * @return mixed
      */
