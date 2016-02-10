@@ -58,7 +58,7 @@ abstract class Handler
     /**
      * @return string
      */
-    abstract public function update($id);
+    abstract public function update($object);
 
     /**
      * @return string
