@@ -9,7 +9,7 @@
  */
 include_once('Database.php');
 include_once('Category.php');
-
+include_once('Handler.php');
 class CategoryHandler extends Handler {
 
 
