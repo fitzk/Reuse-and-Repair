@@ -45,6 +45,15 @@ $app->GET('/categories', function (Application $app, Request $request) {
     
     // return new Response($result, 200);
 });
+// Returns all businesses
+$app->GET('/businesses', function (Application $app, Request $request) {
+    $handler = New BusinessHandler();
+    $result = $handler->getAll();
+
+    return new Response($result, 200);
+
+    //  return new Response('How about implementing businessReuseGet as a GET method ?');
+});
 
 $app->GET('/{category}', function (Application $app, Request $request) {
     return new Response('How about implementing categoryAllGet as a GET method ?');
@@ -96,15 +105,7 @@ $app->DELETE('/{category}/{subcategory}/edit', function (Application $app, Reque
 
 
 
-// Returns all businesses
-$app->GET('/businesses', function (Application $app, Request $request) {
-    $handler = New BusinessHandler();
-    $result = $handler->getAll();
 
-    return new Response($result, 200);
-
-  //  return new Response('How about implementing businessReuseGet as a GET method ?');
-});
 
 
 
