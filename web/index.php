@@ -2,7 +2,7 @@
 require_once __DIR__ .'/../vendor/autoload.php';
 // require('../server/Database.php');
 require('../server/CategoryHandler.php');
-// require('../server/Category.php');
+ require('../server/BusinessHandler.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
