@@ -43,7 +43,7 @@ $app->GET('/categories', function (Application $app, Request $request) {
     $handler = New CategoryHandler();
     $result = $handler->getAll();
     
-    // return new Response($result, 200);
+     return new Response($result, 200);
 });
 // Returns all businesses
 $app->GET('/businesses', function (Application $app, Request $request) {
