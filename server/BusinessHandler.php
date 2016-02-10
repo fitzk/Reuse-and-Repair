@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Business.php';
 /**
  * Created by PhpStorm.
  * User: kaylafitzsimmons
@@ -120,18 +120,17 @@ class BusinessHandler extends Handler
                 LEFT JOIN reuse_and_repair_db.Address
                 ON reuse_and_repair_db.Business.address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
-                ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id,
-                ORDER BY reuse_and_repair_db.Business.name";
+                ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id";
         $prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
         $all = $prepared->fetchAll();
         //var_dump($all);
         foreach ($all as $row) {
-          //  $business = new Business($row['business_id'],$row['business_name'],$row['name'], $row['']);
-          //   $this->results[]= $business->jsonSerialize();
-            var_dump($row);
+	// $id, $category, $name, $address, $hours, $website
+          $business = new Business($row['business_id'],$row['category_name'],$row['name'], $row['address_id'],$row['hours_id'],$row['website']);
+          $this->results[]= $business->jsonSerialize();
         }
-      //  return $this->getJSON();
+        return $this->getJSON();
 
     }
 }
