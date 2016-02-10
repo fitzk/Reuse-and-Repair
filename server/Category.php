@@ -6,10 +6,16 @@
  * Date: 2/9/16
  * Time: 10:18 AM
  */
-class Category
+class Category implements JsonSerializable
 {
     private $id;
    private $name;
+     public function jsonSerialize() {
+        return [ 
+		'id' => $this->id,
+		'name' => $this->name
+	];
+    }
 
     /**
      * @return mixed

@@ -10,7 +10,7 @@
 include_once('Database.php');
 include_once('Category.php');
 
-class CategoryHandler
+class CategoryHandler 
 {
 
     public $results = array();
@@ -44,7 +44,7 @@ class CategoryHandler
      * @return string
      */
     public function getJSON(){
-        return json_encode($this->getResults());
+       return json_encode($this->getResults());
     }
 
     /**
@@ -56,12 +56,13 @@ class CategoryHandler
 	$prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
 	$all = $prepared->fetchAll();
-	var_dump($all);
+	//var_dump($all);
 	 foreach ($all as $row) {
             $category = new Category($row['category_name'],$row['category_name']);
-           echo $category.getName();
-		 array_push($this->results,$category);
-            unset($category);
+	     
+        
+	    $this->results[]= $category->jsonSerialize();
+           
         }
         return $this->getJSON();
    
