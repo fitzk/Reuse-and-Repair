@@ -6,28 +6,9 @@
  * Date: 2/9/16
  * Time: 8:05 PM
  */
-
-class Business
+require_once 'Address.php';
+class Business implements JsonSerializable
 {
-    /*CREATE TABLE Business
-    (
-    business_id INT NOT NULL AUTO_INCREMENT,
-    category_name VARCHAR (255) NOT NULL,
-    name VARCHAR (255),
-    address_id INT,
-    phone VARCHAR (255),
-    description VARCHAR (255),
-    hours_id INT,
-    website VARCHAR (255),
-
-    PRIMARY KEY (business_id),
-    FOREIGN KEY (category_name)
-    REFERENCES Category (category_name),
-    FOREIGN KEY (address_id)
-    REFERENCES Address (address_id),
-    FOREIGN KEY (hours_id)
-    REFERENCES Hours (hours_id)
-    ) ENGINE=INNODB; */
 
     private $id;
     private $name;
@@ -61,7 +42,7 @@ class Business
             'id' => $this->id,
             'name' => $this->name,
             'category' => $this->category,
-            'address' => $this->address,
+            'address' => $this->address->jsonSerialize(),
             'hours' => $this->hours,
             'website' => $this->website
         ];
