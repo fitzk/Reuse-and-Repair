@@ -10,68 +10,31 @@
 include_once('Database.php');
 include_once('Category.php');
 
-class CategoryHandler 
-{
+class CategoryHandler extends Handler {
 
-    public $results = array();
-    public $db;
-
-    /**
-     * CategoryHandler constructor.
-     * @param array $results
-     */
-    public function __construct()
-    {
-        $this->db = new Database();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getResults()
-    {
-        return $this->results;
-    }
-
-    /**
-     * @param mixed $results
-     */
-    public function setResults($results)
-    {
-        $this->results = $results;
-    }
-    /**
-     * @return string
-     */
-    public function getJSON(){
-       return json_encode($this->getResults());
-    }
 
     /**
      * @return string
      */
-    public function getAllCategories(){
+    public function getAll(){
 
         $sql =  "SELECT * FROM `Category`";
-	$prepared = $this->db->link->prepare($sql);
+	    $prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
-	$all = $prepared->fetchAll();
-	//var_dump($all);
-	 foreach ($all as $row) {
+	    $all = $prepared->fetchAll();
+	    //var_dump($all);
+	     foreach ($all as $row) {
             $category = new Category($row['category_name'],$row['category_name']);
-	     
-        
-	    $this->results[]= $category->jsonSerialize();
+             $this->results[]= $category->jsonSerialize();
            
         }
         return $this->getJSON();
-   
-}
+    }
     /**
      * @param $id
      * @return string
      */
-    public function getCategory($id){
+    public function get($id){
         $results = null;
         setResults($results);
         return $this->getJSON();
@@ -80,7 +43,7 @@ class CategoryHandler
      * @param $id
      * @return string
      */
-    public function deleteCategory($id){
+    public function delete($id){
         $results = null;
         setResults($results);
         return $this->getJSON();
@@ -89,7 +52,7 @@ class CategoryHandler
     /**
      * @return string
      */
-    public function updateCategory(){
+    public function update($id){
         $results = null;
         setResults($results);
         return $this->getJSON();
@@ -98,7 +61,7 @@ class CategoryHandler
     /**
      * @return string
      */
-    function addCategory(){
+    function add($object){
         $results = null;
         setResults($results);
         return $this->getJSON();

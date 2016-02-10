@@ -6,7 +6,7 @@
  * Date: 2/9/16
  * Time: 11:28 AM
  */
-class CategoryHandlerTest
+class CategoryHandlerTest extends PHPUnit_Framework_TestCase
 {
 
 
@@ -22,12 +22,6 @@ class CategoryHandlerTest
             $this->assertEquals($row['category_name'],$handler->results[$idx]['category_name']);
             $idx++;
         }
-
-    }
-
-    function testGetCategoryById(){
-
-
 
     }
 

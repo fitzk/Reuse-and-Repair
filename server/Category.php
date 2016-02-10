@@ -9,12 +9,13 @@
 class Category implements JsonSerializable
 {
     private $id;
-   private $name;
-     public function jsonSerialize() {
+    private $name;
+
+    public function jsonSerialize() {
         return [ 
-		'id' => $this->id,
-		'name' => $this->name
-	];
+		    'id' => $this->id,
+		    'name' => $this->name
+	    ];
     }
 
     /**
