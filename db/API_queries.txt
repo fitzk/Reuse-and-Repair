@@ -1,5 +1,7 @@
-Return all businesses
-SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id ORDER BY Business.name;
+# = implemented
+
+# Return all businesses
+# SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id ORDER BY Business.name;
 
 Return reuse businesses
 SELECT * FROM Business LEFT JOIN Address ON Business.address_id = Address.address_id LEFT JOIN Hours ON Business.hours_id = Hours.hours_id WHERE Business.category_name = 'Reuse' ORDER BY Business.name;

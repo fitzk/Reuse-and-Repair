@@ -23,6 +23,15 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id
                 WHERE reuse_and_repair_db.Business.business_id = ?
                 ORDER BY reuse_and_repair_db.Business.name";
+        $prepared = $this->db->link->prepare($sql, $id);
+        $success = $prepared->execute();
+        $all = $prepared->fetchAll();
+        //var_dump($all);
+        foreach ($all as $row) {
+            //  $business = new Business($row['business_id'],$row['business_name'],$row['name'], $row['']);
+            //   $this->results[]= $business->jsonSerialize();
+            var_dump($row);
+        }
     }
 
     /**
