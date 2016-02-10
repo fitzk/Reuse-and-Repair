@@ -37,7 +37,9 @@ $app->POST('/newcategory', function (Application $app, Request $request) {
 
 // Read All
 $app->GET('/categories', function (Application $app, Request $request) {
-
+    $handler = New CategoryHandler();
+    $result = $handler.getAllCategories();
+    echo $result;
     return new Response('How about implementing categoryCategoryIdPut as a GET method ?');
 });
 
