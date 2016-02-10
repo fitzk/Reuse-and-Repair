@@ -7,6 +7,9 @@
  * Date: 2/4/16
  * Time: 8:53 PM
  */
+include_once('Database.php');
+include_once('Category.php');
+
 class CategoryHandler
 {
 
@@ -41,7 +44,7 @@ class CategoryHandler
      * @return string
      */
     public function getJSON(){
-        return json_encode(getResults());
+        return json_encode($this->getResults());
     }
 
     /**
@@ -49,15 +52,20 @@ class CategoryHandler
      */
     public function getAllCategories(){
 
-        $sql =  "SELECT * FROM Category";
-
-        foreach ($this->db->query($sql) as $row) {
-            $category = new Category($row['id'],$row['category_name']);
-            $this->results.push($category);
+        $sql =  "SELECT * FROM `Category`";
+	$prepared = $this->db->link->prepare($sql);
+        $success = $prepared->execute();
+	$all = $prepared->fetchAll();
+	var_dump($all);
+	 foreach ($all as $row) {
+            $category = new Category($row['category_name'],$row['category_name']);
+           echo $category.getName();
+		 array_push($this->results,$category);
             unset($category);
         }
         return $this->getJSON();
-    }
+   
+}
     /**
      * @param $id
      * @return string

@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ .'/../vendor/autoload.php';
-
-require '../server/*';
+// require('../server/Database.php');
+require('../server/CategoryHandler.php');
+// require('../server/Category.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ $app->POST('/newcategory', function (Application $app, Request $request) {
 // Read All
 $app->GET('/categories', function (Application $app, Request $request) {
     $handler = New CategoryHandler();
-    $result = $handler.getAllCategories();
+    $result = $handler->getAllCategories();
     echo $result;
     return new Response('How about implementing categoryCategoryIdPut as a GET method ?');
 });

@@ -9,6 +9,7 @@
 class Category
 {
     private $id;
-    private $name;
+   private $name;
+   
 
 }
