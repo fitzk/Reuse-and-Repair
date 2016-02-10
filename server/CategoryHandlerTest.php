@@ -15,9 +15,12 @@ class CategoryHandlerTest extends PHPUnit_Framework_TestCase
         $db = new Database();
         $sql =  "SELECT * FROM Category";
 
+        // this is a logic error
         foreach ($db->query($sql) as $row) {
-            $this->assertEquals($row['id'],$handler->results['id']);
-            $this->assertEquals($row['category_name'],$handler->results['category_name']);
+            $idx=0;
+            $this->assertEquals($row['id'],$handler->results[$idx]['id']);
+            $this->assertEquals($row['category_name'],$handler->results[$idx]['category_name']);
+            $idx++;
         }
 
     }
