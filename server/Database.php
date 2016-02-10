@@ -20,7 +20,7 @@ class Database
     public function __construct()
     {
         $this->setUser("root");
-        $this->setPass("password");
+        $this->setPass("");
         $this->setDbName("reuse_and_repair_db");
         $this->setHost("localhost");
         $this->setLink();
