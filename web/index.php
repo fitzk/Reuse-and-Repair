@@ -2,7 +2,8 @@
 require_once __DIR__ .'/../vendor/autoload.php';
 // require('../server/Database.php');
 require('../server/CategoryHandler.php');
- require('../server/BusinessHandler.php');
+require('../server/BusinessHandler.php');
+require('../server/SubcategoryHandler.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,16 +15,6 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 // Request::setTrustedProxies(array($ip));
-
-//$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-//    'db.options' => array(
-//        'driver' => 'pdo_mysql',
-//        'dbhost' => 'localhost',
-//        'dbname' => 'mydbname',
-//        'user' => 'root',
-//        'password' => '',
-//    ),
-//));
 
 // Create
 $app->GET('/', function (Application $app, Request $request) {
@@ -55,19 +46,19 @@ $app->GET('/businesses', function (Application $app, Request $request) {
     //  return new Response('How about implementing businessReuseGet as a GET method ?');
 });
 
-$app->GET('/{category}', function (Application $app, Request $request) {
+$app->GET('/categories/{category}', function (Application $app, Request $request) {
     return new Response('How about implementing categoryAllGet as a GET method ?');
 });
 
 // update
-$app->PUT('/{category}', function (Application $app, Request $request) {
+$app->PUT('/categories/{category}', function (Application $app, Request $request) {
 
 
     return new Response('How about implementing categoryCategoryIdDelete as a DELETE method ?');
 });
 
 // destroy
-$app->DELETE('/{category}', function (Application $app, Request $request) {
+$app->DELETE('/categories/{category}', function (Application $app, Request $request) {
 
 
     return new Response('How about implementing categoryCategoryIdDelete as a DELETE method ?');
@@ -75,38 +66,41 @@ $app->DELETE('/{category}', function (Application $app, Request $request) {
 
 
 // subcategory routes
-$app->PUT('{category}/subcategories', function (Application $app, Request $request, $subcategory_name) {
+// Returns all subcategories
+$app->GET('/subcategories', function (Application $app, Request $request) {
+    
+    $handler = New SubcategoryHandler();
+    $result = $handler->getAll();
+
+    return new Response($result, 200);
+});
+
+$app->GET('{category}/subcategories', function (Application $app, Request $request, $category) {
+    
+    $handler = New SubcategoryHandler();
+    $result = $handler->getByCategory($category);
+
+    return new Response($result, 200);
+});
+
+$app->PUT('/subcategories', function (Application $app, Request $request, $subcategory_name) {
 
 
     return new Response('How about implementing subcategoryAddPut as a PUT method ?');
 });
 
-$app->GET('{category}/{subcategory}', function (Application $app, Request $request) {
-
-
-    return new Response('How about implementing subcategoryGet as a GET method ?');
-});
-
-
-
-
-$app->POST('/{category}/{subcategory}', function (Application $app, Request $request, $subcategory_id) {
+$app->POST('/subcategories/{subcategory}', function (Application $app, Request $request, $subcategory_id) {
 
 
     return new Response('How about implementing subcategorySubcategoryEditPost as a POST method ?');
 });
 
 
-$app->DELETE('/{category}/{subcategory}/edit', function (Application $app, Request $request, $subcategory_id) {
+$app->DELETE('/subcategories/{subcategory}', function (Application $app, Request $request, $subcategory_id) {
 
 
     return new Response('How about implementing subcategorySubcategoryEditDelete as a DELETE method ?');
 });
-
-
-
-
-
 
 
 $app->GET('/businesses/{category}', function (Application $app, Request $request) {
