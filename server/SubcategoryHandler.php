@@ -73,7 +73,8 @@ class SubcategoryHandler extends Handler
      */
     public function get($id)
     {
-        return $id;
+        setResults($id);
+        return $this->getJSON();
     }
     
     /**
