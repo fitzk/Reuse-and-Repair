@@ -13,7 +13,21 @@ include_once('Handler.php');
 
 class SubcategoryHandler extends Handler
 {
+    /**
+     * @param $id
+     * @return boolean
+     */  
+    private function subcategoryExist($id)
+    {
+        $sql = "SELECT * FROM reuse_and_repair_db.Subcategory
+        	WHERE reuse_and_repair_db.Subcategory.subcategory_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute();
 
+        return ($prepared->rowCount() > 0 ? true : false);
+    }
+    
     /**
      * @return
      */
@@ -59,15 +73,30 @@ class SubcategoryHandler extends Handler
      */
     public function get($id)
     {
-        // TODO
+        return $id;
     }
+    
     /**
      * @param $id
      * @return string
      */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        // Check if subcategory exists
+        if (!$this->subcategoryExist($id))
+           return ["Subcategory doesn't exist", 404]; 
+           
+        // Delete subcategory
+        $sql = "DELETE FROM reuse_and_repair_db.Subcategory
+          WHERE reuse_and_repair_db.Subcategory.subcategory_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute(); 
+        
+        if ($success)
+          return ["Success", 200];
+        else
+          return ["Fail", 400];
     }
 
     /**
@@ -77,17 +106,15 @@ class SubcategoryHandler extends Handler
     {
         if ($object['new_subcategory'] == null)
           return ["Invalid parameter", 400];
-      
-        // Check if subcategory exists
-        $sql = "SELECT * FROM reuse_and_repair_db.Subcategory
-        	WHERE reuse_and_repair_db.Subcategory.subcategory_name = ?;";
-        $prepared = $this->db->link->prepare($sql);
-        $prepared->bindParam(1, $object['subcategory']);
-        $success = $prepared->execute();
         
-        if ($prepared->rowCount() == 0)
-           return ["Subcategory doesn't exist", 400]; 
-           
+        // Check if subcategory exists
+        if (!$this->subcategoryExist($object['subcategory']))
+           return ["Subcategory doesn't exist", 404]; 
+
+        // Check if new subcategory exists
+        if ($this->subcategoryExist($object['new_subcategory']))
+           return ["New subcategory already exists", 409];
+                
         // Update subcategory
         $sql = "UPDATE reuse_and_repair_db.Subcategory
         	SET reuse_and_repair_db.Subcategory.subcategory_name = ?
@@ -106,8 +133,24 @@ class SubcategoryHandler extends Handler
     /**
      * @return string
      */
-    public function add($object)
+    public function add($id)
     {
-        // TODO: Implement add() method.
+        if ($id == null)
+          return ["Invalid parameter", 400];
+          
+        // Check if subcategory exists
+        if ($this->subcategoryExist($id))
+           return ["Subcategory already exists", 400]; 
+           
+        // Create subcategory
+        $sql = "INSERT INTO reuse_and_repair_db.Subcategory (subcategory_name) VALUES (?);";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute(); 
+        
+        if ($success)
+          return ["Created", 201];
+        else
+          return ["Fail", 400];
     }
 }
