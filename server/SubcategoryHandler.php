@@ -75,8 +75,32 @@ class SubcategoryHandler extends Handler
      */
     public function update($object)
     {
-        return json_encode($object);
-        // TODO: Implement update() method.
+        if ($object['new_subcategory'] == null)
+          return ["Invalid parameter", 400];
+      
+        // Check if subcategory exists
+        $sql = "SELECT * FROM reuse_and_repair_db.Subcategory
+        	WHERE reuse_and_repair_db.Subcategory.subcategory_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['subcategory']);
+        $success = $prepared->execute();
+        
+        if ($prepared->rowCount() == 0)
+           return ["Subcategory doesn't exist", 400]; 
+           
+        // Update subcategory
+        $sql = "UPDATE reuse_and_repair_db.Subcategory
+        	SET reuse_and_repair_db.Subcategory.subcategory_name = ?
+          WHERE reuse_and_repair_db.Subcategory.subcategory_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['new_subcategory']);
+        $prepared->bindParam(2, $object['subcategory']);
+        $success = $prepared->execute(); 
+        
+        if ($success)
+          return ["Success", 200];
+        else
+          return ["Fail", 400];
     }
 
     /**
