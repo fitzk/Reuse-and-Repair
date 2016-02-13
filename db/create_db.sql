@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Business_Subcategory
 	subcategory_name VARCHAR (255) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (business_id)
-		REFERENCES Business (business_id),
+		REFERENCES Business (business_id)
 		ON delete CASCADE 
         	on update CASCADE,
 	FOREIGN KEY (subcategory_name)
