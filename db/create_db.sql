@@ -49,16 +49,16 @@ CREATE TABLE IF NOT EXISTS Business
 	PRIMARY KEY (business_id),
 	CONSTRAINT FOREIGN KEY (category_name)
 		REFERENCES Category (category_name) 
-        ON delete CASCADE 
-        on update CASCADE,
+        	ON delete CASCADE 
+        	on update CASCADE,
 	FOREIGN KEY (address_id)
 		REFERENCES Address (address_id)
 		ON delete CASCADE 
-        on update CASCADE,
+        	on update CASCADE,
 	FOREIGN KEY (hours_id)
 		REFERENCES Hours (hours_id)
 		on delete CASCADE 
-        on update cascade
+        	on update cascade
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Business_Subcategory
@@ -69,8 +69,12 @@ CREATE TABLE IF NOT EXISTS Business_Subcategory
 	PRIMARY KEY (id),
 	FOREIGN KEY (business_id)
 		REFERENCES Business (business_id),
+		ON delete CASCADE 
+        	on update CASCADE,
 	FOREIGN KEY (subcategory_name)
 		REFERENCES Subcategory (subcategory_name)
+		ON delete CASCADE 
+        	on update CASCADE
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Role
