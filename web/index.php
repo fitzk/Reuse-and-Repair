@@ -34,22 +34,40 @@ $app->GET('/categories', function (Application $app, Request $request) {
 
 // Create category
 $app->PUT('/categories', function (Application $app, Request $request) {
-
-    return new Response('How about implementing categoryCategoryIdPut as a POST method ?');
+    
+    //authenticate();
+    
+    $handler = New CategoryHandler();
+    $result = $handler->add($request->get('category_name'));
+    
+    return new Response($result[0], $result[1]);
 });
 
 // Update category
-$app->POST('/categories/{category}', function (Application $app, Request $request) {
+$app->POST('/categories/{category}', function (Application $app, Request $request, $category) {
 
+    //authenticate();
 
-    return new Response('How about implementing categoryCategoryIdDelete as a DELETE method ?');
+    $object = array(
+      'category' => $category,
+      'new_category' => $request->get('category_name')
+    );
+    
+    $handler = New CategoryHandler();
+    $result = $handler->update($object);
+    
+    return new Response($result[0], $result[1]);
 });
 
 // Destroy category
-$app->DELETE('/categories/{category}', function (Application $app, Request $request) {
+$app->DELETE('/categories/{category}', function (Application $app, Request $request, $category) {
 
-
-    return new Response('How about implementing categoryCategoryIdDelete as a DELETE method ?');
+    //authenticate();
+    
+    $handler = New CategoryHandler();
+    $result = $handler->delete($category);
+    
+    return new Response($result[0], $result[1]);
 });
 
 
