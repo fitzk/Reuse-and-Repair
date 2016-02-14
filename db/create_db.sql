@@ -3,15 +3,18 @@ USE reuse_and_repair_db;
 
 CREATE TABLE IF NOT EXISTS Subcategory
 (
+	subcategory_id VARCHAR (255) NOT NULL,
 	subcategory_name VARCHAR (255) NOT NULL,
-	PRIMARY KEY (subcategory_name)
+	PRIMARY KEY (subcategory_id)
+
     
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Category
 (
-    category_name VARCHAR (255) NOT NULL,
-	PRIMARY KEY (category_name)
+  category_id VARCHAR (255) NOT NULL,
+  category_name VARCHAR (255) NOT NULL,
+	PRIMARY KEY (category_id)
     
 ) ENGINE=INNODB;
 
@@ -39,23 +42,18 @@ CREATE TABLE IF NOT EXISTS Business
 (
 	business_id INT NOT NULL 
     AUTO_INCREMENT,
-	category_name VARCHAR (255) NOT NULL,
-	name VARCHAR (255),
-	address_id INT,
+	business_name VARCHAR (255),
+	fk_address_id INT,
 	phone VARCHAR (255),
 	description VARCHAR (255),
-	hours_id INT,
+	fk_hours_id INT,
 	website VARCHAR (255),
 	PRIMARY KEY (business_id),
-	CONSTRAINT FOREIGN KEY (category_name)
-		REFERENCES Category (category_name) 
-        	ON delete CASCADE 
-        	on update CASCADE,
-	FOREIGN KEY (address_id)
+	FOREIGN KEY (fk_address_id)
 		REFERENCES Address (address_id)
 		ON delete CASCADE 
         	on update CASCADE,
-	FOREIGN KEY (hours_id)
+	FOREIGN KEY (fk_hours_id)
 		REFERENCES Hours (hours_id)
 		on delete CASCADE 
         	on update cascade
@@ -64,17 +62,35 @@ CREATE TABLE IF NOT EXISTS Business
 CREATE TABLE IF NOT EXISTS Business_Subcategory
 (
 	id INT NOT NULL AUTO_INCREMENT,
-	business_id INT NOT NULL,
-	subcategory_name VARCHAR (255) NOT NULL,
+	fk_business_id INT NOT NULL,
+	fk_subcategory_id VARCHAR (255) NOT NULL,
 	PRIMARY KEY (id),
+<<<<<<< HEAD
+	FOREIGN KEY (fk_business_id)
+		REFERENCES Business (business_id),
+	FOREIGN KEY (fk_subcategory_id)
+		REFERENCES Subcategory (subcategory_id)
+=======
 	FOREIGN KEY (business_id)
 		REFERENCES Business (business_id)
 		ON delete CASCADE 
         	on update CASCADE,
 	FOREIGN KEY (subcategory_name)
 		REFERENCES Subcategory (subcategory_name)
+>>>>>>> 85a8c0721c992b87a5151c1708966f267dcf2610
 		ON delete CASCADE 
         	on update CASCADE
+) ENGINE=INNODB;
+CREATE TABLE IF NOT EXISTS Category_Subcategory
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	fk_category_id VARCHAR(255) NOT NULL,
+	fk_subcategory_id VARCHAR (255) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (fk_category_id)
+		REFERENCES Category (category_id),
+	FOREIGN KEY (fk_subcategory_id)
+		REFERENCES Subcategory (subcategory_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Role
@@ -92,9 +108,9 @@ CREATE TABLE IF NOT EXISTS Admin
 	first_name VARCHAR (255),
 	last_name VARCHAR (255),
 	email VARCHAR (255),
-	role_id INT NOT NULL,
+	fk_role_id INT NOT NULL,
 	PRIMARY KEY (admin_id),
-	FOREIGN KEY (role_id)
+	FOREIGN KEY (fk_role_id)
 		REFERENCES Role (role_id)
 		on delete no action 
 ) ENGINE=INNODB;

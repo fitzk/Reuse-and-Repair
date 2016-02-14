@@ -43,7 +43,7 @@ abstract class Handler
     /**
      * @return
      */
-    abstract public function getAll();
+    abstract public function getAll($recursive);
     /**
      * @param $id
      * @return string
