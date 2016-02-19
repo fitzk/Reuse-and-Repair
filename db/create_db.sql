@@ -20,31 +20,21 @@ CREATE TABLE IF NOT EXISTS Category
 CREATE TABLE IF NOT EXISTS Address
 (
 	address_id INT NOT NULL AUTO_INCREMENT,
-	fk_business_id INT NOT NULL,
 	street_number VARCHAR (255),
 	street_name VARCHAR (255),
 	city VARCHAR (255),
 	state VARCHAR (255),
 	zip VARCHAR (255),
 	geolocation VARCHAR (255),
-	PRIMARY KEY (address_id),
-	FOREIGN KEY (fk_business_id)
-		REFERENCES Business (business_id)
-		ON DELETE CASCADE 
-        	ON UPDATE CASCADE
+	PRIMARY KEY (address_id)
         	
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Hours
 (
 	hours_id INT NOT NULL AUTO_INCREMENT,
-	fk_business_id INT NOT NULL,
 	hours_entry VARCHAR (255),
-	PRIMARY KEY (hours_id),
-	FOREIGN KEY (fk_business_id)
-		REFERENCES Business (business_id)
-		ON DELETE CASCADE 
-        	ON UPDATE CASCADE
+	PRIMARY KEY (hours_id)
         	
 ) ENGINE=INNODB;
 
