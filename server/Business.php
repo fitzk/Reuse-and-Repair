@@ -7,6 +7,7 @@
  * Time: 8:05 PM
  */
 require_once 'Address.php';
+require_once 'Hours.php';
 class Business implements JsonSerializable
 {
 
@@ -43,7 +44,7 @@ class Business implements JsonSerializable
             'name' => $this->name,
             'category' => $this->category,
             'address' => $this->address->jsonSerialize(),
-            'hours' => $this->hours,
+            'hours' => $this->hours->jsonSerialize(),
             'website' => $this->website
         ];
     }

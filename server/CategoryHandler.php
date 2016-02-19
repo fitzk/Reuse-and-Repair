@@ -32,119 +32,107 @@ class CategoryHandler extends Handler
      * only category objects
      * @return string
      */
+    public function getAll()
+    {
+        $sql = "SELECT * FROM `Category`";
+        $prepared = $this->db->link->prepare($sql);
+        $success = $prepared->execute();
+        $fetchAll = $prepared->fetchAll();
 
-
-
-    public function getAll($recursive)
-        {
-            $sql = "SELECT * FROM `Category`";
-            $prepared = $this->db->link->prepare($sql);
-            $success = $prepared->execute();
-            $fetchAll = $prepared->fetchAll();
-
-            foreach ($fetchAll as $row) {
-                // $category = new Category($row['category_name'],$row['category_name']);
-                $this->results[] = $category;
-            }
-            if ($recursive == true) {
-                $this->recursiveGetAll($this->results);
-
-            } else {
-                $this->results[] = $category->jsonSerialize();
-            }
-            return $this->getJSON();
+        foreach ($fetchAll as $row) {
+            $category = new Category($row['category_name'],$row['category_name']);
+            $this->results[] = $category->jsonSerialize();
         }
+        return $this->getJSON();
+    }
 
-        /**
-         * @param $id
-         * @return string
-         */
-        public
-        function get($id)
-        {
-            setResults($id);
-            return $this->getJSON();
-        }
+    /**
+     * @param $id
+     * @return string
+     */
+    public function get($id)
+    {
+        setResults($id);
+        return $this->getJSON();
+    }
 
-        /**
-         * @param $id
-         * @return string
-         */
-        public
-        function delete($id)
-        {
-            // Check if category exists
-            if (!$this->categoryExist($id))
-                return ["Category doesn't exist", 404];
+    /**
+     * @param $id
+     * @return string
+     */
+    public function delete($id)
+    {
+        // Check if category exists
+        if (!$this->categoryExist($id))
+          return ['message' => 'Category does not exist', 'status_code' => 404];
 
-            // Delete subcategory
-            $sql = "DELETE FROM reuse_and_repair_db.Category
-            WHERE reuse_and_repair_db.Category.category_name = ?;";
-            $prepared = $this->db->link->prepare($sql);
-            $prepared->bindParam(1, $id);
-            $success = $prepared->execute();
+        // Delete subcategory
+        $sql = "DELETE FROM reuse_and_repair_db.Category
+        WHERE reuse_and_repair_db.Category.category_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute();
 
-            if ($success)
-                return ["Success", 200];
-            else
-                return ["Fail", 400];
-        }
+        if ($success)
+          return ['message' => 'Success', 'status_code' => 200];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
+    }
 
-        /**
-         * @return string
-         */
-        public
-        function update($object)
-        {
-            if ($object['new_category'] == null)
-                return ["Invalid parameter", 400];
+    /**
+     * @return string
+     */
+    public function update($object)
+    {
+        if ($object['new_category'] == null)
+          return ['message' => 'Invalid parameter', 'status_code' => 400];
 
-            // Check if category exists
-            if (!$this->categoryExist($object['category']))
-                return ["Category doesn't exist", 404];
+        // Check if category exists
+        if (!$this->categoryExist($object['category']))
+          return ['message' => 'Category does not exist', 'status_code' => 404];
 
-            // Check if new category exists
-            if ($this->categoryExist($object['new_category']))
-                return ["New category already exists", 409];
+        // Check if new category exists
+        if ($this->categoryExist($object['new_category']))
+          return ['message' => 'New category already exists', 'status_code' => 409];
 
-            // Update category
-            $sql = "UPDATE reuse_and_repair_db.Category
+        // Update category
+        $sql = "UPDATE reuse_and_repair_db.Category
             SET reuse_and_repair_db.Category.category_name = ?
-          WHERE reuse_and_repair_db.Category.category_name = ?;";
-            $prepared = $this->db->link->prepare($sql);
-            $prepared->bindParam(1, $object['new_category']);
-            $prepared->bindParam(2, $object['category']);
-            $success = $prepared->execute();
+            WHERE reuse_and_repair_db.Category.category_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['new_category']);
+        $prepared->bindParam(2, $object['category']);
+        $success = $prepared->execute();
 
-            if ($success)
-                return ["Success", 200];
-            else
-                return ["Fail", 400];
-        }
+        if ($success)
+          return ['message' => 'Success', 'status_code' => 200];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
+    }
 
-        /**
-         * @return string
-         */
-        function add($id)
-        {
-            if ($id == null)
-                return ["Invalid parameter", 400];
+    /**
+     * @return string
+     */
+    public function add($id)
+    {
+        if ($id == null)
+          return ['message' => 'Invalid parameter', 'status_code' => 400];
 
-            // Check if category exists
-            if ($this->categoryExist($id))
-                return ["Category already exists", 400];
+        // Check if category exists
+        if ($this->categoryExist($id))
+          return ['message' => 'Category already exists', 'status_code' => 400];
 
-            // Create category
-            $sql = "INSERT INTO reuse_and_repair_db.Category (category_name) VALUES (?);";
-            $prepared = $this->db->link->prepare($sql);
-            $prepared->bindParam(1, $id);
-            $success = $prepared->execute();
+        // Create category
+        $sql = "INSERT INTO reuse_and_repair_db.Category (category_name) VALUES (?);";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute();
 
-            if ($success)
-                return ["Created", 201];
-            else
-                return ["Fail", 400];
-        }
+        if ($success)
+          return ['message' => 'Created', 'status_code' => 201];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
+    }
 
 
     function recursiveGetAll()

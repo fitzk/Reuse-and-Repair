@@ -10,15 +10,11 @@ class Category implements JsonSerializable
 {
     private $id;
     private $name;
-	// Category < subcategories 
-    private $subcategories;
-
 
     public function jsonSerialize() {
         return [ 
 		    'id' => $this->id,
-		    'name' => $this->name,
-		    'subcategories' => $this->subcategories
+		    'name' => $this->name
 	    ];
     }
 

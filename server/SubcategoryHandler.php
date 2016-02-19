@@ -41,7 +41,7 @@ class SubcategoryHandler extends Handler
         $all = $prepared->fetchAll();
         foreach ($all as $row) {
           $subcategory = new Subcategory($row['subcategory_name'],$row['subcategory_name']);
-          $this->results[]= $subcategory->jsonSerialize();
+          $this->results[] = $subcategory->jsonSerialize();
         }
         return $this->getJSON();
     }
@@ -66,7 +66,29 @@ class SubcategoryHandler extends Handler
         }
         return $this->getJSON();
     }
-
+    
+    /**
+     * @param $id
+     * @return string
+     */
+    public function getByBusiness($business_id)
+    {
+        $sql = "SELECT DISTINCT(reuse_and_repair_db.Subcategory.subcategory_name) FROM reuse_and_repair_db.Business
+          INNER JOIN reuse_and_repair_db.Business_Subcategory ON reuse_and_repair_db.Business.business_id = reuse_and_repair_db.Business_Subcategory.business_id
+        	INNER JOIN reuse_and_repair_db.Subcategory ON reuse_and_repair_db.Business_Subcategory.subcategory_name = reuse_and_repair_db.Subcategory.subcategory_name
+        	WHERE reuse_and_repair_db.Business.business_id = ?
+        	ORDER BY reuse_and_repair_db.Subcategory.subcategory_name;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $business_id);
+        $success = $prepared->execute();
+        $all = $prepared->fetchAll();
+        foreach ($all as $row) {
+          $subcategory = new Subcategory($row['subcategory_name'],$row['subcategory_name']);
+          $this->results[]= $subcategory->jsonSerialize();
+        }
+        return $this->getJSON();
+    }
+    
      /**
      * @param $id
      * @return string
@@ -85,7 +107,7 @@ class SubcategoryHandler extends Handler
     {
         // Check if subcategory exists
         if (!$this->subcategoryExist($id))
-           return ["Subcategory doesn't exist", 404]; 
+          return ['message' => 'Subcategory does not exist', 'status_code' => 404];
            
         // Delete subcategory
         $sql = "DELETE FROM reuse_and_repair_db.Subcategory
@@ -95,9 +117,9 @@ class SubcategoryHandler extends Handler
         $success = $prepared->execute(); 
         
         if ($success)
-          return ["Success", 200];
+          return ['message' => 'Success', 'status_code' => 200];
         else
-          return ["Fail", 400];
+          return ['message' => 'Fail', 'status_code' => 400];
     }
 
     /**
@@ -106,15 +128,15 @@ class SubcategoryHandler extends Handler
     public function update($object)
     {
         if ($object['new_subcategory'] == null)
-          return ["Invalid parameter", 400];
+          return ['message' => 'Invalid parameter', 'status_code' => 400];
         
         // Check if subcategory exists
         if (!$this->subcategoryExist($object['subcategory']))
-           return ["Subcategory doesn't exist", 404]; 
+          return ['message' => 'Subcategory does not exist', 'status_code' => 404];
 
         // Check if new subcategory exists
         if ($this->subcategoryExist($object['new_subcategory']))
-           return ["New subcategory already exists", 409];
+          return ['message' => 'New subcategory already exists', 'status_code' => 409];
                 
         // Update subcategory
         $sql = "UPDATE reuse_and_repair_db.Subcategory
@@ -126,9 +148,9 @@ class SubcategoryHandler extends Handler
         $success = $prepared->execute(); 
         
         if ($success)
-          return ["Success", 200];
+          return ['message' => 'Success', 'status_code' => 200];
         else
-          return ["Fail", 400];
+          return ['message' => 'Fail', 'status_code' => 400];
     }
 
     /**
@@ -137,11 +159,11 @@ class SubcategoryHandler extends Handler
     public function add($id)
     {
         if ($id == null)
-          return ["Invalid parameter", 400];
+          return ['message' => 'Invalid parameter', 'status_code' => 400];
           
         // Check if subcategory exists
         if ($this->subcategoryExist($id))
-           return ["Subcategory already exists", 400]; 
+          return ['message' => 'Subcategory already exists', 'status_code' => 400];
            
         // Create subcategory
         $sql = "INSERT INTO reuse_and_repair_db.Subcategory (subcategory_name) VALUES (?);";
@@ -150,8 +172,8 @@ class SubcategoryHandler extends Handler
         $success = $prepared->execute(); 
         
         if ($success)
-          return ["Created", 201];
+          return ['message' => 'Created', 'status_code' => 201];
         else
-          return ["Fail", 400];
+          return ['message' => 'Fail', 'status_code' => 400];
     }
 }
