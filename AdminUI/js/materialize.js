@@ -349,6 +349,11 @@ if ($) {
 			    	$(".arrowtate.thirdbox").removeClass("active");
 			    	$(".arrowtate.fourthbox").removeClass("active");
 			   	}
+			   	$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
+			   		$.each(obj, function(key, value) {
+			   			$(".allbizlist").append("<li>"+value.id+"</li>");
+			   		});
+			   	})
 		    }
 		    else if ($(this).hasClass("secondbox")) {
 			   	if ($(".arrowtate.secondbox").hasClass("active")) {
