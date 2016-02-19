@@ -55,10 +55,10 @@ class BusinessHandler extends Handler
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Business
                 LEFT JOIN reuse_and_repair_db.Address
-                ON reuse_and_repair_db.Business.address_id = reuse_and_repair_db.Address.address_id
+                ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
-                ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id
-                ORDER BY reuse_and_repair_db.Business.name";
+                ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
         $all = $prepared->fetchAll();
@@ -67,7 +67,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['category_name'],$row['name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -82,11 +82,11 @@ class BusinessHandler extends Handler
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Business
                 LEFT JOIN reuse_and_repair_db.Address
-                ON reuse_and_repair_db.Business.address_id = reuse_and_repair_db.Address.address_id
+                ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
-                ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id
-                WHERE reuse_and_repair_db.Business.category_name = ?
-                ORDER BY reuse_and_repair_db.Business.name";
+                ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                WHERE reuse_and_repair_db.Business.fk_category_id = ?
+                ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $category);
         $success = $prepared->execute();
@@ -96,7 +96,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['category_name'],$row['name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -111,11 +111,11 @@ class BusinessHandler extends Handler
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Business
                 LEFT JOIN reuse_and_repair_db.Address
-                ON reuse_and_repair_db.Business.address_id = reuse_and_repair_db.Address.address_id
+                ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
-                ON reuse_and_repair_db.Business.hours_id = reuse_and_repair_db.Hours.hours_id
+                ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
                 WHERE reuse_and_repair_db.Business.business_id = ?
-                ORDER BY reuse_and_repair_db.Business.name";
+                ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $id);
         $success = $prepared->execute();
@@ -125,7 +125,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['category_name'],$row['name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -199,10 +199,10 @@ class BusinessHandler extends Handler
           $business_info['address']['zip'] = $object['zip'];
         if ($object['hours_entry'] != null)
           $business_info['hours']['hours_entry'] = $object['hours_entry'];
-        if ($object['category_name'] != null)
-          $business_info['category_name'] = $object['category_name'];
-        if ($object['name'] != null)
-          $business_info['name'] = $object['name'];
+        if ($object['category_id'] != null)
+          $business_info['category'] = $object['category_id'];
+        if ($object['business_name'] != null)
+          $business_info['name'] = $object['business_name'];
         if ($object['phone'] != null)
           $business_info['phone'] = $object['phone'];
         if ($object['description'] != null)
@@ -256,20 +256,20 @@ class BusinessHandler extends Handler
             $handler->update($business_info['hours']);
           }
         }
-        //return json_encode($business_info);
+
         // Update business
         $sql = "UPDATE reuse_and_repair_db.Business
-            SET reuse_and_repair_db.Business.name = ?,
-            reuse_and_repair_db.Business.category_name = ?,
+            SET reuse_and_repair_db.Business.business_name = ?,
+            reuse_and_repair_db.Business.fk_category_id = ?,
             reuse_and_repair_db.Business.phone = ?,
             reuse_and_repair_db.Business.description = ?,
             reuse_and_repair_db.Business.website = ?,
-            reuse_and_repair_db.Business.address_id = ?,
-            reuse_and_repair_db.Business.hours_id = ?
+            reuse_and_repair_db.Business.fk_address_id = ?,
+            reuse_and_repair_db.Business.fk_hours_id = ?
             WHERE reuse_and_repair_db.Business.business_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $business_info['name']);
-        $prepared->bindParam(2, $business_info['category_name']);
+        $prepared->bindParam(2, $business_info['category']);
         $prepared->bindParam(3, $business_info['phone']);
         $prepared->bindParam(4, $business_info['description']);
         $prepared->bindParam(5, $business_info['website']);
@@ -289,7 +289,7 @@ class BusinessHandler extends Handler
      */
     public function add($object)
     {
-        if ($object['name'] == null || $object['category_name'] == null)
+        if ($object['business_name'] == null || $object['category_name'] == null)
           return ['message' => 'Invalid parameter', 'status_code' => 400];
     
         // Get geolocation
@@ -313,7 +313,7 @@ class BusinessHandler extends Handler
           $handler->add($object);
         }
         
-        $sql = "INSERT INTO reuse_and_repair_db.Business (category_name, name, address_id, phone, description, hours_id, website)
+        $sql = "INSERT INTO reuse_and_repair_db.Business (fk_category_id, business_name, fk_address_id, phone, description, fk_hours_id, website)
                VALUES (?, ?, ";
         if ($hasAddress)
           $sql = $sql."(SELECT reuse_and_repair_db.Address.address_id FROM reuse_and_repair_db.Address ORDER BY reuse_and_repair_db.Address.address_id DESC LIMIT 1), ";
@@ -331,7 +331,7 @@ class BusinessHandler extends Handler
 
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $object['category_name']);
-        $prepared->bindParam(2, $object['name']);
+        $prepared->bindParam(2, $object['business_name']);
         $prepared->bindParam(3, $object['phone']);
         $prepared->bindParam(4, $object['description']);
         $prepared->bindParam(5, $object['website']);

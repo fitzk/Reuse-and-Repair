@@ -6,17 +6,19 @@
  * Date: 2/4/16
  * Time: 8:49 PM
  */
-
+ 
 class Subcategory implements JsonSerializable
 {
     private $id;
     private $name;
+    
     public function jsonSerialize() {
       return [ 
         'id' => $this->id,
         'name' => $this->name
       ];
     }
+    
     /**
      * @return mixed
      */
@@ -24,6 +26,7 @@ class Subcategory implements JsonSerializable
     {
       return $this->id;
     }
+    
     /**
      * @param mixed $id
      */
@@ -31,6 +34,7 @@ class Subcategory implements JsonSerializable
     {
         $this->id = $id;
     }
+    
     /**
      * @return mixed
      */
@@ -38,6 +42,7 @@ class Subcategory implements JsonSerializable
     {
         return $this->name;
     }
+    
     /**
      * @param mixed $name
      */
@@ -45,6 +50,7 @@ class Subcategory implements JsonSerializable
     {
         $this->name = $name;
     }
+    
     /**
      * Category constructor.
      * @param $id

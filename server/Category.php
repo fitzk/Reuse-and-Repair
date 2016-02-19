@@ -6,6 +6,7 @@
  * Date: 2/9/16
  * Time: 10:18 AM
  */
+ 
 class Category implements JsonSerializable
 {
     private $id;
@@ -59,6 +60,4 @@ class Category implements JsonSerializable
         $this->id = $id;
         $this->name = $name;
     }
-
-
 }

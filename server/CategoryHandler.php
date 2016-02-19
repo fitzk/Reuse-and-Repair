@@ -18,7 +18,7 @@ class CategoryHandler extends Handler
     private function categoryExist($id)
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Category
-            WHERE reuse_and_repair_db.Category.category_name = ?;";
+            WHERE reuse_and_repair_db.Category.category_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $id);
         $success = $prepared->execute();
@@ -34,13 +34,13 @@ class CategoryHandler extends Handler
      */
     public function getAll()
     {
-        $sql = "SELECT * FROM `Category`";
+        $sql = "SELECT * FROM reuse_and_repair_db.Category";
         $prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
         $fetchAll = $prepared->fetchAll();
 
         foreach ($fetchAll as $row) {
-            $category = new Category($row['category_name'],$row['category_name']);
+            $category = new Category($row['category_id'],$row['category_name']);
             $this->results[] = $category->jsonSerialize();
         }
         return $this->getJSON();
@@ -68,7 +68,7 @@ class CategoryHandler extends Handler
 
         // Delete subcategory
         $sql = "DELETE FROM reuse_and_repair_db.Category
-        WHERE reuse_and_repair_db.Category.category_name = ?;";
+        WHERE reuse_and_repair_db.Category.category_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $id);
         $success = $prepared->execute();
@@ -97,11 +97,12 @@ class CategoryHandler extends Handler
 
         // Update category
         $sql = "UPDATE reuse_and_repair_db.Category
-            SET reuse_and_repair_db.Category.category_name = ?
-            WHERE reuse_and_repair_db.Category.category_name = ?;";
+            SET reuse_and_repair_db.Category.category_id = ?, reuse_and_repair_db.Category.category_name = ?
+            WHERE reuse_and_repair_db.Category.category_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $object['new_category']);
-        $prepared->bindParam(2, $object['category']);
+        $prepared->bindParam(2, $object['new_category']);
+        $prepared->bindParam(3, $object['category']);
         $success = $prepared->execute();
 
         if ($success)
@@ -123,9 +124,10 @@ class CategoryHandler extends Handler
           return ['message' => 'Category already exists', 'status_code' => 400];
 
         // Create category
-        $sql = "INSERT INTO reuse_and_repair_db.Category (category_name) VALUES (?);";
+        $sql = "INSERT INTO reuse_and_repair_db.Category (category_id, category_name) VALUES (?, ?);";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $id);
+        $prepared->bindParam(2, $id);
         $success = $prepared->execute();
 
         if ($success)
