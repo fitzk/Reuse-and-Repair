@@ -47,6 +47,7 @@ class Address implements JsonSerializable
             'street_number' => $this->street_number,
             'street_name' => $this->street_name,
             'city' => $this->city,
+            'state' => $this->state,
             'zip' => $this->zip,
             'geolocation' => $this->geolocation
         ];
