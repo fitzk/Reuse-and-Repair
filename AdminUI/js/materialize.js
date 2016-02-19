@@ -351,10 +351,10 @@ if ($) {
 			    	$(".arrowtate.thirdbox").removeClass("active");
 			    	$(".arrowtate.fourthbox").removeClass("active");
 			   	}
-			   	if (dispcount <= 1) {
+			   	if (dispcount < 1) {
 				   	$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 				   		$.each(obj, function(key, value) {
-				   			$(".allbizlist").append("<li>"+value+"</li>");
+				   			$(".allbizlist").append("<li>"+value.id++value.name+"</li>");
 				   		});
 				   	})
 			    }
