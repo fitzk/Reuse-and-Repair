@@ -339,9 +339,9 @@ if ($) {
 		  // $(this).toggleClass('active');
 		  //});
 		 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
-		 var count = 0;
+		var dispcount = 0;
 		$(".collapsible-header").click(function() {
-			count++;
+			dispcount = dispcount + 1;
 		    if ($(this).hasClass("firstbox")) {
 			    if ($(".arrowtate.firstbox").hasClass("active")) {
 			    	$(".arrowtate.firstbox").removeClass("active");
@@ -351,7 +351,7 @@ if ($) {
 			    	$(".arrowtate.thirdbox").removeClass("active");
 			    	$(".arrowtate.fourthbox").removeClass("active");
 			   	}
-			   	if (count <= 1) {
+			   	if (dispcount <= 1) {
 				   	$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 				   		$.each(obj, function(key, value) {
 				   			$(".allbizlist").append("<li>"+value+"</li>");
