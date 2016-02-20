@@ -356,7 +356,7 @@ if ($) {
 				   			console.log(somenumber)
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									$(".allbizlist").append("<li>"+value.name+"</li>");
+									$(".allbizlist").append("<li>" + value.id + ", " + value.category + ", " + value.name + "</li>");
 								});
 							})
 				   		};
