@@ -334,56 +334,68 @@ if ($) {
        /****************
        Helper Functions
        ****************/
-		 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/26 - HOLDS ROTATION ON CLICK
-		  //$('.btn-floating').active(function() {
-		  // $(this).toggleClass('active');
-		  //});
-		 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
-		$(".collapsible-header").click(function() {
-		    if ($(this).hasClass("firstbox")) {
-			    if ($(".arrowtate.firstbox").hasClass("active")) {
-			    	$(".arrowtate.firstbox").removeClass("active");
-			   	} else {
-			   		$(".arrowtate.firstbox").toggleClass("active");
-			    	$(".arrowtate.secondbox").removeClass("active");
-			    	$(".arrowtate.thirdbox").removeClass("active");
-			    	$(".arrowtate.fourthbox").removeClass("active");
-			   	}
-		    }
-		    else if ($(this).hasClass("secondbox")) {
-			   	if ($(".arrowtate.secondbox").hasClass("active")) {
-			    	$(".arrowtate.secondbox").removeClass("active");
-			   	} else {
-			   		$(".arrowtate.secondbox").toggleClass("active");
-			    	$(".arrowtate.firstbox").removeClass("active");
-			    	$(".arrowtate.thirdbox").removeClass("active");
-			    	$(".arrowtate.fourthbox").removeClass("active");
-			   	}
-			}
-		    else if ($(this).hasClass("thirdbox")) {
-			   	if ($(".arrowtate.thirdbox").hasClass("active")) {
-			    	$(".arrowtate.thirdbox").removeClass("active");
-			   	} else {
-			   		$(".arrowtate.thirdbox").toggleClass("active");
-			    	$(".arrowtate.firstbox").removeClass("active");
-			    	$(".arrowtate.secondbox").removeClass("active");
-			    	$(".arrowtate.fourthbox").removeClass("active");
-			   	}
-			}
-		    else if ($(this).hasClass("fourthbox")) {
-			   	if ($(".arrowtate.fourthbox").hasClass("active")) {
-			    	$(".arrowtate.fourthbox").removeClass("active");
-			   	} else {
-			   		$(".arrowtate.fourthbox").toggleClass("active");
-			    	$(".arrowtate.firstbox").removeClass("active");
-			    	$(".arrowtate.secondbox").removeClass("active");
-			    	$(".arrowtate.thirdbox").removeClass("active");
-			   	}
-		    }
-		});
+
 
 		//JS FOR ELEMENT INITIALIZATION
 		$(document).ready(function(){
+			 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/26 - HOLDS ROTATION ON CLICK
+			  //$('.btn-floating').active(function() {
+			  // $(this).toggleClass('active');
+			  //});
+			 //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
+			var somenumber = 0;
+			$(".collapsible-header").click(function() {
+				somenumber++;
+				//console.log(somenumber);
+			    if ($(this).hasClass("firstbox")) {
+				    if ($(".arrowtate.firstbox").hasClass("active")) {
+				    	$(".arrowtate.firstbox").removeClass("active");
+				   	} else {
+				   		$(".arrowtate.firstbox").toggleClass("active");
+				   		if (somenumber <= 1) {
+				   			console.log(somenumber)
+							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
+								$.each(obj, function(key, value) {
+									$(".allbizlist").append("<li>"+value.name+"</li>");
+								});
+							})
+				   		};
+				    	$(".arrowtate.secondbox").removeClass("active");
+				    	$(".arrowtate.thirdbox").removeClass("active");
+				    	$(".arrowtate.fourthbox").removeClass("active");
+				   	}
+			    }
+			    else if ($(this).hasClass("secondbox")) {
+				   	if ($(".arrowtate.secondbox").hasClass("active")) {
+				    	$(".arrowtate.secondbox").removeClass("active");
+				   	} else {
+				   		$(".arrowtate.secondbox").toggleClass("active");
+				    	$(".arrowtate.firstbox").removeClass("active");
+				    	$(".arrowtate.thirdbox").removeClass("active");
+				    	$(".arrowtate.fourthbox").removeClass("active");
+				   	}
+				}
+			    else if ($(this).hasClass("thirdbox")) {
+				   	if ($(".arrowtate.thirdbox").hasClass("active")) {
+				    	$(".arrowtate.thirdbox").removeClass("active");
+				   	} else {
+				   		$(".arrowtate.thirdbox").toggleClass("active");
+				    	$(".arrowtate.firstbox").removeClass("active");
+				    	$(".arrowtate.secondbox").removeClass("active");
+				    	$(".arrowtate.fourthbox").removeClass("active");
+				   	}
+				}
+			    else if ($(this).hasClass("fourthbox")) {
+				   	if ($(".arrowtate.fourthbox").hasClass("active")) {
+				    	$(".arrowtate.fourthbox").removeClass("active");
+				   	} else {
+				   		$(".arrowtate.fourthbox").toggleClass("active");
+				    	$(".arrowtate.firstbox").removeClass("active");
+				    	$(".arrowtate.secondbox").removeClass("active");
+				    	$(".arrowtate.thirdbox").removeClass("active");
+				   	}
+			    }
+			});
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 
 			//------------------------MODAL INITIALIZATIONS------------------------//
