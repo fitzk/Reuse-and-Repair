@@ -2974,14 +2974,14 @@ td, th {
 
 /*GET FONT FOR ALPHABETICAL LISTING HEADER*/
 @font-face {
-  font-family: alphaheader;
+  font-family: alphaheaderfont;
   src: ../AdminUI/font/roboto(Roboto-Bold.ttf);
   font-weight: bold;
 }
 /*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
 td.alphaheader {
   padding-right: 15px;
-  font-family: alphaheader;
+  font-family: alphaheaderfont;
 }
 
 @media only screen and (max-width: 992px) {
