@@ -361,11 +361,11 @@ if ($) {
 									if (value.website == value.website) {
 										console.log(value.website);									
 									}
-									$(".allbizlist").append("<div class='collapsible-header'><tr>" + "<td>" + value.name + "</td>" + "<td>" + 
+									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
 										"</a></td>" + "<td>" + value.category + "</td>" + 
-										"<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" + "</tr></div>");
+										"<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" + "</tr>");
 								});
 							})
 
@@ -479,7 +479,7 @@ if ($) {
 
 
 
-			$('.firstbox').click(function() {
+			/*$('.firstbox').click(function() {
 				
 				$.ajax({ 
 					url: "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", 
@@ -496,7 +496,7 @@ if ($) {
 					}
 				});
 
-			});
+			});*/
 
 		});
 		
