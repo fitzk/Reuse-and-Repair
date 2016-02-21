@@ -385,7 +385,7 @@ if ($) {
 				   			$(".allbizlist").append("</thead>");*/
 				   		}
 				   		else if (somenumber > 1) {
-				   			$(".allbizlist").ajax.reload();
+				   			$(".allbizlist").reload();
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
