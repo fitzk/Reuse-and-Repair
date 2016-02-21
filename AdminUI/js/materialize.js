@@ -353,17 +353,6 @@ if ($) {
 				   	} else {
 				   		$(".arrowtate.firstbox").toggleClass("active");
 
-			   			$(".allbizlist").append("<thead>");
-			   				$(".allbizlist").append("<tr>");
-			   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
-			   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
-			   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
-			   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
-			   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
-			   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
-			   				$(".allbizlist").append("</tr>");
-			   			$(".allbizlist").append("</thead>");
-
 				   		if (somenumber <= 1) {
 				   			console.log(somenumber)
 				   			$(".allbizlist").append("<tbody>");
@@ -375,6 +364,17 @@ if ($) {
 								});
 							})
 							$(".allbizlist").append("</tbody>");
+
+			   				$(".allbizlist").append("<thead>");
+				   				$(".allbizlist").append("<tr>");
+				   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
+				   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
+				   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
+				   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
+				   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
+				   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
+				   				$(".allbizlist").append("</tr>");
+				   			$(".allbizlist").append("</thead>");
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
