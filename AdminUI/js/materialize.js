@@ -362,6 +362,7 @@ if ($) {
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
 									prevletter = firstletter;
+									console.log(prevletter);
 									firstletter = value.name.substring(0,1).toUpperCase();
 									//console.log(firstletter):
 									if (firstletter == prevletter) {
