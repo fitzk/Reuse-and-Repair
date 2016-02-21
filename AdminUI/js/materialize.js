@@ -385,10 +385,7 @@ if ($) {
 				   			$(".allbizlist").append("</thead>");*/
 				   		}
 				   		else if (somenumber > 1) {
-							$(".allbizlist").remove("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
-								value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-								", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
-								"</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
+							$(".allbizlist").empty();
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
