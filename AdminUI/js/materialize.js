@@ -359,8 +359,8 @@ if ($) {
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + 
-										"<td><a href=" + value.website + ">" + value.website + "</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
-									$(".allbizlist").append("<i class='material-icons arrowtate'>keyboard_arrow_right</i>");
+										"<td><a href=" + value.website + ">" + value.website + "</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + 
+										"<i class='material-icons arrowtate'>keyboard_arrow_right</i>" + "</tr>");
 								});
 							})
 							//$(".allbizlist").append("</tbody>");
