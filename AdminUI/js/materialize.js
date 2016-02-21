@@ -363,7 +363,7 @@ if ($) {
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
-										"</a></td>" + "<td>" + value.category + "</td>" + "<td><i class='material-icons secondary-content arrowtate firstbox'>keyboard_arrow_right</i></td>" +
+										"</a></td>" + "<td>" + value.category + "</td>" + "<td><i class='material-icons arrowtate firstbox'>keyboard_arrow_right</i></td>" +
 										"</tr>");
 								});
 							})
