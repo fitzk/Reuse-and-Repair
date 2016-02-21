@@ -6656,7 +6656,11 @@ nav ul a span.badge {
 .googleplay {
   max-width: 70%;
   max-height: 70%;
+}
 
+/*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
+.td.alphaheader {
+  padding-right: 2px;
 }
 
 /*THIS SECTION ADDED BY PHILIP TAN CS 419 WINTER 2016 - PROPER ROTATIONAL CONTROL OF ADD BUTTON: http://codepen.io/koenigsegg1/pen/KdmBOe*/
@@ -8692,9 +8696,6 @@ a.waves-effect .waves-ripple {
 }
 .bottom-sheet.addbussuccess .dismissit {
   float: right;
-}
-
-.datatable.bizlister {
 }
 
 .collapsible {
