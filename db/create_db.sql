@@ -3,7 +3,7 @@ USE reuse_and_repair_db;
 
 CREATE TABLE IF NOT EXISTS Subcategory
 (
-	subcategory_id VARCHAR (255) NOT NULL,
+	subcategory_id INT NOT NULL AUTO_INCREMENT,
 	subcategory_name VARCHAR (255) NOT NULL,
 	PRIMARY KEY (subcategory_id)
 
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Subcategory
 
 CREATE TABLE IF NOT EXISTS Category
 (
-  category_id VARCHAR (255) NOT NULL,
+  category_id INT NOT NULL AUTO_INCREMENT,
   category_name VARCHAR (255) NOT NULL,
 	PRIMARY KEY (category_id)
     
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Business
 (
 	business_id INT NOT NULL AUTO_INCREMENT,
 	business_name VARCHAR (255) NOT NULL,
-	fk_category_id VARCHAR (255),
+	fk_category_id INT,
 	fk_address_id INT,
 	phone VARCHAR (255),
 	description VARCHAR (255),
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Business_Subcategory
 (
 	id INT NOT NULL AUTO_INCREMENT,
 	fk_business_id INT NOT NULL,
-	fk_subcategory_id VARCHAR (255) NOT NULL,
+	fk_subcategory_id INT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (fk_business_id)
 		REFERENCES Business (business_id)
