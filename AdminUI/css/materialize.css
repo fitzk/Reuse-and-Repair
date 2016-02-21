@@ -8693,6 +8693,11 @@ a.waves-effect .waves-ripple {
 .bottom-sheet.addbussuccess .dismissit {
   float: right;
 }
+
+.datatable.bizlister {
+  width: 1280px;
+}
+
 .collapsible {
   border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
