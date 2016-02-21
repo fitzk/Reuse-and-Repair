@@ -360,7 +360,7 @@ if ($) {
 								$.each(obj, function(key, value) {
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + 
 										"<td><a href=" + value.website + ">" + value.website + "</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
-									$(".allbizlist").append("<i class='material-icons secondary-content arrowtate'>keyboard_arrow_right</i>");
+									$(".allbizlist").append("<i class='material-icons arrowtate'>keyboard_arrow_right</i>");
 								});
 							})
 							//$(".allbizlist").append("</tbody>");
