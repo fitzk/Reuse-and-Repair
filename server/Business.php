@@ -42,7 +42,7 @@ class Business implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'category' => $this->category,
+            'category' => $this->category->jsonSerialize(),
             'address' => $this->address->jsonSerialize(),
             'hours' => $this->hours->jsonSerialize(),
             'website' => $this->website

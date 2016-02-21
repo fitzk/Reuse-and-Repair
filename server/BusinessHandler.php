@@ -2,6 +2,7 @@
 include_once('Database.php');
 include_once('Handler.php');
 require_once('Business.php');
+require_once('Category.php');
 require_once('Address.php');
 require_once('Hours.php');
 require_once('AddressHandler.php');
@@ -73,16 +74,19 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                INNER JOIN reuse_and_repair_db.Category
+                ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
         $success = $prepared->execute();
         $all = $prepared->fetchAll();
 
         foreach ($all as $row) {
+          $category = new Category($row['category_id'],$row['category_name']);
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -100,6 +104,8 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                INNER JOIN reuse_and_repair_db.Category
+                ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 WHERE reuse_and_repair_db.Business.fk_category_id = ?
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
@@ -108,10 +114,11 @@ class BusinessHandler extends Handler
         $all = $prepared->fetchAll();
 
         foreach ($all as $row) {
+          $category = new Category($row['category_id'],$row['category_name']);
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -129,6 +136,8 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                INNER JOIN reuse_and_repair_db.Category
+                ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 WHERE reuse_and_repair_db.Business.business_id = ?
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
@@ -137,10 +146,11 @@ class BusinessHandler extends Handler
         $all = $prepared->fetchAll();
 
         foreach ($all as $row) {
+          $category = new Category($row['category_id'],$row['category_name']);
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -214,7 +224,7 @@ class BusinessHandler extends Handler
         if ($object['hours_entry'] != null)
           $business_info['hours']['hours_entry'] = $object['hours_entry'];
         if ($object['category_id'] != null)
-          $business_info['category'] = $object['category_id'];
+          $business_info['category']['category_id'] = $object['category_id'];
         if ($object['business_name'] != null)
           $business_info['name'] = $object['business_name'];
         if ($object['phone'] != null)
@@ -283,7 +293,7 @@ class BusinessHandler extends Handler
             WHERE reuse_and_repair_db.Business.business_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $business_info['name']);
-        $prepared->bindParam(2, $business_info['category']);
+        $prepared->bindParam(2, $business_info['category']['category_id']);
         $prepared->bindParam(3, $business_info['phone']);
         $prepared->bindParam(4, $business_info['description']);
         $prepared->bindParam(5, $business_info['website']);
@@ -371,6 +381,8 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
                 INNER JOIN reuse_and_repair_db.Business_Subcategory
                 ON reuse_and_repair_db.Business.business_id = reuse_and_repair_db.Business_Subcategory.fk_business_id
+                INNER JOIN reuse_and_repair_db.Category
+                ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 WHERE reuse_and_repair_db.Business.fk_category_id = ? AND reuse_and_repair_db.Business_Subcategory.fk_subcategory_id = ?
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
@@ -380,10 +392,11 @@ class BusinessHandler extends Handler
         $all = $prepared->fetchAll();
 
         foreach ($all as $row) {
+          $category = new Category($row['category_id'],$row['category_name']);
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
