@@ -358,7 +358,7 @@ if ($) {
 								$.each(obj, function(key, value) {
 
 									if (value.website == value.website) {
-										console.log("yes");									
+										console.log(value.website);									
 									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
