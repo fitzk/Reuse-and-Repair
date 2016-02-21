@@ -358,9 +358,18 @@ if ($) {
 				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
+									var website;
+									var address;
+
+									if (value.website == "null") {
+										website = "N/A";
+									}
+									else {
+										website == value.website;
+									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-										", " + value.address.zip + "</td>" + "<td>" + "NA" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
+										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + website + " target='_blank'>" + website + 
 										"</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
 								});
 							})
