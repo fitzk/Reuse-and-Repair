@@ -357,12 +357,12 @@ if ($) {
 
 				   			$(".allbizlist").append("<thead>");
 				   				$(".allbizlist").append("<tr>");
-				   					$(".allbizlist").append("<th data-field="Name">Name</th>");
-				   					$(".allbizlist").append("<th data-field="Address">Address</th>");
-				   					$(".allbizlist").append("<th data-field="Phone">Phone</th>");
-				   					$(".allbizlist").append("<th data-field="Website">Website</th>");
-				   					$(".allbizlist").append("<th data-field="Hours">Hours</th>");
-				   					$(".allbizlist").append("<th data-field="Category">Category</th>");
+				   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
+				   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
+				   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
+				   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
+				   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
+				   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
 				   				$(".allbizlist").append("</tr>");
 				   			$(".allbizlist").append("</thead>");
 
