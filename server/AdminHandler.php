@@ -99,7 +99,7 @@ class AdminHandler extends Handler
         
         // Delete admin
         $sql = "DELETE FROM reuse_and_repair_db.Admin
-          WHERE reuse_and_repair_db.Business.admin_id = ?;";
+          WHERE reuse_and_repair_db.Admin.admin_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $id);
         $success = $prepared->execute(); 
