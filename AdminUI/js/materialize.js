@@ -364,9 +364,6 @@ if ($) {
 									if (value.website == "null") {
 										website = "N/A";
 									}
-									else {
-										website == value.website;
-									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + website + " target='_blank'>" + website + 
