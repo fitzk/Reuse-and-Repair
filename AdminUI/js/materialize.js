@@ -359,9 +359,11 @@ if ($) {
 								$.each(obj, function(key, value) {
 									biznum++;
 									if (value.website == value.website) {
-										console.log(value.website);									
+										//console.log(value.website);									
 									}
-									$(".allbizlist").append("<tr class='clickable-row'>" + "<td>" + value.name + "</td>" + "<td>" + 
+									var bizname = value.name;
+									console.log(bizname);
+									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
 										"</a></td>" + "<td>" + value.category + "</td>" + 
