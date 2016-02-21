@@ -2972,6 +2972,11 @@ td, th {
   border-radius: 2px;
 }
 
+/*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
+td.alphaheader {
+  padding-right: 7px;
+}
+
 @media only screen and (max-width: 992px) {
   table.responsive-table {
     width: 100%;
@@ -6656,11 +6661,6 @@ nav ul a span.badge {
 .googleplay {
   max-width: 70%;
   max-height: 70%;
-}
-
-/*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
-.td.alphaheader {
-  padding-right: 2px;
 }
 
 /*THIS SECTION ADDED BY PHILIP TAN CS 419 WINTER 2016 - PROPER ROTATIONAL CONTROL OF ADD BUTTON: http://codepen.io/koenigsegg1/pen/KdmBOe*/
