@@ -352,33 +352,29 @@ if ($) {
 				    	$(".arrowtate.firstbox").removeClass("active");
 				   	} else {
 				   		$(".arrowtate.firstbox").toggleClass("active");
+
+			   			$(".allbizlist").append("<thead>");
+			   				$(".allbizlist").append("<tr>");
+			   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
+			   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
+			   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
+			   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
+			   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
+			   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
+			   				$(".allbizlist").append("</tr>");
+			   			$(".allbizlist").append("</thead>");
+
 				   		if (somenumber <= 1) {
 				   			console.log(somenumber)
-
-
-
 				   			$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + "<td>" 
-										+ value.website + "</td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
+										+ value.website + "</td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>
+										<i class='material-icons arrowtate firstbox'>keyboard_arrow_right</i>");
 								});
 							})
-							$(".allbizlist").append("<i class='material-icons arrowtate firstbox'>keyboard_arrow_right</i>");
 							$(".allbizlist").append("</tbody>");
-
-				   			$(".allbizlist").append("<thead>");
-				   				$(".allbizlist").append("<tr>");
-				   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
-				   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
-				   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
-				   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
-				   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
-				   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
-				   				$(".allbizlist").append("</tr>");
-				   			$(".allbizlist").append("</thead>");
-
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
