@@ -44,12 +44,12 @@ $app->PUT('/categories', function (Application $app, Request $request) {
 });
 
 // Update category
-$app->POST('/categories/{category}', function (Application $app, Request $request, $category) {
+$app->POST('/categories/{category_id}', function (Application $app, Request $request, $category_id) {
 
     //authenticate();
 
     $object = array(
-      'category' => $category,
+      'category_id' => $category_id,
       'new_category' => $request->get('category_name')
     );
     
@@ -60,12 +60,12 @@ $app->POST('/categories/{category}', function (Application $app, Request $reques
 });
 
 // Destroy category
-$app->DELETE('/categories/{category}', function (Application $app, Request $request, $category) {
+$app->DELETE('/categories/{category_id}', function (Application $app, Request $request, $category_id) {
 
     //authenticate();
     
     $handler = New CategoryHandler();
-    $result = $handler->delete($category);
+    $result = $handler->delete($category_id);
     
     return new Response($result['message'], $result['status_code']);
 });
@@ -82,10 +82,10 @@ $app->GET('/subcategories', function (Application $app, Request $request) {
 });
 
 // Get subcategories by categories
-$app->GET('/subcategories/category/{category}', function (Application $app, Request $request, $category) {
+$app->GET('/subcategories/category/{category_id}', function (Application $app, Request $request, $category_id) {
     
     $handler = New SubcategoryHandler();
-    $result = $handler->getByCategory($category);
+    $result = $handler->getByCategory($category_id);
 
     return new Response($result, 200);
 });
@@ -111,12 +111,12 @@ $app->PUT('/subcategories', function (Application $app, Request $request) {
 });
 
 // Update subcategory
-$app->POST('/subcategories/{subcategory}', function (Application $app, Request $request, $subcategory) {
+$app->POST('/subcategories/{subcategory_id}', function (Application $app, Request $request, $subcategory_id) {
     
     //authenticate();
 
     $object = array(
-      'subcategory' => $subcategory,
+      'subcategory_id' => $subcategory_id,
       'new_subcategory' => $request->get('subcategory_name')
     );
     
@@ -127,12 +127,12 @@ $app->POST('/subcategories/{subcategory}', function (Application $app, Request $
 });
 
 // Delete subcategory
-$app->DELETE('/subcategories/{subcategory}', function (Application $app, Request $request, $subcategory) {
+$app->DELETE('/subcategories/{subcategory_id}', function (Application $app, Request $request, $subcategory_id) {
 
     //authenticate();
     
     $handler = New SubcategoryHandler();
-    $result = $handler->delete($subcategory);
+    $result = $handler->delete($subcategory_id);
     
     return new Response($result['message'], $result['status_code']);
 });
@@ -149,10 +149,23 @@ $app->GET('/businesses', function (Application $app, Request $request) {
 });
 
 // Get businesses by category
-$app->GET('/businesses/category/{category}', function (Application $app, Request $request, $category) {
+$app->GET('/businesses/category/{category_id}', function (Application $app, Request $request, $category_id) {
 
     $handler = New BusinessHandler();
-    $result = $handler->getByCategory($category);
+    $result = $handler->getByCategory($category_id);
+
+    return new Response($result, 200);
+});
+
+// Get businesses by category and subcategory
+$app->GET('/businesses/category/{category_id}/subcategory/{subcategory_id}', function (Application $app, Request $request, $category_id, $subcategory_id) {
+    $object = array(
+      'category_id' => $category_id,
+      'subcategory_id' => $subcategory_id
+    );
+    
+    $handler = New BusinessHandler();
+    $result = $handler->getByCategoryAndSubcategory($object);
 
     return new Response($result, 200);
 });
@@ -169,8 +182,8 @@ $app->PUT('/businesses', function (Application $app, Request $request) {
       'state' => $request->get('state'),
       'zip' => $request->get('zip'),
       'hours_entry' => $request->get('hours_entry'),
-      'category_name' => $request->get('category_name'),
-      'name' => $request->get('name'),
+      'category_id' => $request->get('category_id'),
+      'business_name' => $request->get('business_name'),
       'phone' => $request->get('phone'),
       'description' => $request->get('description'),
       'website' => $request->get('website'),
@@ -205,8 +218,8 @@ $app->POST('/businesses/{business_id}', function (Application $app, Request $req
       'state' => $request->get('state'),
       'zip' => $request->get('zip'),
       'hours_entry' => $request->get('hours_entry'),
-      'category_name' => $request->get('category_name'),
-      'name' => $request->get('name'),
+      'category_id' => $request->get('category_id'),
+      'business_name' => $request->get('business_name'),
       'phone' => $request->get('phone'),
       'description' => $request->get('description'),
       'website' => $request->get('website'),
@@ -215,7 +228,7 @@ $app->POST('/businesses/{business_id}', function (Application $app, Request $req
 
     $handler = New BusinessHandler();
     $result = $handler->update($object);
-    //return new Response($result, 200);
+
     return new Response($result['message'], $result['status_code']);
 });
 
@@ -228,6 +241,55 @@ $app->DELETE('/businesses/{business_id}', function (Application $app, Request $r
     $handler = New BusinessHandler();
     $result = $handler->delete($business_id);
   
+    return new Response($result['message'], $result['status_code']);
+});
+
+
+// Add subcategory to business
+$app->PUT('/businesses/{business_id}/subcategory/{subcategory_id}', function (Application $app, Request $request, $business_id, $subcategory_id) {
+
+    //authenicate();
+    
+    $object = array(
+      'business_id' => $business_id,
+      'subcategory_id' => $subcategory_id
+    );
+
+    $handler = New BusinessHandler();
+    $result = $handler->addSubcategory($object);
+
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Destroy subcategory from business
+$app->DELETE('/businesses/{business_id}/subcategory/{subcategory_id}', function (Application $app, Request $request, $business_id, $subcategory_id) {
+
+    //authenticate();
+
+    $object = array(
+      'business_id' => $business_id,
+      'subcategory_id' => $subcategory_id
+    );
+    
+    $handler = New BusinessHandler();
+    $result = $handler->deleteSubcategory($object);
+  
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Update all subcategories to business
+$app->POST('/businesses/{business_id}/subcategory', function (Application $app, Request $request, $business_id) {
+
+    //authenicate();
+ 
+    $object = array(
+      'business_id' => $business_id,
+      'subcategories' => $request->get('subcategories')
+    );
+
+    $handler = New BusinessHandler();
+    $result = $handler->addAllSubcategories($object);
+    
     return new Response($result['message'], $result['status_code']);
 });
 
