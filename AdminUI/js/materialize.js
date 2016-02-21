@@ -365,7 +365,7 @@ if ($) {
 							})
 							$(".allbizlist").append("</tbody>");
 
-			   				$(".allbizlist").append("<thead>");
+			   				/*$(".allbizlist").append("<thead>");
 				   				$(".allbizlist").append("<tr>");
 				   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
 				   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
@@ -374,7 +374,7 @@ if ($) {
 				   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
 				   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
 				   				$(".allbizlist").append("</tr>");
-				   			$(".allbizlist").append("</thead>");
+				   			$(".allbizlist").append("</thead>");*/
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
