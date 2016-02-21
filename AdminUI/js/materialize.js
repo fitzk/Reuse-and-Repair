@@ -353,6 +353,7 @@ if ($) {
 				   	} else {
 				   		$(".arrowtate.firstbox").toggleClass("active");
 
+				   		//LOGIC TO PULL IN DATABASE ENTRIES AND DISPLAY THEM
 				   		if (somenumber <= 1) {
 				   			var biznum = 0;
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {

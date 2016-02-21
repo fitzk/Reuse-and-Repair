@@ -2972,9 +2972,16 @@ td, th {
   border-radius: 2px;
 }
 
+/*GET FONT FOR ALPHABETICAL LISTING HEADER*/
+@font-face {
+  font-family: alphaheader;
+  src: ../AdminUI/font/roboto(Roboto-Bold.ttf);
+  font-weight: bold;
+}
 /*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
 td.alphaheader {
-  padding-right: 7px;
+  padding-right: 15px;
+  font-family: alphaheader;
 }
 
 @media only screen and (max-width: 992px) {
