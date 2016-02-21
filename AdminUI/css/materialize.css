@@ -2974,8 +2974,8 @@ td, th {
 
 /*GET FONT FOR ALPHABETICAL LISTING HEADER*/
 @font-face {
-  font-family: alphaheaderfont;
-  src: ../AdminUI/font/roboto(Roboto-Bold.ttf);
+  font-family: "alphaheaderfont";
+  src: url(../font/roboto/Roboto-Bold.ttf);
   font-weight: bold;
 }
 /*ADD SPACING TO ALPHABETICAL LISTING HEADER*/
