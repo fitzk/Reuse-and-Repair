@@ -375,6 +375,7 @@ if ($) {
 								});
 							})
 							$(".allbizlist").append("</tbody>");
+							$(".allbizlist").append("<i class='material-icons secondary-content arrowtate firstbox'>keyboard_arrow_right</i>");
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
