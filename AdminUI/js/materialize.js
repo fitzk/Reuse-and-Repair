@@ -374,8 +374,9 @@ if ($) {
 										+ value.website + "</td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
 								});
 							})
-							$(".allbizlist").append("</tbody>");
 							$(".allbizlist").append("<i class='material-icons secondary-content arrowtate firstbox'>keyboard_arrow_right</i>");
+							$(".allbizlist").append("</tbody>");
+
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
