@@ -355,7 +355,7 @@ if ($) {
 
 				   		if (somenumber <= 1) {
 				   			console.log(somenumber)
-				   			$(".allbizlist").append("<tbody>");
+				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + "<td>" 
@@ -363,7 +363,7 @@ if ($) {
 										"<i class='material-icons arrowtate'>keyboard_arrow_right</i>");
 								});
 							})
-							$(".allbizlist").append("</tbody>");
+							//$(".allbizlist").append("</tbody>");
 
 			   				/*$(".allbizlist").append("<thead>");
 				   				$(".allbizlist").append("<tr>");
