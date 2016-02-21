@@ -2,8 +2,9 @@
 require_once __DIR__ .'/../vendor/autoload.php';
 
 require('../server/CategoryHandler.php');
-require('../server/BusinessHandler.php');
 require('../server/SubcategoryHandler.php');
+require('../server/BusinessHandler.php');
+require('../server/AdminHandler.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -232,7 +233,6 @@ $app->POST('/businesses/{business_id}', function (Application $app, Request $req
     return new Response($result['message'], $result['status_code']);
 });
 
-
 // Destroy business
 $app->DELETE('/businesses/{business_id}', function (Application $app, Request $request, $business_id) {
 
@@ -292,6 +292,117 @@ $app->POST('/businesses/{business_id}/subcategory', function (Application $app, 
     
     return new Response($result['message'], $result['status_code']);
 });
+
+// Admin routes
+// All admin users
+$app->GET('/admin', function (Application $app, Request $request) {
+    
+    $handler = New AdminHandler();
+    $result = $handler->getAll();
+
+    return new Response($result, 200);
+});
+
+// Get admin by id
+$app->GET('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
+    
+    $handler = New AdminHandler();
+    $result = $handler->get($admin_id);
+
+    return new Response($result, 200);
+});
+
+// Create admin
+$app->PUT('/admin', function (Application $app, Request $request) {
+    
+    //authenticate();
+
+    $object = array(
+      'username' => $request->get('username'),
+      'password' => $request->get('password'),
+      'first_name' => $request->get('first_name'),
+      'last_name' => $request->get('last_name'),
+      'website' => $request->get('website'),
+      'role_id' => $request->get('role_id')
+    );
+    
+    $handler = New AdminHandler();
+    $result = $handler->add($object);
+    
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Update admin
+$app->POST('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
+    
+    //authenticate();
+
+    $object = array(
+      'admin_id' => $admin_id,
+      'username' => $request->get('username'),
+      'first_name' => $request->get('first_name'),
+      'last_name' => $request->get('last_name'),
+      'website' => $request->get('website')
+    );
+    
+    $handler = New AdminHandler();
+    $result = $handler->update($object);
+    
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Update role
+$app->POST('/admin/{admin_id}/role', function (Application $app, Request $request, $admin_id) {
+    
+    //authenticate();
+
+    $object = array(
+      'admin_id' => $admin_id,
+      'role_id' => $request->get('role_id')
+    );
+    
+    $handler = New AdminHandler();
+    $result = $handler->updateRole($object);
+    
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Update password
+$app->POST('/admin/{admin_id}/password', function (Application $app, Request $request, $admin_id) {
+    
+    //authenticate();
+
+    $object = array(
+      'admin_id' => $admin_id,
+      'password' => $request->get('password')
+    );
+    
+    $handler = New AdminHandler();
+    $result = $handler->updatePassword($object);
+    
+    return new Response($result['message'], $result['status_code']);
+});
+
+// Delete admin
+$app->DELETE('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
+
+    //authenticate();
+    
+    $handler = New AdminHandler();
+    $result = $handler->delete($admin_id);
+    
+    return new Response($result['message'], $result['status_code']);
+});
+
+
+
+
+
+
+
+
+
+
 
 // optional geolocation in body
 $app->GET('/businesses/{category}/{subcategory}', function (Application $app, Request $request, $subcategory) {
