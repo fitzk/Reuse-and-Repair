@@ -358,11 +358,11 @@ if ($) {
 				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									var website = value.website;
+									//var website = value.website;
 
-									var address;
+									//var address;
 
-									if (website === "null") {
+									if (value.website === "null") {
 										console.log(value.name);									
 									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
