@@ -5,6 +5,7 @@ require('../server/CategoryHandler.php');
 require('../server/SubcategoryHandler.php');
 require('../server/BusinessHandler.php');
 require('../server/AdminHandler.php');
+require('../server/Authentication.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,8 @@ $app->GET('/categories', function (Application $app, Request $request) {
 // Create category
 $app->PUT('/categories', function (Application $app, Request $request) {
     
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New CategoryHandler();
     $result = $handler->add($request->get('category_name'));
@@ -47,7 +49,8 @@ $app->PUT('/categories', function (Application $app, Request $request) {
 // Update category
 $app->POST('/categories/{category_id}', function (Application $app, Request $request, $category_id) {
 
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'category_id' => $category_id,
@@ -63,7 +66,8 @@ $app->POST('/categories/{category_id}', function (Application $app, Request $req
 // Destroy category
 $app->DELETE('/categories/{category_id}', function (Application $app, Request $request, $category_id) {
 
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New CategoryHandler();
     $result = $handler->delete($category_id);
@@ -103,7 +107,8 @@ $app->GET('/subcategories/business/{business_id}', function (Application $app, R
 // Create subcategory
 $app->PUT('/subcategories', function (Application $app, Request $request) {
     
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New SubcategoryHandler();
     $result = $handler->add($request->get('subcategory_name'));
@@ -114,7 +119,8 @@ $app->PUT('/subcategories', function (Application $app, Request $request) {
 // Update subcategory
 $app->POST('/subcategories/{subcategory_id}', function (Application $app, Request $request, $subcategory_id) {
     
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'subcategory_id' => $subcategory_id,
@@ -130,7 +136,8 @@ $app->POST('/subcategories/{subcategory_id}', function (Application $app, Reques
 // Delete subcategory
 $app->DELETE('/subcategories/{subcategory_id}', function (Application $app, Request $request, $subcategory_id) {
 
-    //authenticate();
+    if(!authenticate('2', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New SubcategoryHandler();
     $result = $handler->delete($subcategory_id);
@@ -174,7 +181,8 @@ $app->GET('/businesses/category/{category_id}/subcategory/{subcategory_id}', fun
 // Create business
 $app->PUT('/businesses', function (Application $app, Request $request) {
 
-    //authenicate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
     
     $object = array(
       'street_number' => $request->get('street_number'),
@@ -209,7 +217,8 @@ $app->GET('/businesses/{business_id}', function (Application $app, Request $requ
 // Update business
 $app->POST('/businesses/{business_id}', function (Application $app, Request $request, $business_id) {
 
-    //authenicate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
     
     $object = array(
       'business_id' => $business_id,
@@ -236,7 +245,8 @@ $app->POST('/businesses/{business_id}', function (Application $app, Request $req
 // Destroy business
 $app->DELETE('/businesses/{business_id}', function (Application $app, Request $request, $business_id) {
 
-    //authenticate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New BusinessHandler();
     $result = $handler->delete($business_id);
@@ -248,7 +258,8 @@ $app->DELETE('/businesses/{business_id}', function (Application $app, Request $r
 // Add subcategory to business
 $app->PUT('/businesses/{business_id}/subcategory/{subcategory_id}', function (Application $app, Request $request, $business_id, $subcategory_id) {
 
-    //authenicate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
     
     $object = array(
       'business_id' => $business_id,
@@ -264,7 +275,8 @@ $app->PUT('/businesses/{business_id}/subcategory/{subcategory_id}', function (Ap
 // Destroy subcategory from business
 $app->DELETE('/businesses/{business_id}/subcategory/{subcategory_id}', function (Application $app, Request $request, $business_id, $subcategory_id) {
 
-    //authenticate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'business_id' => $business_id,
@@ -280,7 +292,8 @@ $app->DELETE('/businesses/{business_id}/subcategory/{subcategory_id}', function 
 // Update all subcategories to business
 $app->POST('/businesses/{business_id}/subcategory', function (Application $app, Request $request, $business_id) {
 
-    //authenicate();
+    if(!authenticate('3', null))
+      return new Response('Unauthorized', 401);
  
     $object = array(
       'business_id' => $business_id,
@@ -293,10 +306,14 @@ $app->POST('/businesses/{business_id}/subcategory', function (Application $app, 
     return new Response($result['message'], $result['status_code']);
 });
 
+
 // Admin routes
 // All admin users
 $app->GET('/admin', function (Application $app, Request $request) {
-    
+
+    if(!authenticate('1', null))
+      return new Response('Unauthorized', 401);
+      
     $handler = New AdminHandler();
     $result = $handler->getAll();
 
@@ -305,7 +322,10 @@ $app->GET('/admin', function (Application $app, Request $request) {
 
 // Get admin by id
 $app->GET('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
-    
+
+    if(!authenticate('1', null))
+      return new Response('Unauthorized', 401);
+       
     $handler = New AdminHandler();
     $result = $handler->get($admin_id);
 
@@ -315,7 +335,8 @@ $app->GET('/admin/{admin_id}', function (Application $app, Request $request, $ad
 // Create admin
 $app->PUT('/admin', function (Application $app, Request $request) {
     
-    //authenticate();
+    if(!authenticate('1', null))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'username' => $request->get('username'),
@@ -335,7 +356,8 @@ $app->PUT('/admin', function (Application $app, Request $request) {
 // Update admin
 $app->POST('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
     
-    //authenticate();
+    if(!authenticate('user', $admin_id))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'admin_id' => $admin_id,
@@ -354,7 +376,8 @@ $app->POST('/admin/{admin_id}', function (Application $app, Request $request, $a
 // Update role
 $app->POST('/admin/{admin_id}/role', function (Application $app, Request $request, $admin_id) {
     
-    //authenticate();
+    if(!authenticate('1', null))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'admin_id' => $admin_id,
@@ -370,7 +393,8 @@ $app->POST('/admin/{admin_id}/role', function (Application $app, Request $reques
 // Update password
 $app->POST('/admin/{admin_id}/password', function (Application $app, Request $request, $admin_id) {
     
-    //authenticate();
+    if(!authenticate('user', $admin_id))
+      return new Response('Unauthorized', 401);
 
     $object = array(
       'admin_id' => $admin_id,
@@ -386,21 +410,14 @@ $app->POST('/admin/{admin_id}/password', function (Application $app, Request $re
 // Delete admin
 $app->DELETE('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
 
-    //authenticate();
+    if(!authenticate('1', null))
+      return new Response('Unauthorized', 401);
     
     $handler = New AdminHandler();
     $result = $handler->delete($admin_id);
     
     return new Response($result['message'], $result['status_code']);
 });
-
-
-
-
-
-
-
-
 
 
 
