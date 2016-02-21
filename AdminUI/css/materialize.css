@@ -2981,9 +2981,9 @@ td, th {
 
 /*ADDED BY PHILIP TAN CS 419 WINTER 2016 2/21 ADD SPACING TO ALPHABETICAL LISTING HEADER*/
 td.alphaheader {
-  padding-right: 15px;
+  padding-right: 20px;
   font-family: alphaheaderfont;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 @media only screen and (max-width: 992px) {
