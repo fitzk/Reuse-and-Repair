@@ -363,7 +363,7 @@ if ($) {
 									//var address;
 
 									if (value.website === "null") {
-										console.log(value.name);									
+										console.log("yes");									
 									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
