@@ -385,8 +385,7 @@ if ($) {
 				   			$(".allbizlist").append("</thead>");*/
 				   		}
 				   		else if (somenumber > 1) {
-				   			var table = $(".allbizlist").DataTable();
-				   			table.ajax.reload();
+				   			$(".allbizlist").ajax.reload();
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
