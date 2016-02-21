@@ -358,8 +358,8 @@ if ($) {
 				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + "<a><td>" 
-										+ value.website + "</td></a>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
+									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address + "</td>" + "<td>" + "NA" + "</td>" + "<td><a>" 
+										+ value.website + "</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
 								});
 							})
 							//$(".allbizlist").append("</tbody>");
