@@ -6654,10 +6654,9 @@ nav ul a span.badge {
 
 /*RESIZE GOOGLE PLAY LINK*/
 .googleplay {
-  max-width: 80%;
-  max-height: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
+  max-height: 100%;
+
 }
 
 /*THIS SECTION ADDED BY PHILIP TAN CS 419 WINTER 2016 - PROPER ROTATIONAL CONTROL OF ADD BUTTON: http://codepen.io/koenigsegg1/pen/KdmBOe*/
