@@ -354,16 +354,17 @@ if ($) {
 				   		$(".arrowtate.firstbox").toggleClass("active");
 
 				   		if (somenumber <= 1) {
-				   			console.log(somenumber)
+				   			//console.log(somenumber)
 				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									var website;
+									var website == value.website;
+
 									var address;
 
-									//if (value === "null") {
-									//	website = "N/A";
-									//}
+									if (website === "null") {
+										console.log(value.name);									
+									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
