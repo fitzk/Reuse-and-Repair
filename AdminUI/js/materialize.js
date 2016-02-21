@@ -354,15 +354,10 @@ if ($) {
 				   		$(".arrowtate.firstbox").toggleClass("active");
 
 				   		if (somenumber <= 1) {
-				   			//console.log(somenumber)
-				   			//$(".allbizlist").append("<tbody>");
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									//var website = value.website;
 
-									//var address;
-
-									if (value.website == "null") {
+									if (value.website == value.website) {
 										console.log("yes");									
 									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
@@ -371,29 +366,10 @@ if ($) {
 										"</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
 								});
 							})
-							//$(".allbizlist").append("</tbody>");
 
-			   				/*$(".allbizlist").append("<thead>");
-				   				$(".allbizlist").append("<tr>");
-				   					$(".allbizlist").append("<th data-field='Name'>Name</th>");
-				   					$(".allbizlist").append("<th data-field='Address'>Address</th>");
-				   					$(".allbizlist").append("<th data-field='Phone'>Phone</th>");
-				   					$(".allbizlist").append("<th data-field='Website'>Website</th>");
-				   					$(".allbizlist").append("<th data-field='Hours'>Hours</th>");
-				   					$(".allbizlist").append("<th data-field='Category'>Category</th>");
-				   				$(".allbizlist").append("</tr>");
-				   			$(".allbizlist").append("</thead>");*/
 				   		}
 				   		else if (somenumber > 1) {
-							$(".allbizlist").empty();
-							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
-								$.each(obj, function(key, value) {
-									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
-										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-										", " + value.address.zip + "</td>" + "<td>" + "N/A" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
-										"</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
-								});
-							})
+
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
