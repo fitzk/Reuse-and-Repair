@@ -360,7 +360,7 @@ if ($) {
 								$.each(obj, function(key, value) {
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + value.address.address_id + 
 										value.address.street_number + value.address.street_name + value.address.city + value.address.state + 
-										value.address.zip"</td>" + "<td>" + "NA" + "</td>" + "<td><a href=" + value.website + ">" + value.website + 
+										value.address.zip + "</td>" + "<td>" + "NA" + "</td>" + "<td><a href=" + value.website + ">" + value.website + 
 										"</a></td>" + "<td>" + value.hours + "</td>" + "<td>" + value.category + "</td>" + "</tr>");
 								});
 							})
