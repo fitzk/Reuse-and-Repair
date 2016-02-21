@@ -15,7 +15,7 @@ class CategoryHandler extends Handler
      * @param $id
      * @return boolean
      */
-    private function categoryExist($id)
+    private function categoryExistById($id)
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Category
             WHERE reuse_and_repair_db.Category.category_id = ?;";
@@ -26,6 +26,21 @@ class CategoryHandler extends Handler
         return ($prepared->rowCount() > 0 ? true : false);
     }
 
+    /**
+     * @param $id
+     * @return boolean
+     */
+    private function categoryExistByName($name)
+    {
+        $sql = "SELECT * FROM reuse_and_repair_db.Category
+            WHERE reuse_and_repair_db.Category.category_name = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $name);
+        $success = $prepared->execute();
+
+        return ($prepared->rowCount() > 0 ? true : false);
+    }
+    
     /*
      * getAll
      * @param recursive - if true return all nested objects, else return
@@ -63,7 +78,7 @@ class CategoryHandler extends Handler
     public function delete($id)
     {
         // Check if category exists
-        if (!$this->categoryExist($id))
+        if (!$this->categoryExistById($id))
           return ['message' => 'Category does not exist', 'status_code' => 404];
 
         // Delete subcategory
@@ -88,21 +103,20 @@ class CategoryHandler extends Handler
           return ['message' => 'Invalid parameter', 'status_code' => 400];
 
         // Check if category exists
-        if (!$this->categoryExist($object['category']))
+        if (!$this->categoryExistById($object['category_id']))
           return ['message' => 'Category does not exist', 'status_code' => 404];
 
         // Check if new category exists
-        if ($this->categoryExist($object['new_category']))
+        if ($this->categoryExistByName($object['new_category']))
           return ['message' => 'New category already exists', 'status_code' => 409];
 
         // Update category
         $sql = "UPDATE reuse_and_repair_db.Category
-            SET reuse_and_repair_db.Category.category_id = ?, reuse_and_repair_db.Category.category_name = ?
+            SET reuse_and_repair_db.Category.category_name = ?
             WHERE reuse_and_repair_db.Category.category_id = ?;";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $object['new_category']);
-        $prepared->bindParam(2, $object['new_category']);
-        $prepared->bindParam(3, $object['category']);
+        $prepared->bindParam(2, $object['category_id']);
         $success = $prepared->execute();
 
         if ($success)
@@ -114,20 +128,19 @@ class CategoryHandler extends Handler
     /**
      * @return string
      */
-    public function add($id)
+    public function add($name)
     {
-        if ($id == null)
+        if ($name == null)
           return ['message' => 'Invalid parameter', 'status_code' => 400];
 
         // Check if category exists
-        if ($this->categoryExist($id))
+        if ($this->categoryExistByName($name))
           return ['message' => 'Category already exists', 'status_code' => 400];
 
         // Create category
-        $sql = "INSERT INTO reuse_and_repair_db.Category (category_id, category_name) VALUES (?, ?);";
+        $sql = "INSERT INTO reuse_and_repair_db.Category (category_name) VALUES (?);";
         $prepared = $this->db->link->prepare($sql);
-        $prepared->bindParam(1, $id);
-        $prepared->bindParam(2, $id);
+        $prepared->bindParam(1, $name);
         $success = $prepared->execute();
 
         if ($success)

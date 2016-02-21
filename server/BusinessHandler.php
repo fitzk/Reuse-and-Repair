@@ -30,6 +30,21 @@ class BusinessHandler extends Handler
     }
     
     /**
+     * @param $id
+     * @return boolean
+     */  
+    private function subcategoryExist($id)
+    {
+        $sql = "SELECT * FROM reuse_and_repair_db.Subcategory
+        	WHERE reuse_and_repair_db.Subcategory.subcategory_id = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $id);
+        $success = $prepared->execute();
+
+        return ($prepared->rowCount() > 0 ? true : false);
+    }
+    
+    /**
      * @param $object
      * @return string
      */  
@@ -78,7 +93,7 @@ class BusinessHandler extends Handler
      * @param $category
      * @return string
      */
-    public function getByCategory($category)
+    public function getByCategory($category_id)
     {
         $sql = "SELECT * FROM reuse_and_repair_db.Business
                 LEFT JOIN reuse_and_repair_db.Address
@@ -88,7 +103,7 @@ class BusinessHandler extends Handler
                 WHERE reuse_and_repair_db.Business.fk_category_id = ?
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
-        $prepared->bindParam(1, $category);
+        $prepared->bindParam(1, $category_id);
         $success = $prepared->execute();
         $all = $prepared->fetchAll();
 
@@ -178,7 +193,6 @@ class BusinessHandler extends Handler
     public function update($object)
     {
         // Check if business exists
-
         if (!$this->businessExist($object['business_id']))
           return ['message' => 'Business does not exist', 'status_code' => 404];
 
@@ -289,7 +303,7 @@ class BusinessHandler extends Handler
      */
     public function add($object)
     {
-        if ($object['business_name'] == null || $object['category_name'] == null)
+        if ($object['business_name'] == null || $object['category_id'] == null)
           return ['message' => 'Invalid parameter', 'status_code' => 400];
     
         // Get geolocation
@@ -330,7 +344,7 @@ class BusinessHandler extends Handler
         $sql = $sql."?);";
 
         $prepared = $this->db->link->prepare($sql);
-        $prepared->bindParam(1, $object['category_name']);
+        $prepared->bindParam(1, $object['category_id']);
         $prepared->bindParam(2, $object['business_name']);
         $prepared->bindParam(3, $object['phone']);
         $prepared->bindParam(4, $object['description']);
@@ -341,5 +355,129 @@ class BusinessHandler extends Handler
             return ['message' => 'Created', 'status_code' => 201];
         else
             return ['message' => 'Fail', 'status_code' => 400];
+    }
+    
+    /**
+     * Get a businesses by category_id subcategory_id
+     * @param $object
+     * @return string
+     */
+    public function getByCategoryAndSubcategory($object)
+    {
+        $sql = "SELECT * FROM reuse_and_repair_db.Business
+                LEFT JOIN reuse_and_repair_db.Address
+                ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
+                LEFT JOIN reuse_and_repair_db.Hours
+                ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
+                INNER JOIN reuse_and_repair_db.Business_Subcategory
+                ON reuse_and_repair_db.Business.business_id = reuse_and_repair_db.Business_Subcategory.fk_business_id
+                WHERE reuse_and_repair_db.Business.fk_category_id = ? AND reuse_and_repair_db.Business_Subcategory.fk_subcategory_id = ?
+                ORDER BY reuse_and_repair_db.Business.business_name;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['category_id']);
+        $prepared->bindParam(2, $object['subcategory_id']);
+        $success = $prepared->execute();
+        $all = $prepared->fetchAll();
+
+        foreach ($all as $row) {
+          $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
+          $hours = new Hours($row['hours_id'],$row['hours_entry']);
+          // $id, $category, $name, $address, $hours, $website
+          $business = new Business($row['business_id'],$row['fk_category_id'],$row['business_name'],$address,$hours,$row['website']);
+          $this->results[]= $business->jsonSerialize();
+        }
+        return $this->getJSON();
+    } 
+    
+    /**
+     * @return string
+     */
+    public function addSubcategory($object)
+    {
+        // Check if business exists
+        if (!$this->businessExist($object['business_id']))
+          return ['message' => 'Business does not exist', 'status_code' => 404];
+          
+        // Check if subcategory exists
+        if (!$this->subcategoryExist($object['subcategory_id']))
+          return ['message' => 'Subcategory does not exist', 'status_code' => 404];
+                 
+        // Add subcategory to business
+        $sql = "INSERT INTO reuse_and_repair_db.Business_Subcategory (fk_business_id, fk_subcategory_id)
+          VALUES (?, ?);";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['business_id']);
+        $prepared->bindParam(2, $object['subcategory_id']);
+        $success = $prepared->execute();
+
+        if ($success)
+          return ['message' => 'Success', 'status_code' => 200];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
+    }
+    
+    /**
+     * @return string
+     */
+    public function deleteSubcategory($object)
+    {
+        // Check if business exists
+        if (!$this->businessExist($object['business_id']))
+          return ['message' => 'Business does not exist', 'status_code' => 404];
+        
+        // Check if subcategory exists
+        if (!$this->subcategoryExist($object['subcategory_id']))
+          return ['message' => 'Subcategory does not exist', 'status_code' => 404];
+            
+        // Delete subcategory to business
+        $sql = "DELETE FROM reuse_and_repair_db.Business_Subcategory
+          WHERE reuse_and_repair_db.Business_Subcategory.fk_business_id = ? AND reuse_and_repair_db.Business_Subcategory.fk_subcategory_id = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['business_id']);
+        $prepared->bindParam(2, $object['subcategory_id']);
+        $success = $prepared->execute();
+
+        if ($success)
+          return ['message' => 'Success', 'status_code' => 200];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
+    }
+    
+    /**
+     * @return string
+     */
+    public function addAllSubcategories($object)
+    {
+        if ($object['subcategories'] == null)
+          return ['message' => 'Invalid parameter', 'status_code' => 400];
+          
+        // Check if business exists
+        if (!$this->businessExist($object['business_id']))
+          return ['message' => 'Business does not exist', 'status_code' => 404];
+    
+        $subcategories = explode(',', $object['subcategories']);
+
+        // Delete all subcategories from business
+        $sql = "DELETE FROM reuse_and_repair_db.Business_Subcategory
+          WHERE reuse_and_repair_db.Business_Subcategory.fk_business_id = ?;";
+        $prepared = $this->db->link->prepare($sql);
+        $prepared->bindParam(1, $object['business_id']);
+        $success = $prepared->execute();    
+        
+        // Add new subcategories to business
+        foreach ($subcategories as $subcategory) {
+          // Add subcategory to business
+          $sql = "INSERT INTO reuse_and_repair_db.Business_Subcategory (fk_business_id, fk_subcategory_id)
+            VALUES (?, ?);";
+          $prepared = $this->db->link->prepare($sql);
+          $prepared->bindParam(1, $object['business_id']);
+          $prepared->bindParam(2, $subcategory);
+          $success = $prepared->execute();        
+        }
+   
+        if ($success)
+          return ['message' => 'Success', 'status_code' => 200];
+        else
+          return ['message' => 'Fail', 'status_code' => 400];
     }
 }
