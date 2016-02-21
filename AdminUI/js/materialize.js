@@ -362,7 +362,7 @@ if ($) {
 
 									//var address;
 
-									if (value.website === "null") {
+									if (value.website == "null") {
 										console.log("yes");									
 									}
 									$(".allbizlist").append("<tr>" + "<td>" + value.name + "</td>" + "<td>" + 
@@ -385,7 +385,8 @@ if ($) {
 				   			$(".allbizlist").append("</thead>");*/
 				   		}
 				   		else if (somenumber > 1) {
-
+				   			var table = $(".allbizlist").DataTable();
+				   			table.ajax.reload();
 				   		};
 				    	$(".arrowtate.secondbox").removeClass("active");
 				    	$(".arrowtate.thirdbox").removeClass("active");
