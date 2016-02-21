@@ -3062,12 +3062,12 @@ td, th {
 
 .collection .collection-item.avatar {
   min-height: 84px;
-  padding-left: 72px;
+  /*padding-left: 72px;*/
   position: relative;
 }
 
 .collection .collection-item.avatar .circle {
-  position: absolute;
+  position: static;
   width: 42px;
   height: 42px;
   overflow: hidden;
