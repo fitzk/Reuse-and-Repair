@@ -355,14 +355,25 @@ if ($) {
 
 				   		//LOGIC TO PULL IN DATABASE ENTRIES AND DISPLAY THEM
 				   		if (somenumber <= 1) {
-				   			var biznum = 0;
+				   			var firstletterct = 0;
+				   			var firstletter;
+				   			var prevletter;
+				   			var letterholder;
 							$.getJSON("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", function(obj) {
 								$.each(obj, function(key, value) {
-									biznum++;
-									//console.log(biznum);
-									var firstletter = value.name.substring(0,1).toUpperCase();
-									console.log(firstletter);
-									$(".allbizlist").append("<tr>" + "<td class='alphaheader'>" + "ABC" + "</td>" + "<td>" + value.name + "</td>" + "<td>" + 
+									prevletter = firstletter;
+									firstletter = value.name.substring(0,1).toUpperCase();
+									//console.log(firstletter):
+									if (firstletter == prevletter) {
+										firstletterct++;
+									}
+									if (firstletterct == 0) {
+										letterholder = firstletter;
+									}
+									else if (firstletterct > 0) {
+										letterholder = " ";
+									}
+									$(".allbizlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + 
 										value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 										", " + value.address.zip + "</td>" + "<td>" + "(503)-123-4567" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
 										"</a></td>" + "<td>" + value.category.name + "</td>" + 
