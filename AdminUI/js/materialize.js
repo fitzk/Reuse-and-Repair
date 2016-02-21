@@ -368,6 +368,9 @@ if ($) {
 									if (firstletter == prevletter) {
 										firstletterct++;
 									}
+									else {
+										firstletterct = 0;
+									}
 									if (firstletterct == 0) {
 										letterholder = firstletter;
 									}
