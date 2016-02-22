@@ -6668,8 +6668,8 @@ nav ul a span.badge {
 
 /*RESIZE GOOGLE PLAY LINK*/
 .googleplay {
-  max-width: 70%;
-  max-height: 70%;
+  max-width: 65%;
+  max-height: 65%;
 }
 
 /*THIS SECTION ADDED BY PHILIP TAN CS 419 WINTER 2016 - PROPER ROTATIONAL CONTROL OF ADD BUTTON: http://codepen.io/koenigsegg1/pen/KdmBOe*/
@@ -8542,6 +8542,7 @@ a.waves-effect .waves-ripple {
 .modalheader .modalclosex {
   float: right;
   font-size: 37px;
+  padding: 0;
 }
 
 @media only screen and (max-width: 992px) {
