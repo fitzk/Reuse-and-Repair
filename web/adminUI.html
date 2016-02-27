@@ -20,14 +20,15 @@
         <a href="adminUI.html"><img class="logocontrol csclogo" src="../AdminUI/logoheader.png"></a><!--logoheader.png-->
         <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#modal1" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
+            <li id="login-button"><a href="#modal-login" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
+            <li id="logout-button" class="hidden"><div class="white-text waves-effect">Logout</div></li>
         </ul>
       </div> 
     </div>
   </nav>
 
   <!--MODAL FOR ADMIN LOGIN FORM-->
-  <div id="modal1" class="modal loginmodal">
+  <div id="modal-login" class="modal loginmodal">
     <div class="modal-content">
       <h4>Administrator Login</h4>
       <p>
@@ -36,8 +37,8 @@
           <div class="row">
             <div class="input-field">
               <!--<i class="material-icons prefix">email</i>-->
-              <input id="email" type="email" class="validate">
-              <label for="email" data-error="Invalid">Email</label>
+              <input id="username" type="text" class="validate">
+              <label for="username" data-error="Invalid">Username</label>
             </div>
           </div>
           <div class="row">
@@ -52,14 +53,14 @@
       </p>
     </div>
     <div class="modal-footer">
-      <a href="#modal2" class="modal-action modal-close waves-effect waves-green btn-flat modal-trigger loginenter teal-text text-darken-2">Login</a>
+      <button id="login-submit" class="modal-close closewaves-effect waves-green btn-flat loginenter teal-text text-darken-2">Login</button>
     </div>
   </div>
 
   <!--MODAL FOR LOGIN SUCCESS-->
-  <div id="modal2" class="modal bottom-sheet loginsuccess">
+  <div id="modal-loginsuccess" class="modal bottom-sheet loginsuccess">
     <div class="row">    
-      <h5 class="white-text h5bordering">Welcome Admin</h5>
+      <h5 id="loginsuccess-message" class="white-text h5bordering"></h5>
       <a class="dismissit btn-flat h5bordering" id="dismissit"><h5 class="teal-text text-darken-2 h5bordering ">DISMISS</h5></a>
     </div>
   </div>
@@ -214,7 +215,7 @@
       </div>
 
       <!--FLOATING ACTION BUTTON-->
-      <div class="fixed-action-btn container1">
+      <div id="fab-business" class="hidden fixed-action-btn container1">
         <a class="buttons1"><span><span class="rotate"></span></span></a>
         <ul>
           <li>
@@ -368,7 +369,7 @@
 
 
     <!--FLOATING ACTION BUTTON-->
-    <div class="fixed-action-btn container1">
+    <div id="fab-admin" class="hidden fixed-action-btn container1">
       <a class="buttons1"><span><span class="rotate"></span></span></a>
       <ul>
         <li><a class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator"><i class="material-icons">mode_edit</i></a></li>
@@ -422,7 +423,8 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="../AdminUI/js/materialize.js"></script>
+  <script src="../AdminUI/js/materialize.min.js"></script>
+  <script src="../AdminUI/js/index.js"></script>
   <script src="../AdminUI/js/init.js"></script>
 
   </body>
