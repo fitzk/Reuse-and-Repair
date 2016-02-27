@@ -414,16 +414,16 @@ if ($) {
 				    	$(".arrowtate.fourthbox").removeClass("active");
 				   	}
 				}
-			    else if ($(this).hasClass("fourthbox")) {
-				   	if ($(".arrowtate.fourthbox").hasClass("active")) {
-				    	$(".arrowtate.fourthbox").removeClass("active");
-				   	} else {
-				   		$(".arrowtate.fourthbox").toggleClass("active");
-				    	$(".arrowtate.firstbox").removeClass("active");
-				    	$(".arrowtate.secondbox").removeClass("active");
-				    	$(".arrowtate.thirdbox").removeClass("active");
-				   	}
-			    }
+			    //else if ($(this).hasClass("fourthbox")) {
+				//   	if ($(".arrowtate.fourthbox").hasClass("active")) {
+				//   	$(".arrowtate.fourthbox").removeClass("active");
+				//   	} else {
+				//   		$(".arrowtate.fourthbox").toggleClass("active");
+				//    	$(".arrowtate.firstbox").removeClass("active");
+				//    	$(".arrowtate.secondbox").removeClass("active");
+				//    	$(".arrowtate.thirdbox").removeClass("active");
+				//   	}
+			    //}
 			});
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 
