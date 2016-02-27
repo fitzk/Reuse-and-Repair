@@ -320,6 +320,20 @@ $app->GET('/admin', function (Application $app, Request $request) {
     return new Response($result, 200);
 });
 
+// Get admin by auth
+$app->GET('/adminlogin', function (Application $app, Request $request) {
+
+    $admin_id = getAdminIdByLogin();
+    
+    if($admin_id == -1)
+      return new Response('Unauthorized', 401);
+       
+    $handler = New AdminHandler();
+    $result = $handler->get($admin_id);
+
+    return new Response($result, 200);
+});
+
 // Get admin by id
 $app->GET('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
 
