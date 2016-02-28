@@ -74,5 +74,5 @@ function getAdminIdByLogin()
   if($prepared->rowCount() == 0)
     return -1;
   
-  return $result[0]['fk_role_id'];
+  return $result[0]['admin_id'];
 }
