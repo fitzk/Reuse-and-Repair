@@ -5,27 +5,49 @@ $(document).ready(function(){
   // $(this).toggleClass('active');
   //});
   //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
+  var username = "";
+  var password = "";
   var first_name = "";
   var last_name = "";
   var email = "";
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  // http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   function login() {
     $('#login-button').hide();
-    $('#logout-button').show();
+    $('#admin-menu-title').html(username + "<i class='material-icons right'>arrow_drop_down</i>");
+    $('#admin-menu').show();
     $('#fab-business').show();
     $('#fab-admin').show();
+    
   }
   
   function logout() {
     $('#login-button').show();
-    $('#logout-button').hide();
+    $('#admin-menu').hide();
     $('#fab-business').hide();
     $('#fab-admin').hide();
+
+    var username = "";
+    var password = "";
+    var first_name = "";
+    var last_name = "";
+    var email = "";
+    var admin_id = "";
+    var role_id = "";
+    var role_name = "";
+    
+    popup("Logged out");
+  }
+
+  function popup(message){
+  //Materialize.toast(message, 5000);
+    $('#popup-message').html(message);
+    $('#modal-popup').openModal();  
+    $('#modal-popup').delay(5000).fadeOut(1000).closeModal();   
   }
   
 	var somenumber = 0;
@@ -120,59 +142,68 @@ $(document).ready(function(){
       opacity: .5, // Opacity of modal background
       in_duration: 300, // Transition in duration
       out_duration: 200, // Transition out duration
-    });
-
-    //This controls the login enter button, DO ONLY IF LOGIN IS SUCCESSFUL
-/*	$('.loginenter').leanModal({
-	  /*dismissible: false,
-      in_duration: 800, 
-      opacity: 0,
-    });*/
-    
-    //Successful login response, delay then fade out and close modal if user doesn't dismiss
-	$('#login-submit').click(function() {
-    username = $("#username").val();
-    password = $("#password").val();
-    
-    $.ajax
-    ({    
-      type: "GET",
-      url: urlpath + "/adminlogin",
-      dataType: 'json',
-      async: false,
-      beforeSend: function (xhr) {
-          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-      },
-      success: function (data){
-      
-        first_name = data[0].first_name;
-        last_name = data[0].last_name;
-        email = data[0].email;
-        admin_id = data[0].admin_id;
-        role_id = data[0].role.role_id;
-        role_name = data[0].role.role_name;
-      
-        var welcome_message;
-        
-        if(first_name == null)
-          welcome_message = "Welcome Admin";
-        else
-          welcome_message = "Welcome " + first_name;
-        
-        $('#loginsuccess-message').html(welcome_message);
-        $('#modal-loginsuccess').openModal();
-        $('#modal-loginsuccess').delay(6000).fadeOut(1000).closeModal();
-        login();
-      },
-      error: function (){
-        alert("Unauthorized");
+      complete: function() {
+        //Clear input
+        $("#login-username").val("");
+        $("#login-password").val("");
+        $("#login-error").html("");
       }
     });
+    
+  //Successful login response, delay then fade out and close modal if user doesn't dismiss
+	$('#login-submit').click(function() {
+    username = $("#login-username").val();
+    password = $("#login-password").val();
+    
+    if(username == "" || password == "")
+      $("#login-error").html("Please enter username and password");
+    else
+    {
+      $.ajax
+      ({    
+        type: "GET",
+        url: urlpath + "/adminlogin",
+        dataType: 'json',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (data){
+        
+          first_name = data[0].first_name;
+          last_name = data[0].last_name;
+          email = data[0].email;
+          admin_id = data[0].admin_id;
+          role_id = data[0].role.role_id;
+          role_name = data[0].role.role_name;
+      
+          var welcome_message;
+          
+          if(first_name == null)
+            welcome_message = "Welcome Admin";
+          else
+            welcome_message = "Welcome " + first_name;
+      
+          //Clear input
+          $("#login-username").val("");
+          $("#login-password").val("");
+          $("#login-error").html("");
+          
+          $("#modal-login").closeModal();
+          
+          popup(welcome_message);
+          login();
+        },
+        error: function (){
+          $("#login-error").html("Unauthorized");
+        }
+      });
+    }
 	});
  
 	//Close modal if dismiss is clicked
-	$('.modal.loginsuccess .dismissit').click(function() {			
-		$('#modal-loginsuccess').closeModal({
+	$('.modal.popup .dismissit').click(function() {			
+		$('#modal-popup').closeModal({
 	      out_duration: 800,
 		});
 	});
@@ -180,6 +211,141 @@ $(document).ready(function(){
   $('#logout-button').click(function() {
     logout();
   });
+
+  //--------------MODAL CODE FOR ACCOUNT--------------//
+	$('.accountbutton').leanModal({
+    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    opacity: .5, // Opacity of modal background
+    in_duration: 300, // Transition in duration
+    out_duration: 200, // Transition out duration
+    ready: function() {
+      $("#account-username").val(username);
+      $("#account-adminrole").val(role_name);
+      $("#account-firstname").val(first_name);
+      $("#account-lastname").val(last_name);
+      $("#account-email").val(email);
+      Materialize.updateTextFields();
+    },
+    complete: function() {
+      $("#account-firstname").val("");
+      $("#account-lastname").val("");
+      $("#account-email").val("");
+    }
+  });
+
+  $('#update-account-submit').click(function() {
+    var newfirstname = $("#account-firstname").val();
+    var newlastname = $("#account-lastname").val();
+    var newemail = $("#account-email").val();
+
+    $.ajax
+    ({    
+      type: "POST",
+      url: urlpath + "/admin/" + admin_id,
+      data: {
+        'first_name' : newfirstname,
+        'last_name' : newlastname,
+        'email' : newemail
+      },
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful account update
+        //Clear input
+        $("#account-firstname").val("");
+        $("#account-lastname").val("");
+        $("#account-email").val("");
+        
+        first_name = newfirstname;
+        last_name = newlastname;
+        email = newemail;
+        
+        $("#modal-account").closeModal();
+
+        popup("Account updated");
+      }
+    });   
+  });
+
+  //Close account modal form with click of X icon
+	$('.modal.accountmodal .modalclosex').click(function() {
+		$('.modal.accountmodal').closeModal({
+	      out_duration: 200,
+		});
+    $("#account-firstname").val("");
+    $("#account-lastname").val("");
+    $("#account-email").val("");
+	});
+ 
+  //--------------MODAL CODE FOR CHANGE PASSWORD--------------//
+ 	$('.changepasswordbutton').leanModal({
+    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    opacity: .5, // Opacity of modal background
+    in_duration: 300, // Transition in duration
+    out_duration: 200, // Transition out duration
+    complete: function() {
+      $("#pwchange-password").val("");
+      $("#pwchange-newpassword1").val("");
+      $("#pwchange-newpassword2").val("");
+      $("#change-password-error").html("");
+    }
+  });
+  
+  $('#change-password-submit').click(function() {
+
+    var oldpassword = $("#pwchange-password").val();
+    var newpassword1 = $("#pwchange-newpassword1").val();
+    var newpassword2 = $("#pwchange-newpassword2").val();
+    
+    if(oldpassword == "" || newpassword1 == "" || newpassword2 == "")
+      $("#change-password-error").html("Please enter fields");
+    else if(password != oldpassword)
+      $("#change-password-error").html("Invalid password");
+    else if(newpassword1 != newpassword2)
+      $("#change-password-error").html("Passwords do not match");
+    else
+    { 
+      $.ajax
+      ({    
+        type: "POST",
+        url: urlpath + "/admin/" + admin_id + "/password",
+        data: {'password' : newpassword1},
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (){
+          //Successful password update
+          //Clear input
+          $("#pwchange-password").val("");
+          $("#pwchange-newpassword1").val("");
+          $("#pwchange-newpassword2").val("");
+          $("#change-password-error").html("");
+          password = newpassword1;
+          
+          $("#modal-change-password").closeModal();
+
+          popup("Password updated");
+        },
+        error: function (){
+          $("#change-password-error").html("Error: Password not updated");
+        }
+      });
+    }
+  });
+
+  //Close account modal form with click of X icon
+	$('.modal.changepasswordmodal .modalclosex').click(function() {
+		$('.modal.changepasswordmodal').closeModal({
+	      out_duration: 200,
+		});
+    $("#pwchange-password").val("");
+    $("#pwchange-newpassword1").val("");
+    $("#pwchange-newpassword2").val("");
+    $("#change-password-error").html("");
+	});
 
 	//--------------MODAL CODE FOR ADDING BUSINESS--------------//
 	$('.addbusiness').leanModal({
