@@ -3,6 +3,10 @@
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+ body {
+   overflow: auto !important;
+ }
+ 
 .hidden {
   display: none;
 }
@@ -8518,7 +8522,19 @@ a.waves-effect .waves-ripple {
 /*LOGINMODAL CHANGES*/
 
 .modal.loginmodal {
-  width: 500px;
+  width: 40%;
+}
+
+/*ACCOUNTMODAL CHANGES*/
+.modal.accountmodal {
+  width: 80%;
+  overflow: hidden;
+}
+
+/*CHANGEPASSWORDMODAL CHANGES*/
+.modal.changepasswordmodal {
+  width: 40%;
+  overflow: hidden;
 }
 
 /*BUSINESSMODAL CHANGES*/
@@ -8528,7 +8544,6 @@ a.waves-effect .waves-ripple {
   max-height: 80%;
   overflow: hidden;
 }
-
 
 .modalheader {
   padding-left: 24px;
@@ -8630,8 +8645,8 @@ a.waves-effect .waves-ripple {
   will-change: bottom, opacity;
 }
 
-/*ADDED BY PHILIP TAN CS 419 WINTER 2016 1/30 - CONTROL OF LOGIN SUCCESS GREETING MODAL*/
-.modal.bottom-sheet.loginsuccess {
+/*ADDED BY PHILIP TAN CS 419 WINTER 2016 1/30 - CONTROL OF POPUP MODAL*/
+.modal.bottom-sheet.popup {
   width: 50%;
   background-color: rgba(25, 25, 25, 0.9);
   margin: auto;
@@ -8643,7 +8658,7 @@ a.waves-effect .waves-ripple {
   /*transition: visibility 10s, opacity 0s ease-in-out;*/
 }
 
-.bottom-sheet.loginsuccess .modal-content {
+.bottom-sheet.popup .modal-content {
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 14px;
@@ -8651,23 +8666,23 @@ a.waves-effect .waves-ripple {
   display: inline-block;
 }
 
-.bottom-sheet.loginsuccess .row{
+.bottom-sheet.popup .row{
   margin: auto;
   height: 36px;
   padding-top: 7px;
 }
 
-.bottom-sheet.loginsuccess .btn-flat{
+.bottom-sheet.popup .btn-flat{
   margin: auto;
   height: 36px;
   padding: 0;
 }
 
-.bottom-sheet.loginsuccess .h5bordering {
+.bottom-sheet.popup .h5bordering {
   margin: auto;
   display: inline-block;
 }
-.bottom-sheet.loginsuccess .dismissit {
+.bottom-sheet.popup .dismissit {
   float: right;
 }
 
