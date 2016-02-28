@@ -218,7 +218,7 @@ $(document).ready(function(){
 
 
 	//------------------------SELECT MENU INITIALIZATIONS------------------------//
-	$('.typeselect').material_select();
+	$('.select').material_select();
 
 
 
