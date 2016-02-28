@@ -14,14 +14,21 @@
 <body>
 
   <!--NAV BANNER AT TOP OF PAGE-->
+  <!-- Dropdown Structure -->
+  <ul id="dropdown" class="dropdown-content">
+    <li><a href="#modal-account" class="modal-trigger accountbutton">Account</a></li>
+    <li class="divider"></li>
+    <li id="logout-button"><a href="#!">Logout</a></li>
+  </ul>
   <nav class="teal darken-2" role="navigation">
     <div class="nav-wrapper container">
       <div class="row">
         <a href="adminUI.html"><img class="logocontrol csclogo" src="../AdminUI/logoheader.png"></a><!--logoheader.png-->
         <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
         <ul class="right hide-on-med-and-down">
-            <li id="login-button"><a href="#modal-login" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li> <!--LOGIN BUTTON WILL BE REPLACED IF LOGIN IS SUCCESSFUL-->
-            <li id="logout-button" class="hidden"><div class="white-text waves-effect">Logout</div></li>
+            <li id="login-button"><a href="#modal-login" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li>
+            <!-- Dropdown Trigger -->
+            <li id="admin-menu" class="hidden"><a id="admin-menu-title" class="dropdown-button white-text" href="#!" data-activates="dropdown"></a></li>
         </ul>
       </div> 
     </div>
@@ -37,31 +44,114 @@
           <div class="row">
             <div class="input-field">
               <!--<i class="material-icons prefix">email</i>-->
-              <input id="username" type="text" class="validate">
+              <input id="login-username" type="text">
               <label for="username" data-error="Invalid">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
               <!--<i class="material-icons prefix">lock</i>-->
-              <input id="password" type="password" class="validate">
+              <input id="login-password" type="password">
               <label for="password" data-error="Invalid Password">Password</label>
             </div>
           </div>
+          
         </form>
       </div>
       </p>
+      <h6 id="login-error" class="red-text"></h6>
     </div>
     <div class="modal-footer">
-      <button id="login-submit" class="modal-close closewaves-effect waves-green btn-flat loginenter teal-text text-darken-2">Login</button>
+      <button id="login-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Login</button>
     </div>
   </div>
 
-  <!--MODAL FOR LOGIN SUCCESS-->
-  <div id="modal-loginsuccess" class="modal bottom-sheet loginsuccess">
+  <!--MODAL FOR POPUP-->
+  <div id="modal-popup" class="modal bottom-sheet popup">
     <div class="row">    
-      <h5 id="loginsuccess-message" class="white-text h5bordering"></h5>
+      <h5 id="popup-message" class="white-text h5bordering"></h5>
       <a class="dismissit btn-flat h5bordering" id="dismissit"><h5 class="teal-text text-darken-2 h5bordering ">DISMISS</h5></a>
+    </div>
+  </div>
+  
+  <!--MODAL FOR ADMIN ACCOUNT FORM-->
+  <div id="modal-account" class="modal accountmodal modal-fixed-footer">
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader white-text col s12 m12 l12">
+      <h4>Account Information</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
+    </div>
+
+    <div class="modal-content">
+        <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6 m6 l6 text-black">
+                <input disabled value="I am not editable" id="account-username" type="text">
+                <label for="disabled">Username</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input disabled value="I am not editable" id="account-adminrole" type="text">
+                <label for="disabled">Role</label>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="account-firstname" type="text">
+                <label for="account-firstname">First Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="account-lastname" type="text">
+                <label for="account-lastname">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="account-email" type="email">
+                <label for="account-email">Email</label>
+              </div>
+            </div>
+        </form>
+      
+    </div>
+    <div class="modal-footer">
+      <button id="update-account-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update</button>
+      <a href="#modal-change-password" id="change-password-button" class="changepasswordbutton modal-trigger modal-close waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</a>
+    </div>
+  </div>
+  
+  <!--MODAL FOR CHANGE PASSWORD-->
+  <div id="modal-change-password" class="modal changepasswordmodal modal-fixed-footer">
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader white-text col s12 m12 l12">
+      <h4>Change Password</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
+    </div>
+
+    <div class="modal-content">
+        <form class="col s12">
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-password" type="password">
+                <label for="pwchange-password">Current Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-newpassword1" type="password">
+                <label for="pwchange-newpassword1">New Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-newpassword2" type="password">
+                <label for="pwchange-newpassword2">Retype New Password</label>
+              </div>
+            </div>
+        </form>
+        <h6 id="change-password-error" class="red-text center"></h6>
+    </div>
+    <div class="modal-footer">
+      <button id="change-password-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</button>
     </div>
   </div>
 
