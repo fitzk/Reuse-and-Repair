@@ -414,54 +414,13 @@
           <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col s12 m6 l4">
-          <div class="card medium">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="../AdminUI/background4.jpg"><!--background4.jpg-->
-              <span class="card-title">Philip T.</span>
-            </div>
-            <div class="card-content">
-              Phone: (503)-123-1234
-              <br>
-              Email: ptptpt@csc.org
-            </div>
-            <!--<div class="card-content">
-              Phone: (503)-123-1234
-              <br>
-              Email: tanp@oregonstate.edu
-            </div>-->
-          </div>
-        </div>
-        <div class="col s12 m6 l4">
-          <div class="card medium">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img src="../AdminUI/background4.jpg">
-              <span class="card-title">Kayla F.</span>
-            </div>
-            <div class="card-content">
-              Phone: (503)-123-1234
-              <br>
-              Email: kfkfkf@csc.org
-            </div>
-          </div>
-        </div>
-        <div class="col s12 m6 l4">
-          <div class="card medium">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img src="../AdminUI/background4.jpg">
-              <span class="card-title">Brian T.</span>
-            </div>
-            <div class="card-content">
-              Phone: (503)-123-1234
-              <br>
-              Email: btbtbt@csc.org
-            </div>
-          </div>
-        </div> 
+      
+      <div id="admin-content" class="row">
+    
+      <!--Content dynamically added-->
+      
       </div>
     </div>
-
 
     <!--FLOATING ACTION BUTTON-->
     <div id="fab-admin" class="hidden fixed-action-btn container1">
@@ -472,7 +431,50 @@
     </div>
   </div>
 
+  <!--MODAL FOR CHANGE ROLE-->
+  <div id="modal-change-role" class="modal changerolemodal modal-fixed-footer">
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader white-text col s12 m12 l12">
+      <h4>Change Admin Role</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
+    </div>
 
+    <div class="modal-content">
+        <form class="col s12">
+          <div class="row">
+            <input name="role-group" type="radio" id="role1" value="1" checked />
+            <label for="role1">Master Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role2" value="2"/>
+            <label for="role2">Content Management Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role3" value="3"/>
+            <label for="role3">Business Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role4" value="4"/>
+            <label for="role4">Read-Only Admin</label>
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+      <button id="change-role-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update Role</button>
+    </div>
+  </div>
+  
+  <!--MODAL FOR DELETE USER-->
+  <div id="modal-delete-user" class="modal deleteusermodal center">
+    <div class="modal-content">
+        <h5 class="center">Are you sure you want to delete user?</h5>
+    </div>
+    <div class="modal-footer">
+      <button id="delete-user-cancel" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Cancel</button>
+      <button id="delete-user-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Delete User</button>
+    </div>
+  </div>
+  
   <!--FOOTER-->
   <footer class="page-footer teal">
     <div class="container">

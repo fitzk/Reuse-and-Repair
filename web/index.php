@@ -310,9 +310,6 @@ $app->POST('/businesses/{business_id}/subcategory', function (Application $app, 
 // Admin routes
 // All admin users
 $app->GET('/admin', function (Application $app, Request $request) {
-
-    if(!authenticate('1', null))
-      return new Response('Unauthorized', 401);
       
     $handler = New AdminHandler();
     $result = $handler->getAll();
@@ -336,9 +333,6 @@ $app->GET('/adminlogin', function (Application $app, Request $request) {
 
 // Get admin by id
 $app->GET('/admin/{admin_id}', function (Application $app, Request $request, $admin_id) {
-
-    if(!authenticate('1', null))
-      return new Response('Unauthorized', 401);
        
     $handler = New AdminHandler();
     $result = $handler->get($admin_id);
@@ -357,7 +351,7 @@ $app->PUT('/admin', function (Application $app, Request $request) {
       'password' => $request->get('password'),
       'first_name' => $request->get('first_name'),
       'last_name' => $request->get('last_name'),
-      'email' => $request->get('email'),
+      'website' => $request->get('website'),
       'role_id' => $request->get('role_id')
     );
     
@@ -378,7 +372,7 @@ $app->POST('/admin/{admin_id}', function (Application $app, Request $request, $a
       'username' => $request->get('username'),
       'first_name' => $request->get('first_name'),
       'last_name' => $request->get('last_name'),
-      'email' => $request->get('email')
+      'website' => $request->get('website')
     );
     
     $handler = New AdminHandler();
