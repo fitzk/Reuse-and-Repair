@@ -17,12 +17,50 @@ $(document).ready(function(){
   var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   function login() {
+ 
     $('#login-button').hide();
     $('#admin-menu-title').html(username + "<i class='material-icons right'>arrow_drop_down</i>");
     $('#admin-menu').show();
-    $('#fab-business').show();
-    $('#fab-admin').show();
-    
+    $('.card-admin-info').show();
+        
+    switch(role_id) {
+      case "1":
+        $('#fab-business').show();
+        $('#fab-admin').show();
+        $('#admin-content .card').addClass('medium');
+        $('#admin-content .card').removeClass('small');  
+        $('.card-admin-action').show();
+        $('.deleteadminbutton').show();
+        $('.changerolebutton').show();
+        break;
+      case "2":
+        $('#fab-business').show();
+        $('#fab-admin').hide();
+        $('#admin-content .card').addClass('small');
+        $('#admin-content .card').removeClass('medium');
+        $('.card-admin-action').hide();
+        $('.deleteadminbutton').hide();
+        $('.changerolebutton').hide();
+        break;
+      case "3":
+        $('#fab-business').show();
+        $('#fab-admin').hide();
+        $('#admin-content .card').addClass('small');
+        $('#admin-content .card').removeClass('medium');
+        $('.card-admin-action').hide();
+        $('.deleteadminbutton').hide();
+        $('.changerolebutton').hide();
+        break;
+      default:
+        $('#fab-business').hide();
+        $('#fab-admin').hide();
+        $('#admin-content .card').addClass('small');
+        $('#admin-content .card').removeClass('medium');
+        $('.card-admin-action').hide();
+        $('.deleteadminbutton').hide();
+        $('.changerolebutton').hide();
+        break;
+    }
   }
   
   function logout() {
@@ -31,6 +69,13 @@ $(document).ready(function(){
     $('#fab-business').hide();
     $('#fab-admin').hide();
 
+    $('#admin-content .card').addClass('small');
+    $('#admin-content .card').removeClass('medium');
+    $('.card-admin-info').hide();
+    $('.card-admin-action').hide();
+    $('.deleteadminbutton').hide();
+    $('.changerolebutton').hide();
+    
     var username = "";
     var password = "";
     var first_name = "";
@@ -49,6 +94,50 @@ $(document).ready(function(){
     $('#modal-popup').openModal();  
     $('#modal-popup').delay(5000).fadeOut(1000).closeModal();   
   }
+
+	//--------------CODE FOR ADMINS PAGE--------------//
+  //Add card to page
+  function addAdminCard(card_admin_id, card_username, card_rolename, card_firstname, card_lastname, card_email) {
+    if(card_firstname == null)
+      card_firstname = "";
+    if(card_lastname == null)
+      card_lastname = "";
+    if(card_email == null)
+      card_email = ""; 
+  
+    var cardhtml = "<div id='card_admin_id_" + card_admin_id + "' class='col s12 m6 l4'><div class='card small'><div class='card-image waves-effect waves-block waves-light'><img class='activator' src='../AdminUI/background4.jpg'><span class='card-title'>" + card_firstname + " " + card_lastname + "</span></div><div class='card-content'><span class='hidden card-admin-info'>Username: " + card_username + "<br>Role: <span id='card_admin_role_" + card_admin_id + "'>" + card_rolename + "</span><br></span>";
+  
+    if(card_email != "")
+      cardhtml += "Email: " + card_email;
+    
+    cardhtml += "</div><div class='card-action card-admin-action hidden'><button value='" + card_admin_id + "' class='hidden changerolebutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Change Role</button><button value='" + card_admin_id + "' class='hidden deleteadminbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Delete</button></div></div></div>"
+  
+    $("#admin-content").append(cardhtml);
+  }
+  
+  function populateAdmins(reset){
+    if(reset == true)
+      $("#admin-content").empty();
+    
+    //Get list of admin users and add admin cards
+    $.ajax
+    ({    
+      type: "GET",
+      url: urlpath + "/admin",
+      dataType: 'json',
+      async: true,
+      success: function (data){
+        for (var i = 0; i < data.length; i++) {
+          addAdminCard(data[i].admin_id, data[i].username, data[i].role.role_name, data[i].first_name, data[i].last_name, data[i].email);
+        }
+
+        if(reset == true)
+          login();
+      }
+    });
+  }
+  
+  populateAdmins();
   
 	var somenumber = 0;
 	$(".collapsible-header").click(function() {
@@ -138,10 +227,6 @@ $(document).ready(function(){
 	//--------------MODAL CODE FOR ADMIN LOGIN--------------//
 	//Initialize login button at top right corner
 	$('.loginbutton').leanModal({
-      dismissible: true, // Modal can be dismissed by clicking outside of the modal
-      opacity: .5, // Opacity of modal background
-      in_duration: 300, // Transition in duration
-      out_duration: 200, // Transition out duration
       complete: function() {
         //Clear input
         $("#login-username").val("");
@@ -214,10 +299,6 @@ $(document).ready(function(){
 
   //--------------MODAL CODE FOR ACCOUNT--------------//
 	$('.accountbutton').leanModal({
-    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-    opacity: .5, // Opacity of modal background
-    in_duration: 300, // Transition in duration
-    out_duration: 200, // Transition out duration
     ready: function() {
       $("#account-username").val(username);
       $("#account-adminrole").val(role_name);
@@ -346,7 +427,117 @@ $(document).ready(function(){
     $("#pwchange-newpassword2").val("");
     $("#change-password-error").html("");
 	});
+ 
+	//--------------MODAL CODE FOR CHANGING USER ROLE--------------//
+  
+  var selected_admin_id;
+  
+  $("#admin-content").on("click", ".changerolebutton", function(){
+    selected_admin_id = $(this).val();
+    
+    $('#modal-change-role').openModal({
+      complete: function() {
+        $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+      }
+    });
+  });
+ 
+  $('#change-role-submit').click(function() {
+    var selected_role_id = $('input[name = "role-group"]:checked').val();
+    
+    $.ajax
+    ({    
+      type: "POST",
+      url: urlpath + "/admin/" + selected_admin_id +  "/role",
+      data: {'role_id' : selected_role_id},
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful role update
+        var card_admin_role = "card_admin_role_" + selected_admin_id;
+        var card_role_name;
+        
+        switch(selected_role_id) {
+          case "1":
+            card_role_name = "Master admin";
+            break;
+          case "2":
+            card_role_name = "Content management admin";
+            break;
+          case "3":
+            card_role_name = "Business admin";
+            break;
+          case "4":
+            card_role_name = "Read-only admin";
+            break;
+        }
+        
+        document.getElementById(card_admin_role).innerHTML = card_role_name;
+        
+        if(selected_admin_id == admin_id)
+        {
+          role_id = selected_role_id;
+          login();
+        }
+        
+        $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+        
+        $("#modal-change-role").closeModal();
+        
+        popup("Role updated");
+      }
+    });
+  });
+ 
+  //Close add change role modal form with click of X icon
+  $('.modal.changerolemodal .modalclosex').click(function() {
+  	$('.modal.changerolemodal').closeModal({
+        out_duration: 200,
+  	});
+    $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+  });
+ 
+ 	//--------------MODAL CODE FOR DELETING USER--------------//
 
+  $("#admin-content").on("click", ".deleteadminbutton", function(){
+    selected_admin_id = $(this).val();
+      
+    $('#modal-delete-user').openModal();
+  });
+
+  $('#delete-user-submit').click(function() {
+  
+    $.ajax
+    ({    
+      type: "DELETE",
+      url: urlpath + "/admin/" + selected_admin_id,
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful delete
+        var card_admin_id = "card_admin_id_" + selected_admin_id;
+       
+        document.getElementById(card_admin_id).style.display = "none";
+        
+        if(selected_admin_id == admin_id)
+          logout();
+            
+        $("#modal-delete-user").closeModal();
+        
+        popup("Admin deleted");
+      }
+    });
+  });
+
+  $('#delete-user-cancel').click(function() {
+  	$('#modal-delete-user').closeModal({
+        out_duration: 200,
+  	});
+  });
 	//--------------MODAL CODE FOR ADDING BUSINESS--------------//
 	$('.addbusiness').leanModal({
       dismissible: false,
