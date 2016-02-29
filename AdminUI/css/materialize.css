@@ -8520,7 +8520,6 @@ a.waves-effect .waves-ripple {
 }
 
 /*LOGINMODAL CHANGES*/
-
 .modal.loginmodal {
   width: 25%;
 }
@@ -8533,6 +8532,17 @@ a.waves-effect .waves-ripple {
 
 /*CHANGEPASSWORDMODAL CHANGES*/
 .modal.changepasswordmodal {
+  width: 40%;
+  overflow: hidden;
+}
+
+/*DELETEUSERMODAL CHANGES*/
+.modal.deleteusermodal {
+  width: 40%;
+}
+
+/*CHANGEROLEMODAL CHANGES*/
+.modal.changerolemodal {
   width: 40%;
   overflow: hidden;
 }
