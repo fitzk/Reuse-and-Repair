@@ -13,8 +13,10 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  
+  $('select').material_select();
   
   function login() {
  
@@ -98,6 +100,7 @@ $(document).ready(function(){
 	//--------------CODE FOR ADMINS PAGE--------------//
   //Add card to page
   function addAdminCard(card_admin_id, card_username, card_rolename, card_firstname, card_lastname, card_email) {
+
     if(card_firstname == null)
       card_firstname = "";
     if(card_lastname == null)
@@ -105,19 +108,17 @@ $(document).ready(function(){
     if(card_email == null)
       card_email = ""; 
   
-    var cardhtml = "<div id='card_admin_id_" + card_admin_id + "' class='col s12 m6 l4'><div class='card small'><div class='card-image waves-effect waves-block waves-light'><img class='activator' src='../AdminUI/background4.jpg'><span class='card-title'>" + card_firstname + " " + card_lastname + "</span></div><div class='card-content'><span class='hidden card-admin-info'>Username: " + card_username + "<br>Role: <span id='card_admin_role_" + card_admin_id + "'>" + card_rolename + "</span><br></span>";
+    var cardhtml = "<div id='card_admin_id_" + card_admin_id + "' class='col s12 m6 l4'><div class='card small'><div class='card-image waves-effect waves-block waves-light'><img class='activator' src='../AdminUI/background4.jpg'><span id='card_title_" + card_admin_id + "' class='card-title'>" + card_firstname + " " + card_lastname + "</span></div><div class='card-content'><span class='hidden card-admin-info'>Username: " + card_username + "<br>Role: <span id='card_admin_role_" + card_admin_id + "'>" + card_rolename + "</span><br></span>";
   
     if(card_email != "")
-      cardhtml += "Email: " + card_email;
+      cardhtml += "Email: <span id='card_email_" + card_admin_id + "'>" + card_email + "</span>";
     
     cardhtml += "</div><div class='card-action card-admin-action hidden'><button value='" + card_admin_id + "' class='hidden changerolebutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Change Role</button><button value='" + card_admin_id + "' class='hidden deleteadminbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Delete</button></div></div></div>"
   
     $("#admin-content").append(cardhtml);
   }
   
-  function populateAdmins(reset){
-    if(reset == true)
-      $("#admin-content").empty();
+  function populateAdmins(){
     
     //Get list of admin users and add admin cards
     $.ajax
@@ -130,9 +131,6 @@ $(document).ready(function(){
         for (var i = 0; i < data.length; i++) {
           addAdminCard(data[i].admin_id, data[i].username, data[i].role.role_name, data[i].first_name, data[i].last_name, data[i].email);
         }
-
-        if(reset == true)
-          login();
       }
     });
   }
@@ -226,15 +224,16 @@ $(document).ready(function(){
 	//------------------------MODAL INITIALIZATIONS------------------------//
 	//--------------MODAL CODE FOR ADMIN LOGIN--------------//
 	//Initialize login button at top right corner
-	$('.loginbutton').leanModal({
+  $('#login-button').click(function() { 
+    $('#modal-login').openModal({
       complete: function() {
         //Clear input
-        $("#login-username").val("");
-        $("#login-password").val("");
+        document.getElementById('admin-login-form').reset();
         $("#login-error").html("");
       }
     });
-    
+  });
+
   //Successful login response, delay then fade out and close modal if user doesn't dismiss
 	$('#login-submit').click(function() {
     username = $("#login-username").val();
@@ -270,8 +269,7 @@ $(document).ready(function(){
             welcome_message = "Welcome " + first_name;
       
           //Clear input
-          $("#login-username").val("");
-          $("#login-password").val("");
+          document.getElementById('admin-login-form').reset();
           $("#login-error").html("");
           
           $("#modal-login").closeModal();
@@ -287,10 +285,11 @@ $(document).ready(function(){
 	});
  
 	//Close modal if dismiss is clicked
-	$('.modal.popup .dismissit').click(function() {			
+	$('#modal-popup .dismissit').click(function() {			
 		$('#modal-popup').closeModal({
 	      out_duration: 800,
 		});
+    document.getElementById('admin-login-form').reset();
 	});
 
   $('#logout-button').click(function() {
@@ -298,35 +297,40 @@ $(document).ready(function(){
   });
 
   //--------------MODAL CODE FOR ACCOUNT--------------//
-	$('.accountbutton').leanModal({
-    ready: function() {
-      $("#account-username").val(username);
-      $("#account-adminrole").val(role_name);
-      $("#account-firstname").val(first_name);
-      $("#account-lastname").val(last_name);
-      $("#account-email").val(email);
-      Materialize.updateTextFields();
-    },
-    complete: function() {
-      $("#account-firstname").val("");
-      $("#account-lastname").val("");
-      $("#account-email").val("");
-    }
+	$('#account-button').click(function() {
+    $("#modal-account").openModal({
+      ready: function() {
+        $("#account-username").val(username);
+        $("#account-adminrole").val(role_name);
+        $("#account-firstname").val(first_name);
+        $("#account-lastname").val(last_name);
+        $("#account-email").val(email);
+        Materialize.updateTextFields();
+      },
+      complete: function() {
+        document.getElementById('admin-account-form').reset();
+      }
+    });
   });
 
   $('#update-account-submit').click(function() {
-    var newfirstname = $("#account-firstname").val();
-    var newlastname = $("#account-lastname").val();
-    var newemail = $("#account-email").val();
+    var new_firstname = $("#account-firstname").val();
+    var new_lastname = $("#account-lastname").val();
+    var new_email = $("#account-email").val();
 
+    if(new_firstname == "")
+      new_firstname = first_name;
+    if(new_firstname == "")
+      new_lastname = last_name;
+      
     $.ajax
     ({    
       type: "POST",
       url: urlpath + "/admin/" + admin_id,
       data: {
-        'first_name' : newfirstname,
-        'last_name' : newlastname,
-        'email' : newemail
+        'first_name' : new_firstname,
+        'last_name' : new_lastname,
+        'email' : new_email
       },
       async: false,
       beforeSend: function (xhr) {
@@ -334,14 +338,15 @@ $(document).ready(function(){
       },
       success: function (){
         //Successful account update
+        document.getElementById('card_title_' + admin_id).innerHTML = new_firstname + " " + new_lastname;
+        document.getElementById('card_email_' + admin_id).innerHTML = new_email;
+
         //Clear input
-        $("#account-firstname").val("");
-        $("#account-lastname").val("");
-        $("#account-email").val("");
+        document.getElementById('admin-account-form').reset();
         
-        first_name = newfirstname;
-        last_name = newlastname;
-        email = newemail;
+        first_name = new_firstname;
+        last_name = new_lastname;
+        email = new_email;
         
         $("#modal-account").closeModal();
 
@@ -351,40 +356,34 @@ $(document).ready(function(){
   });
 
   //Close account modal form with click of X icon
-	$('.modal.accountmodal .modalclosex').click(function() {
-		$('.modal.accountmodal').closeModal({
+	$('#modal-account .modalclosex').click(function() {
+		$('#modal-account').closeModal({
 	      out_duration: 200,
 		});
-    $("#account-firstname").val("");
-    $("#account-lastname").val("");
-    $("#account-email").val("");
+    document.getElementById('admin-account-form').reset();
 	});
  
   //--------------MODAL CODE FOR CHANGE PASSWORD--------------//
- 	$('.changepasswordbutton').leanModal({
-    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-    opacity: .5, // Opacity of modal background
-    in_duration: 300, // Transition in duration
-    out_duration: 200, // Transition out duration
-    complete: function() {
-      $("#pwchange-password").val("");
-      $("#pwchange-newpassword1").val("");
-      $("#pwchange-newpassword2").val("");
-      $("#change-password-error").html("");
-    }
+ 	$('#change-password-button').click(function() {
+    $("#modal-change-password").openModal({
+      complete: function() {
+        document.getElementById('change-password-form').reset();
+        $("#change-password-error").html("");
+      }
+    });
   });
   
   $('#change-password-submit').click(function() {
 
-    var oldpassword = $("#pwchange-password").val();
-    var newpassword1 = $("#pwchange-newpassword1").val();
-    var newpassword2 = $("#pwchange-newpassword2").val();
+    var old_password = $("#pwchange-password").val();
+    var new_password1 = $("#pwchange-newpassword1").val();
+    var new_password2 = $("#pwchange-newpassword2").val();
     
-    if(oldpassword == "" || newpassword1 == "" || newpassword2 == "")
+    if(old_password == "" || new_password1 == "" || new_password2 == "")
       $("#change-password-error").html("Please enter fields");
-    else if(password != oldpassword)
+    else if(password != old_password)
       $("#change-password-error").html("Invalid password");
-    else if(newpassword1 != newpassword2)
+    else if(new_password1 != new_password2)
       $("#change-password-error").html("Passwords do not match");
     else
     { 
@@ -392,7 +391,7 @@ $(document).ready(function(){
       ({    
         type: "POST",
         url: urlpath + "/admin/" + admin_id + "/password",
-        data: {'password' : newpassword1},
+        data: {'password' : new_password1},
         async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
@@ -400,11 +399,9 @@ $(document).ready(function(){
         success: function (){
           //Successful password update
           //Clear input
-          $("#pwchange-password").val("");
-          $("#pwchange-newpassword1").val("");
-          $("#pwchange-newpassword2").val("");
+          document.getElementById('change-password-form').reset();
           $("#change-password-error").html("");
-          password = newpassword1;
+          password = new_password1;
           
           $("#modal-change-password").closeModal();
 
@@ -418,18 +415,99 @@ $(document).ready(function(){
   });
 
   //Close account modal form with click of X icon
-	$('.modal.changepasswordmodal .modalclosex').click(function() {
-		$('.modal.changepasswordmodal').closeModal({
+	$('#modal-change-password .modalclosex').click(function() {
+		$('#modal-change-password').closeModal({
 	      out_duration: 200,
 		});
-    $("#pwchange-password").val("");
-    $("#pwchange-newpassword1").val("");
-    $("#pwchange-newpassword2").val("");
+    document.getElementById('change-password-form').reset();
     $("#change-password-error").html("");
 	});
- 
-	//--------------MODAL CODE FOR CHANGING USER ROLE--------------//
+
+	//--------------MODAL CODE FOR ADDING USER--------------//
+  $("#add-admin-button").click(function() {
+    
+    $('#modal-add-admin').openModal({
+      complete: function() {
+        document.getElementById('add-admin-form').reset();
+        $("#add-admin-error").html("");
+      }
+    });
+  }); 
   
+  $("#add-admin-submit").click(function() {
+    var aa_username = $("#addadmin-username").val();
+    var aa_adminrole = $("#addadmin-adminrole").val();
+    var aa_password1 = $("#addadmin-password1").val();
+    var aa_password2 = $("#addadmin-password2").val();
+    var aa_firstname = $("#addadmin-firstname").val();
+    var aa_lastname = $("#addadmin-lastname").val();
+    var aa_email = $("#addadmin-email").val();
+
+    if(aa_username == "" || aa_password1 == "" || aa_password2 == "" || aa_firstname == "" || aa_lastname == "")
+      $("#add-admin-error").html("Please enter fields");
+    else if(aa_password1 != aa_password2)
+      $("#add-admin-error").html("Passwords do not match");
+    else
+    {
+      $.ajax
+      ({    
+        type: "PUT",
+        url: urlpath + "/admin",
+        data: {
+          'username' : aa_username,
+          'password' : aa_password1,
+          'first_name' : aa_firstname,
+          'last_name' : aa_lastname,
+          'email' : aa_email,
+          'role_id' : aa_adminrole        
+        },
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (){
+          //Successful add admin
+          $.getJSON(urlpath + "/admin", function(data) {
+            for (var i = 0; i < data.length; i++) {
+              if(aa_username == data[i].username)
+              {
+                addAdminCard(data[i].admin_id, data[i].username, data[i].role.role_name, data[i].first_name, data[i].last_name, data[i].email);
+                login();
+                break;
+              }
+            }
+          });
+          
+          //Clear input
+          document.getElementById('add-admin-form').reset();
+          $("#add-admin-error").html("");
+          
+          $("#modal-add-admin").closeModal();
+  
+          popup("Admin added");
+        },
+        statusCode: {
+          404: function () {
+             $("#add-admin-error").html("Username already exists");
+          }
+        },
+        error: function (){
+          $("#add-admin-error").html("Error: Admin not added");
+        }
+      });
+    }
+  });
+  
+  //Close add admin modal form with click of X icon
+  $('#modal-add-admin .modalclosex').click(function() {
+  	$('#modal-add-admin').closeModal({
+        out_duration: 200,
+  	});
+    document.getElementById('add-admin-form').reset();
+    $("#add-admin-error").html("");
+  });
+  
+	//--------------MODAL CODE FOR CHANGING USER ROLE--------------//
   var selected_admin_id;
   
   $("#admin-content").on("click", ".changerolebutton", function(){
@@ -437,7 +515,7 @@ $(document).ready(function(){
     
     $('#modal-change-role').openModal({
       complete: function() {
-        $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+        document.getElementById('change-role-form').reset();
       }
     });
   });
@@ -482,7 +560,7 @@ $(document).ready(function(){
           login();
         }
         
-        $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+        document.getElementById('change-role-form').reset();
         
         $("#modal-change-role").closeModal();
         
@@ -492,15 +570,14 @@ $(document).ready(function(){
   });
  
   //Close add change role modal form with click of X icon
-  $('.modal.changerolemodal .modalclosex').click(function() {
-  	$('.modal.changerolemodal').closeModal({
+  $('#modal-change-role .modalclosex').click(function() {
+  	$('#modal-change-role').closeModal({
         out_duration: 200,
   	});
-    $('input[name="role-group"]').filter("[value='"+1+"']").prop('checked', true);
+    document.getElementById('change-role-form').reset();
   });
  
  	//--------------MODAL CODE FOR DELETING USER--------------//
-
   $("#admin-content").on("click", ".deleteadminbutton", function(){
     selected_admin_id = $(this).val();
       
