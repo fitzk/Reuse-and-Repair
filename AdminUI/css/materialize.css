@@ -8521,7 +8521,7 @@ a.waves-effect .waves-ripple {
 
 /*LOGINMODAL CHANGES*/
 .modal.loginmodal {
-  width: 25%;
+  width: 400px;
 }
 
 /*ACCOUNTMODAL CHANGES*/
@@ -8536,6 +8536,13 @@ a.waves-effect .waves-ripple {
   overflow: hidden;
 }
 
+/*ADDADMINMODAL CHANGES*/
+.modal.addadminmodal {
+  width: 80%;
+  height: 90% !important;
+  /*overflow: hidden;*/
+}
+
 /*DELETEUSERMODAL CHANGES*/
 .modal.deleteusermodal {
   width: 40%;
@@ -8543,7 +8550,7 @@ a.waves-effect .waves-ripple {
 
 /*CHANGEROLEMODAL CHANGES*/
 .modal.changerolemodal {
-  width: 40%;
+  width: 400px;
   overflow: hidden;
 }
 
