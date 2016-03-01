@@ -216,15 +216,6 @@
           <h4>Additional Content</h4>
           <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         </div>
-             <div class="input-field col s12 select">
-              <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-              <label>Materialize Select</label>
-            </div>
       </div>
     </div>
   </div>
@@ -339,14 +330,12 @@
 
     <!--MODAL FOR ADD BUSINESS FORM-->
   <div id="modal3" class="modal businessmodal modal-fixed-footer">
-    <!--give header its own div so that it can be displayed with a background-->
-    <div class="center modalheader white-text col s12 m12 l12">
-      <h4>Add Business</h4>
-      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
-    </div>
-
     <div class="modal-content">
-      
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader teal-text col s12 m12 l12">
+      <h4>Add Business</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+    </div>  
         <form class="col s12">
             <div class="row">
               <div class="input-field col s6 m6 l6">
@@ -374,9 +363,62 @@
                 <label for="first_name">City</label>
               </div>
               <div class="input-field col s1 m1 l1">
-                <input id="last_name" type="text" class="validate">
-                <label for="last_name">State</label>
+                <select id="addbusiness-state">
+                  <option value="" disabled selected>State</option>
+                  <option value="Alabama">AL</option>
+                  <option value="Alaska">AK</option>
+                  <option value="Arizona">AZ</option>
+                  <option value="Arkansas">AR</option>
+                  <option value="California">CA</option>
+                  <option value="Colorado">CO</option>
+                  <option value="Connecticut">CT</option>
+                  <option value="Delaware">DE</option>
+                  <option value="Florida">FL</option>
+                  <option value="Georgia">GA</option>
+                  <option value="Hawaii">HI</option>
+                  <option value="Idaho">ID</option>
+                  <option value="Illinois">IL</option>
+                  <option value="Indiana">IN</option>
+                  <option value="Iowa">IA</option>
+                  <option value="Kansas">KS</option>
+                  <option value="Kentucky">KY</option>
+                  <option value="Louisiana">LA</option>
+                  <option value="Maine">ME</option>
+                  <option value="Maryland">MD</option>
+                  <option value="Massachusetts">MA</option>
+                  <option value="Michigan">MI</option>
+                  <option value="Minnesota">MN</option>
+                  <option value="Mississippi">MS</option>
+                  <option value="Missouri">MO</option>
+                  <option value="Montana">MT</option>
+                  <option value="Nebraska">NE</option>
+                  <option value="Nevada">NV</option>
+                  <option value="New Hampshire">NH</option>
+                  <option value="New Jersey">NJ</option>
+                  <option value="New Mexico">NM</option>
+                  <option value="New York">NY</option>
+                  <option value="North Carolina">NC</option>
+                  <option value="North Dakota">ND</option>
+                  <option value="Ohio">OH</option>
+                  <option value="Oklahoma">OK</option>
+                  <option value="Oregon">OR</option>
+                  <option value="Pennsylvania">PA</option>
+                  <option value="Rhode Island">RI</option>
+                  <option value="South Carolina">SC</option>
+                  <option value="South Dakota">SD</option>
+                  <option value="Tennessee">TN</option>
+                  <option value="Texas">TX</option>
+                  <option value="Utah">UT</option>
+                  <option value="Vermont">VT</option>
+                  <option value="Virginia">VA</option>
+                  <option value="Washington">WA</option>
+                  <option value="West Virginia">WV</option>
+                  <option value="Wisconsin">WI</option>
+                  <option value="Wyoming">WY</option>
+                </select>
+                <label for="state"></label>
               </div>
+              
               <div class="input-field col s2 m2 l2">
                 <input id="last_name" type="text" class="validate">
                 <label for="last_name">Zipcode</label>
@@ -385,6 +427,32 @@
                 <input id="first_name" type="text" class="validate">
                 <label for="first_name">Hours</label>
               </div>
+            </div>
+            
+            <div class="row">
+            
+              <div class="input-field col s6 m6 l6">
+                <select id="addbusiness-businesstype">
+                  <option value="" disabled selected>Business Type</option>
+                  <option value="1">Reuse</option>
+                  <option value="2">Repair</option>
+                </select>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <select multiple id="addbusiness-subcategories">
+                  <option value="" disabeld selected>Subcategories</option>
+                  <optgroup label="Reuse">
+                    <option value="1"=>Option 1</option>
+                    <option value="2">Option 2</option>
+                  </optgroup>
+                  <optgroup label="Repair">
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                  </optgroup>
+                </select>
+                
+              </div>
+              
             </div>
         </form>
     </div>
@@ -430,18 +498,41 @@
   </div>
 
   <!--MODAL FOR ADDING ADMIN-->
-  <div id="modal-add-admin" class="modal addadminmodal modal">
-    <!--give header its own div so that it can be displayed with a background-->
-    <div class="center modalheader white-text col s12 m12 l12">
-      <h4>Add Administrator</h4>
-      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
-    </div>
+  <div id="modal-add-admin" class="modal addadminmodal modal-fixed-footer">
+
     <div class="modal-content">
+      <!--give header its own div so that it can be displayed with a background-->
+      <div class="center modalheader teal-text col s12 m12 l12">
+        <h4>Add Administrator</h4>
+        <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+    </div>
         <form id="add-admin-form" class="col s12">
             <div class="row">
               <div class="input-field col s6 m6 l6">
+                <input id="addadmin-firstname" type="text">
+                <label for="addadmin-firstname">First Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
                 <input id="addadmin-username" type="text">
                 <label for="addadmin-username">Username</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-lastname" type="text">
+                <label for="addadmin-lastname">Last Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-email" type="email">
+                <label for="addadmin-email">Email (optional)</label>
+              </div>
+            </div> 
+            
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-password1" type="password">
+                <label for="addadmin-password1">Password</label>
               </div>
               <div class="input-field col s6 m6 l6">
                 <select id="addadmin-adminrole">
@@ -455,28 +546,8 @@
             </div>
             <div class="row">
               <div class="input-field col s6 m6 l6">
-                <input id="addadmin-password1" type="password">
-                <label for="addadmin-password1">Password</label>
-              </div>
-              <div class="input-field col s6 m6 l6">
                 <input id="addadmin-password2" type="password">
                 <label for="addadmin-password2">Retype Password</label>
-              </div>
-            </div> 
-            <div class="row">
-              <div class="input-field col s6 m6 l6">
-                <input id="addadmin-firstname" type="text">
-                <label for="addadmin-firstname">First Name</label>
-              </div>
-              <div class="input-field col s6 m6 l6">
-                <input id="addadmin-lastname" type="text">
-                <label for="addadmin-lastname">Last Name</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 m6 l6">
-                <input id="addadmin-email" type="email">
-                <label for="addadmin-email">Email (optional)</label>
               </div>
             </div>
         </form>  

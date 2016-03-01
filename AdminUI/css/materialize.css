@@ -8559,15 +8559,15 @@ a.waves-effect .waves-ripple {
   width: 1300px;
   height: 800px;
   max-height: 80%;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .modalheader {
-  padding-left: 24px;
+  /*padding-left: 24px;
   padding-right: 24px;
-  padding-top: 24px;
+  padding-top: 24px;*/
   padding-bottom: 24px;
-  background-color: #00796b;
+  /*background-color: #00796b;*/
 }
 
 .modalheader h4 {
@@ -9727,6 +9727,8 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
   right: 0;
   top: 16px;
   font-size: 10px;
+  height: 15px;
+  width: 10px;
 }
 
 .select-wrapper span.caret.disabled {
