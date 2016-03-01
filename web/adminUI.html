@@ -16,9 +16,9 @@
   <!--NAV BANNER AT TOP OF PAGE-->
   <!-- Dropdown Structure -->
   <ul id="dropdown" class="dropdown-content">
-    <li><a href="#modal-account" class="modal-trigger accountbutton">Account</a></li>
+    <li id="account-button"><a>Account</a></li>
     <li class="divider"></li>
-    <li id="logout-button"><a href="#!">Logout</a></li>
+    <li id="logout-button"><a>Logout</a></li>
   </ul>
   <nav class="teal darken-2" role="navigation">
     <div class="nav-wrapper container">
@@ -26,7 +26,7 @@
         <a href="adminUI.html"><img class="logocontrol csclogo" src="../AdminUI/logoheader.png"></a><!--logoheader.png-->
         <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
         <ul class="right hide-on-med-and-down">
-            <li id="login-button"><a href="#modal-login" class="white-text waves-effect modal-trigger loginbutton ">Administrator Login</a></li>
+            <li id="login-button"><a class="white-text waves-effect ">Administrator Login</a></li>
             <!-- Dropdown Trigger -->
             <li id="admin-menu" class="hidden"><a id="admin-menu-title" class="dropdown-button white-text" href="#!" data-activates="dropdown"></a></li>
         </ul>
@@ -40,7 +40,7 @@
       <h4>Administrator Login</h4>
       <p>
       <div class="row">
-        <form class="col s12 m12 l12">
+        <form id="admin-login-form" class="col s12 m12 l12">
           <div class="row">
             <div class="input-field">
               <!--<i class="material-icons prefix">email</i>-->
@@ -83,14 +83,14 @@
     </div>
 
     <div class="modal-content">
-        <form class="col s12">
+        <form id="admin-account-form" class="col s12">
             <div class="row">
-              <div class="input-field col s6 m6 l6 text-black">
-                <input disabled value="I am not editable" id="account-username" type="text">
+              <div class="input-field col s6 m6 l6">
+                <input disabled value="" id="account-username" type="text">
                 <label for="disabled">Username</label>
               </div>
               <div class="input-field col s6 m6 l6">
-                <input disabled value="I am not editable" id="account-adminrole" type="text">
+                <input disabled value="" id="account-adminrole" type="text">
                 <label for="disabled">Role</label>
               </div>
             </div> 
@@ -115,7 +115,7 @@
     </div>
     <div class="modal-footer">
       <button id="update-account-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update</button>
-      <a href="#modal-change-password" id="change-password-button" class="changepasswordbutton modal-trigger modal-close waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</a>
+      <button id="change-password-button" class="modal-close waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</button>
     </div>
   </div>
   
@@ -128,7 +128,7 @@
     </div>
 
     <div class="modal-content">
-        <form class="col s12">
+        <form id="change-password-form" class="col s12">
             <div class="row">
               <div class="input-field">
                 <input id="pwchange-password" type="password">
@@ -148,6 +148,7 @@
               </div>
             </div>
         </form>
+        
         <h6 id="change-password-error" class="red-text center"></h6>
     </div>
     <div class="modal-footer">
@@ -367,7 +368,6 @@
                 <label for="first_name">Website</label>
               </div>
             </div>
-
             <div class="row">
               <div class="input-field col s3 m3 l3">
                 <input id="first_name" type="text" class="validate">
@@ -386,9 +386,7 @@
                 <label for="first_name">Hours</label>
               </div>
             </div>
-
         </form>
-      
     </div>
 
     <div class="modal-footer">
@@ -426,8 +424,66 @@
     <div id="fab-admin" class="hidden fixed-action-btn container1">
       <a class="buttons1"><span><span class="rotate"></span></span></a>
       <ul>
-        <li><a class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator"><i class="material-icons">mode_edit</i></a></li>
+        <li><a id="add-admin-button" class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator"><i class="material-icons">mode_edit</i></a></li>
       </ul>
+    </div>
+  </div>
+
+  <!--MODAL FOR ADDING ADMIN-->
+  <div id="modal-add-admin" class="modal addadminmodal modal">
+    <!--give header its own div so that it can be displayed with a background-->
+    <div class="center modalheader white-text col s12 m12 l12">
+      <h4>Add Administrator</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
+    </div>
+    <div class="modal-content">
+        <form id="add-admin-form" class="col s12">
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-username" type="text">
+                <label for="addadmin-username">Username</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <select id="addadmin-adminrole">
+                  <option value="1" selected>Master Admin</option>
+                  <option value="2">Content Management Admin</option>
+                  <option value="3">Business Admin</option>
+                  <option value="4">Read-Only Admin</option>
+                </select>
+                <label>Select Admin Role</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-password1" type="password">
+                <label for="addadmin-password1">Password</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-password2" type="password">
+                <label for="addadmin-password2">Retype Password</label>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-firstname" type="text">
+                <label for="addadmin-firstname">First Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-lastname" type="text">
+                <label for="addadmin-lastname">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addadmin-email" type="email">
+                <label for="addadmin-email">Email (optional)</label>
+              </div>
+            </div>
+        </form>  
+        <h6 id="add-admin-error" class="red-text center"></h6>
+    </div>
+    <div class="modal-footer">
+      <button id="add-admin-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Add Admin</button>
     </div>
   </div>
 
@@ -438,9 +494,8 @@
       <h4>Change Admin Role</h4>
       <a class="modalclosex btn-flat"><i class="material-icons white-text modalclosex">close</i></a>
     </div>
-
     <div class="modal-content">
-        <form class="col s12">
+        <form id="change-role-form" class="col s12">
           <div class="row">
             <input name="role-group" type="radio" id="role1" value="1" checked />
             <label for="role1">Master Admin</label>

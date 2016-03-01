@@ -351,7 +351,7 @@ $app->PUT('/admin', function (Application $app, Request $request) {
       'password' => $request->get('password'),
       'first_name' => $request->get('first_name'),
       'last_name' => $request->get('last_name'),
-      'website' => $request->get('website'),
+      'email' => $request->get('email'),
       'role_id' => $request->get('role_id')
     );
     
@@ -372,7 +372,7 @@ $app->POST('/admin/{admin_id}', function (Application $app, Request $request, $a
       'username' => $request->get('username'),
       'first_name' => $request->get('first_name'),
       'last_name' => $request->get('last_name'),
-      'website' => $request->get('website')
+      'email' => $request->get('email')
     );
     
     $handler = New AdminHandler();
