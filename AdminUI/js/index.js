@@ -13,8 +13,8 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   $('select').material_select();
   
@@ -156,18 +156,21 @@ $(document).ready(function(){
   
   getAllSubcategories();
   
-	var somenumber = 0;
+  //some variables to prevent duplicate appending in the tables
+  var firstboxnum = 0;
+  var secondboxnum = 0;
+  var thirdboxnum = 0;
+  var fourthboxnum = 0;
 	$(".collapsible-header").click(function() {
-		somenumber++;
-		//console.log(somenumber);
 	    if ($(this).hasClass("firstbox")) {
+         firstboxnum++;
 		    if ($(".arrowtate.firstbox").hasClass("active")) {
 		    	$(".arrowtate.firstbox").removeClass("active");
 		   	} else {
 		   		$(".arrowtate.firstbox").toggleClass("active");
 
-		   		//LOGIC TO PULL IN DATABASE ENTRIES AND DISPLAY THEM
-		   		if (somenumber <= 1) {
+		   		//LOGIC TO PULL IN ALL BUSINESS DATABASE ENTRIES AND DISPLAY THEM
+		   		if (firstboxnum <= 1) {
 		   			var firstletterct = 0;
 		   			var firstletter;
 		   			var prevletter;
@@ -199,7 +202,7 @@ $(document).ready(function(){
 					})
 
 		   		}
-		   		else if (somenumber > 1) {
+		   		else if (firstboxnum > 1) {
 
 		   		};
 		    	$(".arrowtate.secondbox").removeClass("active");
@@ -208,6 +211,7 @@ $(document).ready(function(){
 		   	}
 	    }
 	    else if ($(this).hasClass("secondbox")) {
+         secondboxnum++;
 		   	if ($(".arrowtate.secondbox").hasClass("active")) {
 		    	$(".arrowtate.secondbox").removeClass("active");
 		   	} else {
@@ -218,6 +222,7 @@ $(document).ready(function(){
 		   	}
 		}
 	    else if ($(this).hasClass("thirdbox")) {
+         thirdboxnum++;
 		   	if ($(".arrowtate.thirdbox").hasClass("active")) {
 		    	$(".arrowtate.thirdbox").removeClass("active");
 		   	} else {
@@ -228,10 +233,44 @@ $(document).ready(function(){
 		   	}
 		}
 	    else if ($(this).hasClass("fourthbox")) {
+         fourthboxnum++;
 		   	if ($(".arrowtate.fourthbox").hasClass("active")) {
 		   	$(".arrowtate.fourthbox").removeClass("active");
 		   	} else {
 		   		$(".arrowtate.fourthbox").toggleClass("active");
+		   		//LOGIC TO PULL IN THE SUBCATEGORY DATABASE ENTRIES AND DISPLAY THEM
+		   		if (fourthboxnum <= 1) {
+		   			var firstletterct = 0;
+		   			var firstletter;
+		   			var prevletter;
+		   			var letterholder;
+					$.getJSON(urlpath + "/subcategories", function(obj) {
+						$.each(obj, function(key, value) {
+							prevletter = firstletter;
+							console.log(prevletter);
+							firstletter = value.name.substring(0,1).toUpperCase();
+							//console.log(firstletter):
+							if (firstletter == prevletter) {
+								firstletterct++;
+							}
+							else {
+								firstletterct = 0;
+							}
+							if (firstletterct == 0) {
+								letterholder = firstletter;
+							}
+							else if (firstletterct > 0) {
+								letterholder = " ";
+							}
+							$(".subcatlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" +
+								"<td>" + "Some # Here" + "</td>" + "</tr>");
+						});
+					})
+
+		   		}
+		   		else if (fourthboxnum > 1) {
+
+		   		};                                             
 		    	$(".arrowtate.firstbox").removeClass("active");
 		    	$(".arrowtate.secondbox").removeClass("active");
 		    	$(".arrowtate.thirdbox").removeClass("active");
