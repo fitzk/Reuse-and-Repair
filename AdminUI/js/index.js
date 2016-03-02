@@ -13,8 +13,8 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   $('select').material_select();
   
@@ -136,6 +136,25 @@ $(document).ready(function(){
   }
   
   populateAdmins();
+  
+  var subcategories;
+  
+  function getAllSubcategories(){
+    
+    //Get list of admin users and add admin cards
+    $.ajax
+    ({    
+      type: "GET",
+      url: urlpath + "/subcategories",
+      dataType: 'json',
+      async: true,
+      success: function (data){
+        subcategories = data;
+      }
+    });
+  }
+  
+  getAllSubcategories();
   
 	var somenumber = 0;
 	$(".collapsible-header").click(function() {
@@ -487,7 +506,7 @@ $(document).ready(function(){
           popup("Admin added");
         },
         statusCode: {
-          404: function () {
+          409: function () {
              $("#add-admin-error").html("Username already exists");
           }
         },
@@ -615,6 +634,67 @@ $(document).ready(function(){
         out_duration: 200,
   	});
   });
+
+	//--------------MODAL CODE FOR ADDING SUBCATEGORY--------------//
+  $("#add-subcategory-button").click(function() {
+    $('#modal-add-subcategory').openModal({
+      complete: function() {
+        document.getElementById('add-subcategory-form').reset();
+        $("#add-subcategory-error").html("");
+      }
+    });
+  });
+  
+  $('#add-subcategory-submit').click(function() {
+    var new_subcategory = $("#addsub-subcategory").val();
+    
+    if(new_subcategory == "")
+      $("#add-subcategory-error").html("Please enter subcategory");
+    else
+    {
+      $.ajax
+      ({    
+        type: "PUT",
+        url: urlpath + "/subcategories",
+        data: {'subcategory_name' : new_subcategory},
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (){
+          //Successful add subcategory
+         
+          document.getElementById('add-subcategory-form').reset();
+          $("#add-subcategory-error").html("");
+          
+          $("#modal-add-subcategory").closeModal();
+          
+          popup("Subcategory added");
+        },
+        statusCode: {
+          409: function () {
+             $("#add-subcategory-error").html("Subcategory already exists");
+          }
+        },
+        error: function (){
+          $("#add-subcategory-error").html("Error: Subcategory not added");
+        }
+      });
+    }
+  });
+ 
+  //Close add change role modal form with click of X icon
+  $('#modal-add-subcategory .modalclosex').click(function() {
+  	$('#modal-add-subcategory').closeModal({
+        out_duration: 200,
+  	});
+    document.getElementById('add-subcategory-form').reset();
+    $("#add-subcategory-error").html("");
+  });
+  
+  
+  
+  
 	//--------------MODAL CODE FOR ADDING BUSINESS--------------//
 	$('.addbusiness').leanModal({
       opacity: .5,
