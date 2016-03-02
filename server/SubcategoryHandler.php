@@ -178,7 +178,7 @@ class SubcategoryHandler extends Handler
           
         // Check if subcategory exists
         if ($this->subcategoryExistByName($name))
-          return ['message' => 'Subcategory already exists', 'status_code' => 400];
+          return ['message' => 'Subcategory already exists', 'status_code' => 409];
            
         // Create subcategory
         $sql = "INSERT INTO reuse_and_repair_db.Subcategory (subcategory_name) VALUES (?);";

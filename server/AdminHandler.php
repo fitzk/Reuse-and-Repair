@@ -223,7 +223,7 @@ class AdminHandler extends Handler
         
         // Check if username exists
         if ($this->usernameExist($object['username']))
-          return ['message' => 'Username already exists', 'status_code' => 404];
+          return ['message' => 'Username already exists', 'status_code' => 409];
         
         $sql = "INSERT INTO reuse_and_repair_db.Admin (username, password, first_name, last_name, email, fk_role_id)
                VALUES (?, ?, ?, ?, ?, ?);";
