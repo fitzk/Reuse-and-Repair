@@ -13,8 +13,8 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   $('select').material_select();
   
@@ -169,7 +169,90 @@ $(document).ready(function(){
   }
   
   getAllSubcategories();
- 
+  
+   //LOGIC TO PULL IN ALL BUSINESS DATABASE ENTRIES AND DISPLAY THEM
+  
+  //some variables to prevent duplicate appending in the tables
+  var firstboxnum = 0;
+  var secondboxnum = 0;
+  var thirdboxnum = 0;
+  var fourthboxnum = 0;
+  
+  //THIS SECTION POPULATES THE LISTING FOR ALL BUSINESSES
+  //$(".all").click(function() {
+		var firstletterct = 0;
+		var firstletter;
+		var prevletter;
+		var letterholder;
+	$.getJSON(urlpath + "/businesses", function(obj) {
+		$.each(obj, function(key, value) {
+			prevletter = firstletter;
+			console.log(prevletter);
+			firstletter = value.name.substring(0,1).toUpperCase();
+			//console.log(firstletter):
+			if (firstletter == prevletter) {
+				firstletterct++;
+			}
+			else {
+				firstletterct = 0;
+			}
+			if (firstletterct == 0) {
+				letterholder = firstletter;
+			}
+			else if (firstletterct > 0) {
+				letterholder = " ";
+			}
+			$(".allbizlistnew").append("<tr class='bizlist collapsible-header'>" + 
+      "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + 
+      "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
+				", " + value.address.zip + "</td>" + "<td>" + "(503)-123-4567" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
+        "<td>" + value.category.name + "</td>" + "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></tr>");
+        
+			/*$(".allbizlistnew").append("<li><div class='alphaheader datadiv'>" + letterholder + " </div><div class='collapsible-header'>" + "<div class='datadiv'>" + value.name + "</div>" + 
+      "<div class='datadiv'>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
+				", " + value.address.zip + "</div>" + "<div class='datadiv'>" + "(503)-123-4567" + "</div>" + "<div class='datadiv'><a href=" + value.website + " target='_blank'>" + value.website + "</a></div>" + 
+        "<div class='datadiv'>" + value.category.name + "</div></div>" + "<i class='material-icons arrowtate secondary-content'>keyboard_arrow_right</i><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></li>");*/        
+        /*  </tr>
+        <ul class="collapsible" data-collapsible="expandable">
+              <div class="collapsible-header">
+
+              </div>
+              //<i class="material-icons secondary-content arrowtate">keyboard_arrow_right</i>
+              <div class="collapsible-body">
+
+              </div>
+
+        </ul>*/
+        
+		});
+	})
+ //}
+
+  //THIS SECTION POPULATES THE LISTING FOR SUBCATEGORIES
+  	var firstletterct = 0;
+  $.getJSON(urlpath + "/subcategories", function(obj) {
+  	$.each(obj, function(key, value) {
+  		prevletter = firstletter;
+  		console.log(prevletter);
+  		firstletter = value.name.substring(0,1).toUpperCase();
+  		//console.log(firstletter):
+  		if (firstletter == prevletter) {
+  			firstletterct++;
+  		}
+  		else {
+  			firstletterct = 0;
+  		}
+  		if (firstletterct == 0) {
+  			letterholder = firstletter;
+  		}
+  		else if (firstletterct > 0) {
+  			letterholder = " ";
+  		}
+  		$(".subcatlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" +
+  			"<td>" + "Some # Here" + "</td>" + "</tr>");
+  	});
+  })
+  
   //some variables to prevent duplicate appending in the tables
   var firstboxnum = 0;
   var secondboxnum = 0;

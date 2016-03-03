@@ -182,12 +182,12 @@
       </li>
       <li>
         <a id="add-business-button" class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business">
-          <i class="material-icons">mode_edit</i>
+          <i class="material-icons">business</i>
         </a>
       </li>
       <li>
         <a id="add-admin-button" class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator">
-          <i class="material-icons">mode_edit</i>
+          <i class="material-icons">people</i>
         </a>
       </li>  
     </ul>
@@ -341,6 +341,76 @@
               </div>
             </li>
           </ul>
+          <!--SET UP A NEW SECTION FOR DISPLAYING BUSINESSES-->
+          <!--THIS IS A TABBED SECTION WITH THE VIEWING OPTIONS AS OPPOSED TO A DROPDOWN-->
+          <div class="row">
+            <div class="col s12 m12 l12">
+              <ul class="tabs viewer">
+                <li class="tab viewer viewall"><a class="active teal-text waves-effect" href="#all">View All Businesses</a></li>
+                <li class="tab viewer viewreuse"><a class="teal-text waves-effect" href="#reuse">View Reuse</a></li>
+                <li class="tab viewer viewrepair"><a class="teal-text waves-effect" href="#repair">View Repair</a></li>
+                <li class="tab viewer viewsubcat"><a class="teal-text waves-effect" href="#subcategories">View Subcategories</a></li>
+              </ul>
+            </div>
+          </div>
+          <!--THIS IS THE TABLE FOR DISPLAYING ALL BUSINESSES-->         
+          <div class="container viewtbl z-depth-1 all" id="all">
+            <div class="section">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="datatable">
+                    <table class="highlight responsive-table">
+                      <thead>
+                        <tr>
+                          <th data-field="alphaheader"> </th>
+                          <th data-field="Name">Name</th>
+                          <th data-field="Address">Address</th>
+                          <th data-field="Phone">Phone</th>
+                          <th data-field="Website">Website</th>
+                          <th data-field="Category">Category</th>
+                          <th data-field="caret"> </th>
+                        </tr>
+                      </thead>
+                   
+                      <tbody class="allbizlistnew collapsible" data-collapsible="expandable">
+                      </tbody>
+                   </table>
+                      <!--<ul class="allbizlistnew collapsible" data-collapsible="expandable">
+                      </ul>-->
+                    
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--THIS IS THE TABLE FOR DISPLAYING SUBCATEGORIES ONLY-->
+          <div class="container viewtbl z-depth-1" id="subcategories">
+            <div class="section">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="datatable">
+                    <table class="highlight responsive-table">
+                      <thead>
+                        <tr>
+                          <th data-field="alphaheader"> </th>
+                          <th data-field="Name">Name</th>
+                          <th data-field=""></th>
+                          <th data-field=""></th>
+                          <th data-field=""></th>
+                          <th data-field="Count">Count</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody class="subcatlist">
+                      </tbody>
+                    </table>
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
