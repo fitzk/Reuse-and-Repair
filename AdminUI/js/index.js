@@ -13,8 +13,8 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
-  //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
+  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   
   $('select').material_select();
   
@@ -150,12 +150,26 @@ $(document).ready(function(){
       async: true,
       success: function (data){
         subcategories = data;
+        
+        populateAddBusinessSubcategories();
       }
     });
   }
   
-  getAllSubcategories();
+  function populateAddBusinessSubcategories(){
+
+    $('#addbusiness-subcategories').append('<option value="" disabled selected>Subcategories</option>');
+    
+    for(var i = 0; i < subcategories.length; i++)
+    {
+      var selecthtml = '<option value="' + subcategories[i].id + '">' + subcategories[i].name + '</option>';
+      $('#addbusiness-subcategories').append(selecthtml);
+    }
+    $('select').material_select();
+  }
   
+  getAllSubcategories();
+ 
   //some variables to prevent duplicate appending in the tables
   var firstboxnum = 0;
   var secondboxnum = 0;
@@ -378,8 +392,10 @@ $(document).ready(function(){
 
     if(new_firstname == "")
       new_firstname = first_name;
-    if(new_firstname == "")
+    if(new_lastname == "")
       new_lastname = last_name;
+    if(new_email == "")
+      new_email = email;
       
     $.ajax
     ({    
@@ -507,18 +523,22 @@ $(document).ready(function(){
       $("#add-admin-error").html("Passwords do not match");
     else
     {
+      var aa_data = {
+        'username' : aa_username,
+        'password' : aa_password1,
+        'first_name' : aa_firstname,
+        'last_name' : aa_lastname,
+        'role_id' : aa_adminrole   
+      }
+
+      if(aa_email != "")
+        aa_data['email'] = aa_email;
+        
       $.ajax
-      ({    
+      ({
         type: "PUT",
         url: urlpath + "/admin",
-        data: {
-          'username' : aa_username,
-          'password' : aa_password1,
-          'first_name' : aa_firstname,
-          'last_name' : aa_lastname,
-          'email' : aa_email,
-          'role_id' : aa_adminrole        
-        },
+        data: aa_data,
         async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
@@ -730,42 +750,133 @@ $(document).ready(function(){
     document.getElementById('add-subcategory-form').reset();
     $("#add-subcategory-error").html("");
   });
-  
-  
-  
-  
+
 	//--------------MODAL CODE FOR ADDING BUSINESS--------------//
-	$('.addbusiness').leanModal({
-      opacity: .5,
-      in_duration: 300,
-      out_duration: 300,
-    });
-    //Close add business modal form with click of X icon
-	$('.modal.businessmodal .modalclosex').click(function() {
-		$('.modal.businessmodal').closeModal({
-	      out_duration: 200,
-		});
-	});
-    //This controls the submit button, DO ONLY IF SUBMIT IS SUCCESSFUL
-	$('.addsubmit').leanModal({
-	  dismissible: false,
-      in_duration: 800, 
-      opacity: 0,
-    });
-    //Successful submit response, delay then fade out and close modal if user doesn't dismiss
-	$('.addsubmit').click(function() {
-		$('.modal.addbussuccess').delay(6000).fadeOut(1000).closeModal();
-	});
-	//Close modal if dismiss is clicked
-	$('.modal.addbussuccess .dismissit').click(function() {			
-		$('.modal.addbussuccess').closeModal({
-	      out_duration: 800,
-		});
-	});
+  $("#add-business-button").click(function() {
+      
+      $('#modal-add-business').openModal({
+        complete: function() {
+          document.getElementById('add-business-form').reset();
+          $("#add-business-error").html("");
+        }
+      });
+    }); 
+    
+    $("#add-business-submit").click(function() {
+      var ab_name = $("#addbusiness-name").val();
+      var ab_phone = $("#addbusiness-phone").val();
+      var ab_streetnumber = $("#addbusiness-streetnumber").val();
+      var ab_streetname = $("#addbusiness-streetname").val();
+      var ab_website = $("#addbusiness-website").val();
+      var ab_city = $("addbusiness-city").val();
+      var ab_state = $("#addbusiness-state").val();
+      var ab_zip = $("#addbusiness-zip").val();
+      var ab_hours = $("#addbusiness-hours").val();
+      var ab_businesstype = $("#addbusiness-businesstype").val();
+      var ab_subcategories = $("#addbusiness-subcategories").val();
+      var ab_desc = $("#addbusiness-desc").val();
 
-	//--------------MODAL CODE FOR ADDING CATEGORY--------------//
+      var ab_data = {
+        'category_id' : ab_businesstype,
+        'business_name' : ab_name
+      }
 
-	//--------------MODAL CODE FOR ADDING ADMIN--------------//
+      if(ab_phone != "")
+        ab_data['phone'] = ab_phone;
+      if(ab_streetnumber != "")
+        ab_data['street_number'] = ab_streetnumber;
+      if(ab_streetname != "")
+        ab_data['street_name'] = ab_streetname;
+      if(ab_website != "")
+        ab_data['website'] = ab_website;
+      if(ab_city != "")
+        ab_data['city'] = ab_city;
+      if(ab_state != "")
+        ab_data['state'] = ab_state;
+      if(ab_zip != "")
+        ab_data['zip'] = ab_zip;
+      if(ab_hours != "")
+        ab_data['hours_entry'] = ab_hours;
+      if(ab_desc != "")
+        ab_data['description'] = ab_desc;
+
+      if(ab_name == "" || ab_businesstype == null)
+        $("#add-business-error").html("Please enter business name and type");
+      else
+      {
+        $.ajax
+        ({    
+          type: "PUT",
+          url: urlpath + "/businesses",
+          data: ab_data,
+          async: false,
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+          },
+          success: function (){
+            //Successful add business
+
+            var businessid = 0;
+            //Get business id and add subcategories
+            $.getJSON(urlpath + "/businesses", function(data) {
+              for (var i = 0; i < data.length; i++) {
+                if(businessid < parseInt(data[i].id))
+                  businessid = data[i].id;
+              }
+
+              //Parse subcategory object to string for API
+              var ab_subcategories_str = JSON.stringify(ab_subcategories);
+              ab_subcategories_str = ab_subcategories_str.replace(/[\[\]\"]+/g,'');
+              
+              //Add subcategories
+              if(ab_subcategories != "")
+              {
+                              alert(businessid);
+                alert(ab_subcategories_str);
+                $.ajax
+                ({    
+                  type: "POST",
+                  url: urlpath + "/businesses/" + businessid + "/subcategory",
+                  data: {
+                    'subcategories' : ab_subcategories_str
+                  },
+                  async: true,
+                  beforeSend: function (xhr) {
+                      xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+                  },
+                  success: function (){
+                      //Successful add subcategories
+                    alert("SUCCESS");
+                  }
+                });
+              }           
+            });
+            
+            //Clear input
+            document.getElementById('add-business-form').reset();
+            $("#add-business-error").html("");
+            
+            $("#modal-add-business").closeModal();
+    
+            popup("Business added");
+          },
+          error: function (){
+            $("#add-admin-error").html("Error: Business not added");
+          }
+        });
+      }
+    });
+    
+    //Close add admin modal form with click of X icon
+    $('#modal-add-business .modalclosex').click(function() {
+    	$('#modal-add-business').closeModal({
+          out_duration: 200,
+    	});
+      document.getElementById('add-business-form').reset();
+      $("#add-business-error").html("");
+    });
+
+
 
 
 
