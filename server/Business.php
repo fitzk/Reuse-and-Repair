@@ -26,15 +26,18 @@ class Business implements JsonSerializable
      * @param $address
      * @param $hours
      * @param $website
+     * @param $phone
      */
-    public function __construct($id, $category, $name, $address, $hours, $website)
+    public function __construct($id, $category, $name, $address, $phone, $hours, $website, $description)
     {
         $this->id = $id;
         $this->category = $category;
         $this->name = $name;
         $this->address = $address;
+        $this->phone = $phone;
         $this->hours = $hours;
         $this->website = $website;
+        $this->description = $description;
     }
 
     public function jsonSerialize()
@@ -44,8 +47,10 @@ class Business implements JsonSerializable
             'name' => $this->name,
             'category' => $this->category->jsonSerialize(),
             'address' => $this->address->jsonSerialize(),
+            'phone' => $this->phone,
             'hours' => $this->hours->jsonSerialize(),
-            'website' => $this->website
+            'website' => $this->website,
+            'description' => $this->description
         ];
     }
 
@@ -116,6 +121,22 @@ class Business implements JsonSerializable
     /**
      * @return mixed
      */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+    
+    /**
+     * @return mixed
+     */
     public function getHours()
     {
         return $this->hours;
@@ -145,5 +166,22 @@ class Business implements JsonSerializable
         $this->website = $website;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $website
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+    
+    
 
 }

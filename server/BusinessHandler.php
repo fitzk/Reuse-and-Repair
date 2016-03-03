@@ -86,7 +86,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website'],$row['description']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -118,7 +118,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website'],$row['description']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -150,7 +150,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website'],$row['description']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
@@ -396,7 +396,7 @@ class BusinessHandler extends Handler
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();
