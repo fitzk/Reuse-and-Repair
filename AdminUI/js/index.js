@@ -179,17 +179,19 @@ $(document).ready(function(){
   var fourthboxnum = 0;
   
   //THIS SECTION POPULATES THE LISTING FOR ALL BUSINESSES
-  //$(".all").click(function() {
 		var firstletterct = 0;
 		var firstletter;
 		var prevletter;
 		var letterholder;
+    var idarray = [];
 	$.getJSON(urlpath + "/businesses", function(obj) {
 		$.each(obj, function(key, value) {
 			prevletter = firstletter;
-			console.log(prevletter);
-			firstletter = value.name.substring(0,1).toUpperCase();
-			//console.log(firstletter):
+			//console.log(prevletter);
+			
+      firstletter = value.name.substring(0,1).toUpperCase();
+      idarray.push(value.id);
+      //console.log(idarray);
 			if (firstletter == prevletter) {
 				firstletterct++;
 			}
@@ -200,12 +202,12 @@ $(document).ready(function(){
 				letterholder = firstletter;
 			}
 			else if (firstletterct > 0) {
-				letterholder = "    ";
+				letterholder = " ";
 			}
 			$(".allbizlistnew").append(
       "<li>" +
-        "<div class='collapsible-header'>" +
-          "<table class='highlight responsive-table showlist'>" + 
+        "<div class='collapsible-header "+ value.id +"'>" +
+          "<table class='highlight responsive-table'>" + 
               /*IF WE INCLUDE THIS, THE HEADER IS DISPLAYED ABOVE EACH COLLAPSIBLE, WHICH IS UNDESIRABLE!*/
               /*"<thead>" +
                   "<tr>" +
@@ -218,72 +220,62 @@ $(document).ready(function(){
                     "<th data-field='caret'> </th>" +
                   "</tr>" +
               "</thead>" +*/
-              "<tbody class='bodylist "+ value.id +"'>" +
+              "<tbody class='bodylist'>" +
+                /*"<col width='50px'>" +
+                "<col width='130'>" +
+                "<col width='130'>" +
+                "<col width='130'>" +
+                "<col width='130'>" +
+                "<col width='130'>" +
+                "<col width='130'>" +*/
                 "<tr class='bizlist'>" + 
-                "<td class='alphaheader'>" + letterholder + "</td>" + 
+                "<td class='alphaheader'><div>" + letterholder + "</div></td>" + 
                 "<td>" + value.name + "</td>" + 
                 "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + ", " + value.address.zip + "</td>" + 
                 "<td>" + "(503)-123-4567" + "</td>" + 
                 "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
                 "<td>" + value.category.name + "</td>" + 
-                "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" +
+                "<td arrowtate><i class='material-icons arrowtate "+ value.id +"'>keyboard_arrow_right</i></td>" +
                 "</tr>" + 
               "</tbody>" +
           "</table>" +
         "</div>" +
-        "<div class='collapsible-body'><td><p>" + value.hours.hours_entry + "<br><br></p></td></div>" +
+        "<div class='collapsible-body'>" +
+          "<table>" +
+              "<thead class='hours' data-field='hours'>" + 
+                "<tr>" + 
+                  "<th>&nbsp</th>" +
+                  "<th>&nbsp</th>" +
+                  "<th>&nbsp</th>" +
+                  "<th>Hours:</th>" +
+                  "<td>" + value.hours.hours_entry + "<br></td>" + 
+                "</tr>" +
+              "</thead>" + 
+          "</table>" +
+        "</div>" +
         
       "</li>"
       );
-        
-      /*<table class="highlight responsive-table">
-        <thead>
-          <tr>
-            <th data-field="alphaheader"> </th>
-            <th data-field="Name">Name</th>
-            <th data-field="Address">Address</th>
-            <th data-field="Phone">Phone</th>
-            <th data-field="Website">Website</th>
-            <th data-field="Category">Category</th>
-            <th data-field="caret"> </th>
-          </tr>
-        </thead>
-     
-        <tbody class="allbizlistnew">
-        </tbody>
-     </table>*/
-			/*$(".allbizlistnew").append("<tr class='bizlist collapsible-header'>" + 
-      "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + 
-      "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-				", " + value.address.zip + "</td>" + "<td>" + "(503)-123-4567" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
-        "<td>" + value.category.name + "</td>" + "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></tr>");*/
-        
-			/*$(".allbizlistnew").append("<li><div class='alphaheader datadiv'>" + letterholder + " </div><div class='collapsible-header'>" + "<div class='datadiv'>" + value.name + "</div>" + 
-      "<div class='datadiv'>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-				", " + value.address.zip + "</div>" + "<div class='datadiv'>" + "(503)-123-4567" + "</div>" + "<div class='datadiv'><a href=" + value.website + " target='_blank'>" + value.website + "</a></div>" + 
-        "<div class='datadiv'>" + value.category.name + "</div></div>" + "<i class='material-icons arrowtate secondary-content'>keyboard_arrow_right</i><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></li>");*/        
-        /*  </tr>
-        <ul class="collapsible" data-collapsible="expandable">
-              <div class="collapsible-header">
-
-              </div>
-              //<i class="material-icons secondary-content arrowtate">keyboard_arrow_right</i>
-              <div class="collapsible-body">
-
-              </div>
-
-        </ul>*/
-        
 		});
-	})
- //}
+   //controls the caret rotation
+    var index;
+    $(".collapsible-header").click(function() {
+      for (index=0; index < idarray.length; index++) {
+        if ($(this).hasClass(idarray[index])) {
+          $(".arrowtate." + idarray[index]).toggleClass("active");
+        }
+      }
+    });
+});
 
+
+   
   //THIS SECTION POPULATES THE LISTING FOR SUBCATEGORIES
   	var firstletterct = 0;
   $.getJSON(urlpath + "/subcategories", function(obj) {
   	$.each(obj, function(key, value) {
   		prevletter = firstletter;
-  		console.log(prevletter);
+  		//console.log(prevletter);
   		firstletter = value.name.substring(0,1).toUpperCase();
   		//console.log(firstletter):
   		if (firstletter == prevletter) {
@@ -303,6 +295,8 @@ $(document).ready(function(){
   	});
   })
   
+  //THIS IS THE OLD TABLE CODE
+  //TO BE DEMOLISHED AT A LATER TIME, NO LONGER NEEDED, ONLY HERE FOR CODE REFERENCE AND CODE REUSE 
   //some variables to prevent duplicate appending in the tables
   var firstboxnum = 0;
   var secondboxnum = 0;
@@ -315,7 +309,6 @@ $(document).ready(function(){
 		    	$(".arrowtate.firstbox").removeClass("active");
 		   	} else {
 		   		$(".arrowtate.firstbox").toggleClass("active");
-
 		   		//LOGIC TO PULL IN ALL BUSINESS DATABASE ENTRIES AND DISPLAY THEM
 		   		if (firstboxnum <= 1) {
 		   			var firstletterct = 0;
@@ -347,10 +340,8 @@ $(document).ready(function(){
 								"<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" + "</tr>");
 						});
 					})
-
 		   		}
 		   		else if (firstboxnum > 1) {
-
 		   		};
 		    	$(".arrowtate.secondbox").removeClass("active");
 		    	$(".arrowtate.thirdbox").removeClass("active");
@@ -413,10 +404,8 @@ $(document).ready(function(){
 								"<td>" + "Some # Here" + "</td>" + "</tr>");
 						});
 					})
-
 		   		}
 		   		else if (fourthboxnum > 1) {
-
 		   		};                                             
 		    	$(".arrowtate.firstbox").removeClass("active");
 		    	$(".arrowtate.secondbox").removeClass("active");
@@ -424,6 +413,8 @@ $(document).ready(function(){
 		   	}
 	    }
 	});
+//--------------------------END 'DEPRECATED' CODE----------------------------------------------------//
+ 
 	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 
 	//------------------------MODAL INITIALIZATIONS------------------------//

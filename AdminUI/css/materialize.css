@@ -2992,8 +2992,6 @@ td.alphaheader {
   padding-right: 20px;
   font-family: alphaheaderfont;
   font-size: 25px;
-  height: 45px;
-  width: 18px;
 }
 
 .datatable {
@@ -8762,9 +8760,9 @@ a.waves-effect .waves-ripple {
 }
 
 .collapsible {
-  border-top: 1px solid #ddd;
+  /*border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #ddd*/
   margin: 0.5rem 0 1rem 0;
 }
 
@@ -8776,25 +8774,16 @@ a.waves-effect .waves-ripple {
   line-height: 1.5rem;
   padding: 0;
   background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  border-top: 0px;
-  border-right: 0px;
-  border-left: 0px;
+  /*border-bottom: 1px solid #ddd;*/
 }
 
-.tr.bizlist {
-  border-top: 0px;
-  border-right: 0px;
-  border-left: 0px;
+.collapsible-header.active {
+  border-right: 2px solid #ddd;
+  /*border-left: 2px solid #ddd;*/
+  border-top: 1px solid #ddd;
+  border-bottom: 0.5px solid #eeeeee;
 }
 
-.tbody.bodylist {
-  border: 0px;
-}
-
-.table.showlist {
-  border: 0px;
-}
 .collapsible-header i {
   width: 2rem;
   font-size: 1.6rem;
@@ -8805,22 +8794,30 @@ a.waves-effect .waves-ripple {
   margin-right: 1rem;
 }
 
+thead.hours {
+  border-bottom: none;
+  display: inline-block;
+}
 
 .arrowtate {
   transition: .4s ease all;
   transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
+  color: teal;
 }
 
 .arrowtate.active {
   transition: .4s ease all;
   transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
+  color: teal;
 }
 
 .collapsible-body {
   display: none;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  /*border-left: 2px solid #ddd;*/
+  border-right: 2px solid #ddd;
   box-sizing: border-box;
 }
 
