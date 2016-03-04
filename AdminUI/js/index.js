@@ -200,13 +200,63 @@ $(document).ready(function(){
 				letterholder = firstletter;
 			}
 			else if (firstletterct > 0) {
-				letterholder = " ";
+				letterholder = "    ";
 			}
-			$(".allbizlistnew").append("<tr class='bizlist collapsible-header'>" + 
+			$(".allbizlistnew").append(
+      "<li>" +
+        "<div class='collapsible-header'>" +
+          "<table class='highlight responsive-table showlist'>" + 
+              /*IF WE INCLUDE THIS, THE HEADER IS DISPLAYED ABOVE EACH COLLAPSIBLE, WHICH IS UNDESIRABLE!*/
+              /*"<thead>" +
+                  "<tr>" +
+                    "<th data-field='alphaheader'> </th>" +
+                    "<th data-field='Name'>Name</th>" +
+                    "<th data-field='Address'>Address</th>" +
+                    "<th data-field='Phone'>Phone</th>" +
+                    "<th data-field='Website'>Website</th>" +
+                    "<th data-field='Category'>Category</th>" +
+                    "<th data-field='caret'> </th>" +
+                  "</tr>" +
+              "</thead>" +*/
+              "<tbody class='bodylist "+ value.id +"'>" +
+                "<tr class='bizlist'>" + 
+                "<td class='alphaheader'>" + letterholder + "</td>" + 
+                "<td>" + value.name + "</td>" + 
+                "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + ", " + value.address.zip + "</td>" + 
+                "<td>" + "(503)-123-4567" + "</td>" + 
+                "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
+                "<td>" + value.category.name + "</td>" + 
+                "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" +
+                "</tr>" + 
+              "</tbody>" +
+          "</table>" +
+        "</div>" +
+        "<div class='collapsible-body'><td><p>" + value.hours.hours_entry + "<br><br></p></td></div>" +
+        
+      "</li>"
+      );
+        
+      /*<table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th data-field="alphaheader"> </th>
+            <th data-field="Name">Name</th>
+            <th data-field="Address">Address</th>
+            <th data-field="Phone">Phone</th>
+            <th data-field="Website">Website</th>
+            <th data-field="Category">Category</th>
+            <th data-field="caret"> </th>
+          </tr>
+        </thead>
+     
+        <tbody class="allbizlistnew">
+        </tbody>
+     </table>*/
+			/*$(".allbizlistnew").append("<tr class='bizlist collapsible-header'>" + 
       "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + 
       "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
 				", " + value.address.zip + "</td>" + "<td>" + "(503)-123-4567" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
-        "<td>" + value.category.name + "</td>" + "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></tr>");
+        "<td>" + value.category.name + "</td>" + "<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td><div class='collapsible-body'><p>Lorem ipsum dolor sit amet.</p></div></tr>");*/
         
 			/*$(".allbizlistnew").append("<li><div class='alphaheader datadiv'>" + letterholder + " </div><div class='collapsible-header'>" + "<div class='datadiv'>" + value.name + "</div>" + 
       "<div class='datadiv'>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
