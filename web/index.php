@@ -16,6 +16,10 @@ $app = new Silex\Application();
 
 $app['debug'] = true;
 
+$app->after(function (Request $request, Response $response) {
+   $response->headers->set('Access-Control-Allow-Origin', '*');
+   // echo $response->headers;
+});
 // Request::setTrustedProxies(array($ip));
 
 $app->GET('/', function (Application $app, Request $request) {
