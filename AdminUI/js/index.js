@@ -1,10 +1,6 @@
 //JS FOR ELEMENT INITIALIZATION
 $(document).ready(function(){
-  //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/26 - HOLDS ROTATION ON CLICK
-  //$('.btn-floating').active(function() {
-  // $(this).toggleClass('active');
-  //});
-  //ADDED BY PHILIP TAN CS 419 WINTER 2016 1/29 - HOLDS ROTATION ON CLICK FOR SPECIFIED CARET
+  //Current user info variables  
   var username = "";
   var password = "";
   var first_name = "";
@@ -13,51 +9,77 @@ $(document).ready(function(){
   var admin_id = "";
   var role_id = "";
   var role_name = "";
-  // var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
+  //var urlpath = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //philip's url path
   //var urlpath = "http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php"; //brian's url path
   var urlpath ="/Reuse-and-Repair/web/index.php";
   $('select').material_select();
   
+  //Login function - determines what user has access to based on user role
   function login() {
  
     $('#login-button').hide();
+    $('#display-tabs').show();
     $('#admin-menu-title').html(username + "<i class='material-icons right'>arrow_drop_down</i>");
     $('#admin-menu').show();
     $('.card-admin-info').show();
-        
+     
     switch(role_id) {
-      case "1":
-        $('#fab-business').show();
-        $('#fab-admin').show();
+      case "1": //Master admin
+        $('.business-buttons').show();
+        $('.subcategory-buttons').show();
+
+        $('#fab-add').show();
+        $('#add-subcategory-button').show();
+        $('#add-business-button').show();
+        $('#add-admin-button').show();
+               
         $('#admin-content .card').addClass('medium');
         $('#admin-content .card').removeClass('small');  
         $('.card-admin-action').show();
         $('.deleteadminbutton').show();
         $('.changerolebutton').show();
         break;
-      case "2":
-        $('#fab-business').show();
-        $('#fab-admin').hide();
+      case "2": //Content admin
+        $('.business-buttons').show();
+        $('.subcategory-buttons').show();
+
+        $('#fab-add').show();
+        $('#add-subcategory-button').show();
+        $('#add-business-button').show();
+        $('#add-admin-button').hide();
+               
         $('#admin-content .card').addClass('small');
-        $('#admin-content .card').removeClass('medium');
+        $('#admin-content .card').removeClass('medium');  
         $('.card-admin-action').hide();
         $('.deleteadminbutton').hide();
         $('.changerolebutton').hide();
         break;
-      case "3":
-        $('#fab-business').show();
-        $('#fab-admin').hide();
+      case "3": //Business admin
+        $('.business-buttons').show();
+        $('.subcategory-buttons').hide();
+
+        $('#fab-add').show();
+        $('#add-subcategory-button').hide();
+        $('#add-business-button').show();
+        $('#add-admin-button').hide();
+               
         $('#admin-content .card').addClass('small');
-        $('#admin-content .card').removeClass('medium');
+        $('#admin-content .card').removeClass('medium');  
         $('.card-admin-action').hide();
         $('.deleteadminbutton').hide();
         $('.changerolebutton').hide();
         break;
-      default:
-        $('#fab-business').hide();
-        $('#fab-admin').hide();
+      default: //Read-only admin
+        $('.business-buttons').hide();
+        $('.subcategory-buttons').hide();
+
+        $('#fab-add').hide();
+        $('#add-subcategory-button').hide();
+        $('#add-business-button').hide();
+        $('#add-admin-button').hide();
+               
         $('#admin-content .card').addClass('small');
-        $('#admin-content .card').removeClass('medium');
+        $('#admin-content .card').removeClass('medium');  
         $('.card-admin-action').hide();
         $('.deleteadminbutton').hide();
         $('.changerolebutton').hide();
@@ -65,12 +87,17 @@ $(document).ready(function(){
     }
   }
   
+  //Logout function
   function logout() {
     $('#login-button').show();
     $('#admin-menu').hide();
-    $('#fab-business').hide();
-    $('#fab-admin').hide();
-
+    $('#fab-add').hide();
+    $('#display-tabs').hide();  
+    $('#subcategories').hide();
+    $('#businesses').show();
+    $('.business-buttons').hide();
+    $('.subcategory-buttons').hide();   
+    
     $('#admin-content .card').addClass('small');
     $('#admin-content .card').removeClass('medium');
     $('.card-admin-info').hide();
@@ -78,6 +105,7 @@ $(document).ready(function(){
     $('.deleteadminbutton').hide();
     $('.changerolebutton').hide();
     
+    //Clear user variables
     var username = "";
     var password = "";
     var first_name = "";
@@ -90,6 +118,7 @@ $(document).ready(function(){
     popup("Logged out");
   }
 
+  //Popup function
   function popup(message){
   //Materialize.toast(message, 5000);
     $('#popup-message').html(message);
@@ -98,7 +127,7 @@ $(document).ready(function(){
   }
 
 	//--------------CODE FOR ADMINS PAGE--------------//
-  //Add card to page
+  //Generate admin card and add to adminpage
   function addAdminCard(card_admin_id, card_username, card_rolename, card_firstname, card_lastname, card_email) {
 
     if(card_firstname == null)
@@ -108,16 +137,17 @@ $(document).ready(function(){
     if(card_email == null)
       card_email = ""; 
   
-    var cardhtml = "<div id='card_admin_id_" + card_admin_id + "' class='col s12 m6 l4'><div class='card small'><div class='card-image waves-effect waves-block waves-light'><img class='activator' src='../AdminUI/background4.jpg'><span id='card_title_" + card_admin_id + "' class='card-title'>" + card_firstname + " " + card_lastname + "</span></div><div class='card-content'><span class='hidden card-admin-info'>Username: " + card_username + "<br>Role: <span id='card_admin_role_" + card_admin_id + "'>" + card_rolename + "</span><br></span>";
+    var cardhtml = "<div id='card_admin_id_" + card_admin_id + "' class='col s12 m6 l4'><div class='card small'><div class='card-image waves-effect waves-block waves-light'><img class='activator' src='../AdminUI/background4.jpg'><span id='card_title_" + card_admin_id + "' class='card-title'>" + card_firstname + " " + card_lastname + "</span></div><div class='card-content'><p style='padding-left:10px;'><span class='hidden card-admin-info'>Username: " + card_username + "<br>Role: <span id='card_admin_role_" + card_admin_id + "'>" + card_rolename + "</span><br></span>";
   
     if(card_email != "")
       cardhtml += "Email: <span id='card_email_" + card_admin_id + "'>" + card_email + "</span>";
     
-    cardhtml += "</div><div class='card-action card-admin-action hidden'><button value='" + card_admin_id + "' class='hidden changerolebutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Change Role</button><button value='" + card_admin_id + "' class='hidden deleteadminbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Delete</button></div></div></div>"
+    cardhtml += "</p></div><div class='card-action card-admin-action hidden'><button value='" + card_admin_id + "' class='hidden changerolebutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Change Role</button><button value='" + card_admin_id + "' class='hidden deleteadminbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>Delete</button></div></div></div>"
   
     $("#admin-content").append(cardhtml);
   }
   
+  //Add all admins to page
   function populateAdmins(){
     
     //Get list of admin users and add admin cards
@@ -137,11 +167,8 @@ $(document).ready(function(){
   
   populateAdmins();
   
-  var subcategories;
-  
-  function getAllSubcategories(){
-    
-    //Get list of admin users and add admin cards
+  //Populate all select subcategories
+  function populateSelectSubcategories(){
     $.ajax
     ({    
       type: "GET",
@@ -149,275 +176,578 @@ $(document).ready(function(){
       dataType: 'json',
       async: true,
       success: function (data){
-        subcategories = data;
+        $('#addbusiness-subcategories').empty();
+        $('#editbusiness-subcategories').empty();
+        $('#displaybusiness-subcategories').empty();
+      
+        $('#addbusiness-subcategories').append('<option value="" disabled selected>Subcategories</option>');
+        $('#editbusiness-subcategories').append('<option value="" disabled selected>Subcategories</option>');
+        $('#displaybusiness-subcategories').append('<option value="0" selected>All Subcategories</option>');
+    
+        var selecthtml = '';
         
-        populateAddBusinessSubcategories();
+        for(var i = 0; i < data.length; i++)
+        {
+          selecthtml += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+        }
+        $('#addbusiness-subcategories').append(selecthtml);
+        $('#editbusiness-subcategories').append(selecthtml);
+        $('#displaybusiness-subcategories').append(selecthtml);
+        $('select').material_select();
       }
     });
   }
   
-  function populateAddBusinessSubcategories(){
-
-    $('#addbusiness-subcategories').append('<option value="" disabled selected>Subcategories</option>');
+  populateSelectSubcategories();
+  
+	//--------------CODE FOR VIEW BUSINESSES PAGE--------------//
+  //Business table
+  function displayBusinesses() {
+    //Clear list
+    $("#displaybusinesslist").empty();
     
-    for(var i = 0; i < subcategories.length; i++)
-    {
-      var selecthtml = '<option value="' + subcategories[i].id + '">' + subcategories[i].name + '</option>';
-      $('#addbusiness-subcategories').append(selecthtml);
-    }
-    $('select').material_select();
-  }
-  
-  getAllSubcategories();
-  
-   //LOGIC TO PULL IN ALL BUSINESS DATABASE ENTRIES AND DISPLAY THEM
-  
-  //some variables to prevent duplicate appending in the tables
-  var firstboxnum = 0;
-  var secondboxnum = 0;
-  var thirdboxnum = 0;
-  var fourthboxnum = 0;
-  
-  //THIS SECTION POPULATES THE LISTING FOR ALL BUSINESSES
-		var firstletterct = 0;
+    //Get filters
+    var db_businesstype = $("#displaybusiness-businesstype").val();
+    var db_subcategories = $("#displaybusiness-subcategories").val();
+    var geturl = "";
+    
+    //Generate url
+    if(db_businesstype == "0")
+      geturl = "/businesses";
+    else if (db_businesstype != "0" && db_subcategories == "0")
+      geturl = "/businesses/category/" + db_businesstype;
+    else if (db_businesstype != "0" && db_subcategories != "0")
+      geturl = "/businesses/category/" + db_businesstype + "/subcategory/" + db_subcategories;
+
+ 		var firstletterct = 0;
 		var firstletter;
 		var prevletter;
 		var letterholder;
-    var idarray = [];
-	$.getJSON(urlpath + "/businesses", function(obj) {
-		$.each(obj, function(key, value) {
-			prevletter = firstletter;
-			//console.log(prevletter);
-			
-      firstletter = value.name.substring(0,1).toUpperCase();
-      idarray.push(value.id);
-      //console.log(idarray);
-			if (firstletter == prevletter) {
-				firstletterct++;
-			}
-			else {
-				firstletterct = 0;
-			}
-			if (firstletterct == 0) {
-				letterholder = firstletter;
-			}
-			else if (firstletterct > 0) {
-				letterholder = " ";
-			}
-			$(".allbizlistnew").append(
-      "<li>" +
-        "<div class='collapsible-header "+ value.id +"'>" +
-          "<table class='highlight responsive-table'>" + 
-              /*IF WE INCLUDE THIS, THE HEADER IS DISPLAYED ABOVE EACH COLLAPSIBLE, WHICH IS UNDESIRABLE!*/
-              /*"<thead>" +
-                  "<tr>" +
-                    "<th data-field='alphaheader'> </th>" +
-                    "<th data-field='Name'>Name</th>" +
-                    "<th data-field='Address'>Address</th>" +
-                    "<th data-field='Phone'>Phone</th>" +
-                    "<th data-field='Website'>Website</th>" +
-                    "<th data-field='Category'>Category</th>" +
-                    "<th data-field='caret'> </th>" +
-                  "</tr>" +
-              "</thead>" +*/
-              "<tbody class='bodylist'>" +
-                /*"<col width='50px'>" +
-                "<col width='130'>" +
-                "<col width='130'>" +
-                "<col width='130'>" +
-                "<col width='130'>" +
-                "<col width='130'>" +
-                "<col width='130'>" +*/
-                "<tr class='bizlist'>" + 
-                "<td class='alphaheader'><div>" + letterholder + "</div></td>" + 
-                "<td>" + value.name + "</td>" + 
-                "<td>" + value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + ", " + value.address.zip + "</td>" + 
-                "<td>" + "(503)-123-4567" + "</td>" + 
-                "<td><a href=" + value.website + " target='_blank'>" + value.website + "</a></td>" + 
-                "<td>" + value.category.name + "</td>" + 
-                "<td arrowtate><i class='material-icons arrowtate "+ value.id +"'>keyboard_arrow_right</i></td>" +
-                "</tr>" + 
-              "</tbody>" +
-          "</table>" +
-        "</div>" +
-        "<div class='collapsible-body'>" +
-          "<table>" +
-              "<thead class='hours' data-field='hours'>" + 
-                "<tr>" + 
-                  "<th>&nbsp</th>" +
-                  "<th>&nbsp</th>" +
-                  "<th>&nbsp</th>" +
-                  "<th>Hours:</th>" +
-                  "<td>" + value.hours.hours_entry + "<br></td>" + 
-                "</tr>" +
-              "</thead>" + 
-          "</table>" +
-        "</div>" +
+    //Get businesses
+  	$.getJSON(urlpath + geturl, function(obj) {
+  		$.each(obj, function(key, value) {
+  			prevletter = firstletter;
+  			console.log(prevletter);
+  			firstletter = value.name.substring(0,1).toUpperCase();
+  			//console.log(firstletter):
+  			if (firstletter == prevletter) {
+  				firstletterct++;
+  			}
+  			else {
+  				firstletterct = 0;
+  			}
+  			if (firstletterct == 0) {
+  				letterholder = firstletter;
+  			}
+  			else if (firstletterct > 0) {
+  				letterholder = "    ";
+  			}
+        var businesshtml = "<tr id='list_business_id_" + value.id + "'><td class='alphaheader'>" + letterholder + "</td><td id='bus_id_" + value.id + "' class='viewbusinessbutton' style='width:100%;'>" + value.name + "<br>";
         
-      "</li>"
-      );
-		});
-   //controls the caret rotation
-    var index;
-    $(".collapsible-header").click(function() {
-      for (index=0; index < idarray.length; index++) {
-        if ($(this).hasClass(idarray[index])) {
-          $(".arrowtate." + idarray[index]).toggleClass("active");
+        if(value.address.street_number != null && value.address.street_name != null)
+        {
+          businesshtml += value.address.street_number + " " + value.address.street_name;
+          if(value.phone != null)
+            businesshtml += " - ";
+        }
+        
+        if (value.phone != null)
+            businesshtml += value.phone;
+        
+        businesshtml += "</td><td class='hidden business-buttons'><button value='" + value.id + "' class='editbusinessbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>EDIT</button></td><td class='hidden business-buttons'><button value='" + value.id + "' class='deletebusinessbutton waves-effect waves-teal btn-flat teal-text text-darken-2'>DELETE</button></td></tr>";
+                
+        $("#displaybusinesslist").append(businesshtml);
+  		});
+     
+      //Show buttons if user has access
+      if(role_id == "1" || role_id == "2" || role_id == "3")
+        $('.business-buttons').show();
+  	})
+  }
+  
+  displayBusinesses();
+  
+  //Filter business list on select change for business type
+  $('#displaybusiness-businesstype').change(function() {
+
+    if($("#displaybusiness-businesstype").val() != "0")
+      $('#displaybusiness-subcategories').removeAttr("disabled");
+    else
+      $('#displaybusiness-subcategories').attr("disabled", "disabled");
+    
+    $('select').material_select();
+    
+    displayBusinesses();
+  });
+  
+  //Filter business list on select change for subcategories
+  $('#displaybusiness-subcategories').change(function() {
+    
+    displayBusinesses();
+  });
+
+  //Subcategories table
+  function displaySubcategories() {
+  
+    $("#displaysubcategorylist").empty();
+    
+    var ds_businesstype = $("#displaysubcategories-businesstype").val();
+    var geturl = "";
+    
+    //Generate url
+    if(ds_businesstype == "0")
+      geturl = "/subcategories";
+    else if (ds_businesstype != "0")
+      geturl = "/subcategories/category/" + ds_businesstype;
+      
+    var firstletterct = 0;
+		var firstletter;
+		var prevletter;
+		var letterholder;
+    //Get subcategories
+    $.getJSON(urlpath + geturl, function(obj) {
+    	$.each(obj, function(key, value) {
+    		prevletter = firstletter;
+    		console.log(prevletter);
+    		firstletter = value.name.substring(0,1).toUpperCase();
+    		//console.log(firstletter):
+    		if (firstletter == prevletter) {
+    			firstletterct++;
+    		}
+    		else {
+    			firstletterct = 0;
+    		}
+    		if (firstletterct == 0) {
+    			letterholder = firstletter;
+    		}
+    		else if (firstletterct > 0) {
+    			letterholder = " ";
+    		}
+    		$("#displaysubcategorylist").append("<tr id='list_subcategory_id_" + value.id + "'><td class='alphaheader'>" + letterholder + "</td><td id='list_subcategory_td_id_" + value.id + "' style='width:100%;'>" + value.name + "</td><td class='hidden subcategory-buttons'><button value='" + value.id + "' class='editsubcategorybutton waves-effect waves-teal btn-flat teal-text text-darken-2'>EDIT</button></td><td class='hidden subcategory-buttons'><button value='" + value.id + "' class='deletesubcategorybutton waves-effect waves-teal btn-flat teal-text text-darken-2'>DELETE</button></td></tr>");
+    	});
+      if(role_id == "1" || role_id == "2")
+        $('.subcategory-buttons').show();
+    })
+  }
+
+  displaySubcategories();
+
+  //Filter subcategory list on select change for business type
+  $('#displaysubcategories-businesstype').change(function() {
+    
+    displaySubcategories();
+  });
+  
+	//------------------------MODAL INITIALIZATIONS------------------------//
+	//--------------MODAL CODE FOR BUSINESS TABLE--------------//
+  var selected_business_id;
+  //--------------MODAL CODE FOR VIEW BUSINESS--------------//  
+  $("#displaybusinesslist").on("click", ".viewbusinessbutton", function(){
+    selected_business_id = this.id;
+    selected_business_id = selected_business_id.substring(7);
+
+    $.ajax
+    ({    
+      type: "GET",
+      url: urlpath + "/businesses/" + selected_business_id,
+      dataType: 'json',
+      async: false,
+      success: function (data){
+        //Generate html code for business info
+        var viewbusinesshtml = "<div class='row'><div class='col s12 m12 l12'><h5>" + data[0].name + "</h5><br>Category: ";
+        
+        if(data[0].category.name == null) 
+          viewbusinesshtml += "None";
+        else
+          viewbusinesshtml += data[0].category.name;
+     
+        viewbusinesshtml += "</div></div>";
+
+        if(data[0].address.address_id != null || data[0].phone != null)
+        {
+          viewbusinesshtml += "<div class='row'>";
+          
+          if(data[0].address.address_id != null)
+          {
+            viewbusinesshtml += "<div class='col s6 m6 l6'>";
+            if(data[0].address.street_number != null)
+              viewbusinesshtml += data[0].address.street_number + " ";
+            if(data[0].address.street_name != null)
+              viewbusinesshtml += data[0].address.street_name + " ";
+            viewbusinesshtml += "<br>";
+            if(data[0].address.city != null)
+              viewbusinesshtml += data[0].address.city + ", ";
+            if(data[0].address.state != null)
+              viewbusinesshtml += data[0].address.state + " ";
+            if(data[0].address.zip != null)
+              viewbusinesshtml += data[0].address.zip;
+            viewbusinesshtml += "</div>";
+          }
+          if(data[0].phone != null)
+          {
+            viewbusinesshtml += "<div class='col s6 m6 l6'>" + data[0].phone + "</div>";
+          }
+          viewbusinesshtml += "</div>";
+        }
+
+        if(data[0].website != null)
+          viewbusinesshtml += "<div class='row'><div class='col s12 m12 l12'><a href='" + data[0].website + "'>" + data[0].website + "</a></div></div>";
+
+        if(data[0].hours.hours_entry != null)
+          viewbusinesshtml += "<div class='row'><div class='col s12 m12 l12'>" + data[0].hours.hours_entry + "</div></div>";
+          
+        if(data[0].description != null)
+          viewbusinesshtml += "<div class='row'><div class='col s12 m12 l12'>Description: " + data[0].description + "</div></div>";
+        
+        //Add subcategories
+        $.ajax
+        ({    
+          type: "GET",
+          url: urlpath + "/subcategories/business/" + selected_business_id,
+          dataType: 'json',
+          async: false,
+          success: function (data){
+            if(data.length > 0)
+            {
+              viewbusinesshtml += "<div class='row'><div class='col s12 m12 l12'>Subcategories: ";
+              
+              for(var i = 0; i < data.length; i++)
+              {
+                viewbusinesshtml += data[i].name + ", ";
+              }
+              viewbusinesshtml = viewbusinesshtml.substring(0, viewbusinesshtml.length - 2);
+              viewbusinesshtml += "</div>";
+            }
+          }
+        }); 
+        
+        $('#business-info').append(viewbusinesshtml);
+        
+        //Add google map
+        if(data[0].address.geolocation != null)
+        {
+          $('#modal-view-business').addClass("viewbusinessmodal");
+          $('#business-info').removeClass("s12");
+          $('#business-info').addClass("s6");
+          //Parse geolocation info
+          var geo = data[0].address.geolocation.split(":");
+          $('#map').append("<iframe width='100%' height='330px' frameborder='0' style='border:0' src='http://maps.google.com/maps?q=" + geo[0] + "," + geo[1] + "&z=15&output=embed'></iframe>");
+        }
+        else
+        {
+          $('#modal-view-business').removeClass("viewbusinessmodal");
+          $('#business-info').removeClass("s6");
+          $('#business-info').addClass("s12");
         }
       }
+    });          
+     
+     //Open view business modal     
+     $('#modal-view-business').openModal({         
+        complete: function() {
+          $('#business-info').empty();
+          $('#map').empty();
+        }   
     });
-});
-
-
-   
-  //THIS SECTION POPULATES THE LISTING FOR SUBCATEGORIES
-  	var firstletterct = 0;
-  $.getJSON(urlpath + "/subcategories", function(obj) {
-  	$.each(obj, function(key, value) {
-  		prevletter = firstletter;
-  		//console.log(prevletter);
-  		firstletter = value.name.substring(0,1).toUpperCase();
-  		//console.log(firstletter):
-  		if (firstletter == prevletter) {
-  			firstletterct++;
-  		}
-  		else {
-  			firstletterct = 0;
-  		}
-  		if (firstletterct == 0) {
-  			letterholder = firstletter;
-  		}
-  		else if (firstletterct > 0) {
-  			letterholder = " ";
-  		}
-  		$(".subcatlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" +
-  			"<td>" + "Some # Here" + "</td>" + "</tr>");
-  	});
-  })
-  
-  //THIS IS THE OLD TABLE CODE
-  //TO BE DEMOLISHED AT A LATER TIME, NO LONGER NEEDED, ONLY HERE FOR CODE REFERENCE AND CODE REUSE 
-  //some variables to prevent duplicate appending in the tables
-  var firstboxnum = 0;
-  var secondboxnum = 0;
-  var thirdboxnum = 0;
-  var fourthboxnum = 0;
-	$(".collapsible-header").click(function() {
-	    if ($(this).hasClass("firstbox")) {
-         firstboxnum++;
-		    if ($(".arrowtate.firstbox").hasClass("active")) {
-		    	$(".arrowtate.firstbox").removeClass("active");
-		   	} else {
-		   		$(".arrowtate.firstbox").toggleClass("active");
-		   		//LOGIC TO PULL IN ALL BUSINESS DATABASE ENTRIES AND DISPLAY THEM
-		   		if (firstboxnum <= 1) {
-		   			var firstletterct = 0;
-		   			var firstletter;
-		   			var prevletter;
-		   			var letterholder;
-					$.getJSON(urlpath + "/businesses", function(obj) {
-						$.each(obj, function(key, value) {
-							prevletter = firstletter;
-							console.log(prevletter);
-							firstletter = value.name.substring(0,1).toUpperCase();
-							//console.log(firstletter):
-							if (firstletter == prevletter) {
-								firstletterct++;
-							}
-							else {
-								firstletterct = 0;
-							}
-							if (firstletterct == 0) {
-								letterholder = firstletter;
-							}
-							else if (firstletterct > 0) {
-								letterholder = " ";
-							}
-							$(".allbizlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + 
-								value.address.street_number + " " + value.address.street_name + "<br>" + value.address.city + " " + value.address.state + 
-								", " + value.address.zip + "</td>" + "<td>" + "(503)-123-4567" + "</td>" + "<td><a href=" + value.website + " target='_blank'>" + value.website + 
-								"</a></td>" + "<td>" + value.category.name + "</td>" + 
-								"<td><i class='material-icons arrowtate'>keyboard_arrow_right</i></td>" + "</tr>");
-						});
-					})
-		   		}
-		   		else if (firstboxnum > 1) {
-		   		};
-		    	$(".arrowtate.secondbox").removeClass("active");
-		    	$(".arrowtate.thirdbox").removeClass("active");
-		    	$(".arrowtate.fourthbox").removeClass("active");
-		   	}
-	    }
-	    else if ($(this).hasClass("secondbox")) {
-         secondboxnum++;
-		   	if ($(".arrowtate.secondbox").hasClass("active")) {
-		    	$(".arrowtate.secondbox").removeClass("active");
-		   	} else {
-		   		$(".arrowtate.secondbox").toggleClass("active");
-		    	$(".arrowtate.firstbox").removeClass("active");
-		    	$(".arrowtate.thirdbox").removeClass("active");
-		    	$(".arrowtate.fourthbox").removeClass("active");
-		   	}
-		}
-	    else if ($(this).hasClass("thirdbox")) {
-         thirdboxnum++;
-		   	if ($(".arrowtate.thirdbox").hasClass("active")) {
-		    	$(".arrowtate.thirdbox").removeClass("active");
-		   	} else {
-		   		$(".arrowtate.thirdbox").toggleClass("active");
-		    	$(".arrowtate.firstbox").removeClass("active");
-		    	$(".arrowtate.secondbox").removeClass("active");
-		    	$(".arrowtate.fourthbox").removeClass("active");
-		   	}
-		}
-	    else if ($(this).hasClass("fourthbox")) {
-         fourthboxnum++;
-		   	if ($(".arrowtate.fourthbox").hasClass("active")) {
-		   	$(".arrowtate.fourthbox").removeClass("active");
-		   	} else {
-		   		$(".arrowtate.fourthbox").toggleClass("active");
-		   		//LOGIC TO PULL IN THE SUBCATEGORY DATABASE ENTRIES AND DISPLAY THEM
-		   		if (fourthboxnum <= 1) {
-		   			var firstletterct = 0;
-		   			var firstletter;
-		   			var prevletter;
-		   			var letterholder;
-					$.getJSON(urlpath + "/subcategories", function(obj) {
-						$.each(obj, function(key, value) {
-							prevletter = firstletter;
-							console.log(prevletter);
-							firstletter = value.name.substring(0,1).toUpperCase();
-							//console.log(firstletter):
-							if (firstletter == prevletter) {
-								firstletterct++;
-							}
-							else {
-								firstletterct = 0;
-							}
-							if (firstletterct == 0) {
-								letterholder = firstletter;
-							}
-							else if (firstletterct > 0) {
-								letterholder = " ";
-							}
-							$(".subcatlist").append("<tr>" + "<td class='alphaheader'>" + letterholder + "</td>" + "<td>" + value.name + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td>" +
-								"<td>" + "Some # Here" + "</td>" + "</tr>");
-						});
-					})
-		   		}
-		   		else if (fourthboxnum > 1) {
-		   		};                                             
-		    	$(".arrowtate.firstbox").removeClass("active");
-		    	$(".arrowtate.secondbox").removeClass("active");
-		    	$(".arrowtate.thirdbox").removeClass("active");
-		   	}
-	    }
-	});
-//--------------------------END 'DEPRECATED' CODE----------------------------------------------------//
+  });
  
-	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+  //Close view business modal form with click of X icon
+	$('#modal-view-business .modalclosex').click(function() {
+		$('#modal-view-business').closeModal({
+	      out_duration: 200,
+		});
+    $('#business-info').empty();
+    $('#map').empty();
+	});
+ 
+  //--------------MODAL CODE FOR EDIT BUSINESS--------------//
+  $("#displaybusinesslist").on("click", ".editbusinessbutton", function(){
+    selected_business_id = $(this).val();
+    
+    //Get business info
+    $.ajax
+    ({
+      type: "GET",
+      url: urlpath + "/businesses/" + selected_business_id,
+      dataType: 'json',
+      async: false,
+      success: function (data){
+        $('#modal-edit-business').openModal({
+          ready: function() {
+            //Populate modal with business info
+            $("#editbusiness-name").val(data[0].name);
+            $("#editbusiness-phone").val(data[0].phone);
+            $("#editbusiness-streetnumber").val(data[0].address.street_number);
+            $("#editbusiness-streetname").val(data[0].address.street_name);
+            $("#editbusiness-website").val(data[0].website);
+            $("#editbusiness-city").val(data[0].address.city);
+            $("#editbusiness-state").val(data[0].address.state);
+            $("#editbusiness-zip").val(data[0].address.zip);
+            $("#editbusiness-hours").val(data[0].hours.hours_entry);
+            $("#editbusiness-businesstype").val(data[0].category.id);
+            $("#editbusiness-desc").val(data[0].description);
+            //Populate subcategories
+            $.ajax
+            ({    
+              type: "GET",
+              url: urlpath + "/subcategories/business/" + selected_business_id,
+              dataType: 'json',
+              async: false,
+              success: function (data){
+                var subcategories = "";
+                
+                for(var i = 0; i < data.length; i++)
+                {
+                  $("#editbusiness-subcategories [value='" + data[i].id + "']").prop("selected", true);
+                }
+              }
+            }); 
+            Materialize.updateTextFields();
+            $('select').material_select();
+          },
+          complete: function() {
+            document.getElementById('edit-business-form').reset();
+            $("#edit-business-error").html("");
+          }   
+        });
+      }
+    });
+  });
 
-	//------------------------MODAL INITIALIZATIONS------------------------//
+  //Submit action
+  $('#edit-business-submit').click(function() {
+    //Get info from modal
+    var eb_name = $("#editbusiness-name").val();
+    var eb_phone = $("#editbusiness-phone").val();
+    var eb_streetnumber = $("#editbusiness-streetnumber").val();
+    var eb_streetname = $("#editbusiness-streetname").val();
+    var eb_website = $("#editbusiness-website").val();
+    var eb_city = $("editbusiness-city").val();
+    var eb_state = $("#editbusiness-state").val();
+    var eb_zip = $("#editbusiness-zip").val();
+    var eb_hours = $("#editbusiness-hours").val();
+    var eb_businesstype = $("#editbusiness-businesstype").val();
+    var eb_subcategories = $("#editbusiness-subcategories").val();
+    var eb_desc = $("#editbusiness-desc").val();
+
+    //Create data object for request
+    var eb_data = {
+      'category_id' : eb_businesstype,
+      'business_name' : eb_name,
+      'phone' : eb_phone,
+      'street_number' : eb_streetnumber,
+      'street_name' : eb_streetname,
+      'website' : eb_website,
+      'city' : eb_city,
+      'state' : eb_state,
+      'zip' : eb_zip,
+      'hours_entry' : eb_hours,
+      'description' : eb_desc
+    };
+
+    $.ajax
+    ({
+      type: "POST",
+      url: urlpath + "/businesses/" + selected_business_id,
+      data: eb_data,
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful business update
+        displayBusinesses();
+        
+        //Parse subcategory object to string for API
+        var eb_subcategories_str = JSON.stringify(eb_subcategories);
+        eb_subcategories_str = eb_subcategories_str.replace(/[\[\]\"]+/g,'');
+        
+        //Add subcategories
+        $.ajax
+        ({    
+          type: "POST",
+          url: urlpath + "/businesses/" + selected_business_id + "/subcategory",
+          data: {
+            'subcategories' : eb_subcategories_str
+          },
+          async: true,
+          beforeSend: function (xhr) {
+              xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+          },
+          success: function (){
+              //Successful add subcategories
+          }
+        });
+
+        //Clear input      
+        document.getElementById('edit-business-form').reset();
+        $("#edit-business-error").html("");
+        $("#modal-edit-business").closeModal();
+
+        popup("Business updated");
+      },
+      error: function () {
+        $("#edit-business-error").html("Error: Business not updated");
+      }
+    });   
+  });
+  
+  //Close edit business modal form with click of X icon
+	$('#modal-edit-business .modalclosex').click(function() {
+		$('#modal-edit-business').closeModal({
+	      out_duration: 200,
+		});
+    document.getElementById('edit-business-form').reset();
+    $("#edit-business-error").html("");
+	});
+ 
+	//--------------MODAL CODE FOR DELETING BUSINESS--------------//
+  $("#displaybusinesslist").on("click", ".deletebusinessbutton", function(){
+    selected_business_id = $(this).val();
+    
+    $('#modal-delete-business').openModal();
+  });
+
+  //Submit action
+  $('#delete-business-submit').click(function() {
+
+    $.ajax
+    ({    
+      type: "DELETE",
+      url: urlpath + "/businesses/" + selected_business_id,
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful delete
+        displayBusinesses();
+        
+        $("#modal-delete-business").closeModal();
+        
+        popup("Business deleted");
+      }
+    });
+  });
+
+  //Cancel action
+  $('#delete-business-cancel').click(function() {
+  	$('#modal-delete-business').closeModal({
+        out_duration: 200,
+  	});
+  });
+  
+	//--------------MODAL CODE FOR SUBCATEGORY TABLE--------------//
+  var selected_subcategory_id;
+
+  //--------------MODAL CODE FOR EDIT SUBCATEGORY--------------//
+  $("#displaysubcategorylist").on("click", ".editsubcategorybutton", function(){
+    selected_subcategory_id = $(this).val();
+
+    $('#modal-edit-subcategory').openModal({
+      ready: function() {
+        //Populate modal with subcategory info
+        $("#editsub-subcategory").val(document.getElementById("list_subcategory_td_id_" + selected_subcategory_id).innerText);
+        Materialize.updateTextFields();
+      },
+      complete: function() {
+        document.getElementById('edit-subcategory-form').reset();
+        $("#edit-subcategory-error").html("");
+      }   
+    });
+  });
+
+  //Submit action
+  $('#edit-subcategory-submit').click(function() {
+    //Get subcategory info from modal
+    var es_name = $("#editsub-subcategory").val();
+
+    if(es_name == '')
+      $("#edit-subcategory-error").html("Please enter a subcategory name");
+    else
+    {
+      $.ajax
+      ({
+        type: "POST",
+        url: urlpath + "/subcategories/" + selected_subcategory_id,
+        data: {
+          'subcategory_name' : es_name
+        },
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        success: function (){
+          //Successful business update
+          
+          displaySubcategories();
+          populateSelectSubcategories();
+          
+          //Clear input      
+          document.getElementById('edit-subcategory-form').reset();
+          $("#edit-subcategory-error").html("");
+          $("#modal-edit-subcategory").closeModal();
+  
+          popup("Subcategory updated");
+        },
+        statusCode: {
+          409: function () {
+            $("#edit-subcategory-error").html("Subcategory already exists")
+          }        
+        },
+        error: function () {
+          $("#edit-subcategory-error").html("Error: Subcategory not updated");
+        }
+      });
+    }
+  });
+  
+  //Close edit business modal form with click of X icon
+	$('#modal-edit-subcategory .modalclosex').click(function() {
+		$('#modal-edit-subcategory').closeModal({
+	      out_duration: 200,
+		});
+    document.getElementById('edit-subcategory-form').reset();
+    $("#edit-subcategory-error").html("");
+	});
+ 
+	//--------------MODAL CODE FOR DELETING SUBCATEGORY--------------//
+  $("#displaysubcategorylist").on("click", ".deletesubcategorybutton", function(){
+    selected_subcategory_id = $(this).val();
+    
+    $('#modal-delete-subcategory').openModal();
+  });
+
+  //Submit action
+  $('#delete-subcategory-submit').click(function() {
+
+    $.ajax
+    ({    
+      type: "DELETE",
+      url: urlpath + "/subcategories/" + selected_subcategory_id,
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful delete
+        displaySubcategories();
+        populateSelectSubcategories();
+        
+        $("#modal-delete-subcategory").closeModal();
+        
+        popup("Subcategory deleted");
+      }
+    });
+  });
+
+  //Cancel action
+  $('#delete-subcategory-cancel').click(function() {
+  	$('#modal-delete-subcategory').closeModal({
+        out_duration: 200,
+  	});
+  });
+ 
 	//--------------MODAL CODE FOR ADMIN LOGIN--------------//
 	//Initialize login button at top right corner
   $('#login-button').click(function() { 
@@ -430,11 +760,12 @@ $(document).ready(function(){
     });
   });
 
-  //Successful login response, delay then fade out and close modal if user doesn't dismiss
+  //Login submit
 	$('#login-submit').click(function() {
     username = $("#login-username").val();
     password = $("#login-password").val();
     
+    //Check for password/username entry
     if(username == "" || password == "")
       $("#login-error").html("Please enter username and password");
     else
@@ -449,7 +780,7 @@ $(document).ready(function(){
             xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
         },
         success: function (data){
-        
+          //Store user info
           first_name = data[0].first_name;
           last_name = data[0].last_name;
           email = data[0].email;
@@ -457,6 +788,7 @@ $(document).ready(function(){
           role_id = data[0].role.role_id;
           role_name = data[0].role.role_name;
       
+          //Generate welcome message
           var welcome_message;
           
           if(first_name == null)
@@ -471,6 +803,8 @@ $(document).ready(function(){
           $("#modal-login").closeModal();
           
           popup(welcome_message);
+          
+          //Login user
           login();
         },
         error: function (){
@@ -488,6 +822,7 @@ $(document).ready(function(){
     document.getElementById('admin-login-form').reset();
 	});
 
+  //Logout button action
   $('#logout-button').click(function() {
     logout();
   });
@@ -496,6 +831,7 @@ $(document).ready(function(){
 	$('#account-button').click(function() {
     $("#modal-account").openModal({
       ready: function() {
+        //Populate modal with account info
         $("#account-username").val(username);
         $("#account-adminrole").val(role_name);
         $("#account-firstname").val(first_name);
@@ -509,18 +845,12 @@ $(document).ready(function(){
     });
   });
 
+  //Submit action
   $('#update-account-submit').click(function() {
     var new_firstname = $("#account-firstname").val();
     var new_lastname = $("#account-lastname").val();
     var new_email = $("#account-email").val();
-
-    if(new_firstname == "")
-      new_firstname = first_name;
-    if(new_lastname == "")
-      new_lastname = last_name;
-    if(new_email == "")
-      new_email = email;
-      
+    
     $.ajax
     ({    
       type: "POST",
@@ -536,12 +866,14 @@ $(document).ready(function(){
       },
       success: function (){
         //Successful account update
+        //Edit user's card info
         document.getElementById('card_title_' + admin_id).innerHTML = new_firstname + " " + new_lastname;
         document.getElementById('card_email_' + admin_id).innerHTML = new_email;
 
         //Clear input
         document.getElementById('admin-account-form').reset();
         
+        //Change user info
         first_name = new_firstname;
         last_name = new_lastname;
         email = new_email;
@@ -572,11 +904,11 @@ $(document).ready(function(){
   });
   
   $('#change-password-submit').click(function() {
-
     var old_password = $("#pwchange-password").val();
     var new_password1 = $("#pwchange-newpassword1").val();
     var new_password2 = $("#pwchange-newpassword2").val();
     
+    //Validate input
     if(old_password == "" || new_password1 == "" || new_password2 == "")
       $("#change-password-error").html("Please enter fields");
     else if(password != old_password)
@@ -596,11 +928,13 @@ $(document).ready(function(){
         },
         success: function (){
           //Successful password update
+          //Store new password
+          password = new_password1;
+          
           //Clear input
           document.getElementById('change-password-form').reset();
           $("#change-password-error").html("");
-          password = new_password1;
-          
+                    
           $("#modal-change-password").closeModal();
 
           popup("Password updated");
@@ -621,6 +955,123 @@ $(document).ready(function(){
     $("#change-password-error").html("");
 	});
 
+	//--------------MODAL CODE FOR CHANGING USER ROLE--------------//
+  var selected_admin_id;
+  
+  $("#admin-content").on("click", ".changerolebutton", function(){
+    selected_admin_id = $(this).val();
+    
+    $('#modal-change-role').openModal({
+      complete: function() {
+        document.getElementById('change-role-form').reset();
+      }
+    });
+  });
+ 
+  //Submit action
+  $('#change-role-submit').click(function() {
+    var selected_role_id = $('input[name = "role-group"]:checked').val();
+    
+    $.ajax
+    ({    
+      type: "POST",
+      url: urlpath + "/admin/" + selected_admin_id +  "/role",
+      data: {'role_id' : selected_role_id},
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful role update
+        var card_admin_role = "card_admin_role_" + selected_admin_id;
+        var card_role_name;
+        
+        //Edit user card info
+        switch(selected_role_id) {
+          case "1":
+            card_role_name = "Master admin";
+            break;
+          case "2":
+            card_role_name = "Content management admin";
+            break;
+          case "3":
+            card_role_name = "Business admin";
+            break;
+          case "4":
+            card_role_name = "Read-only admin";
+            break;
+        }
+        
+        document.getElementById(card_admin_role).innerHTML = card_role_name;
+        
+        //If user edited own info, re-login
+        if(selected_admin_id == admin_id)
+        {
+          role_id = selected_role_id;
+          login();
+        }
+        
+        //Clear input
+        document.getElementById('change-role-form').reset();
+        
+        $("#modal-change-role").closeModal();
+        
+        popup("Role updated");
+      }
+    });
+  });
+ 
+  //Close add change role modal form with click of X icon
+  $('#modal-change-role .modalclosex').click(function() {
+  	$('#modal-change-role').closeModal({
+        out_duration: 200,
+  	});
+    document.getElementById('change-role-form').reset();
+  });
+ 
+ 	//--------------MODAL CODE FOR DELETING USER--------------//
+  $("#admin-content").on("click", ".deleteadminbutton", function(){
+    selected_admin_id = $(this).val();
+      
+    $('#modal-delete-user').openModal();
+  });
+
+  //Submit action
+  $('#delete-user-submit').click(function() {
+  
+    $.ajax
+    ({    
+      type: "DELETE",
+      url: urlpath + "/admin/" + selected_admin_id,
+      async: false,
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+      },
+      success: function (){
+        //Successful delete
+        var card_admin_id = "card_admin_id_" + selected_admin_id;
+       
+        //Remove card from admin page
+        document.getElementById(card_admin_id).style.display = "none";
+        
+        //If user deleted self, logout
+        if(selected_admin_id == admin_id)
+          logout();
+            
+        $("#modal-delete-user").closeModal();
+        
+        popup("Admin deleted");
+      }
+    });
+  });
+
+  //Cancel action
+  $('#delete-user-cancel').click(function() {
+  	$('#modal-delete-user').closeModal({
+        out_duration: 200,
+  	});
+  });
+
 	//--------------MODAL CODE FOR ADDING USER--------------//
   $("#add-admin-button").click(function() {
     
@@ -632,7 +1083,9 @@ $(document).ready(function(){
     });
   }); 
   
+  //Submit action
   $("#add-admin-submit").click(function() {
+    //Get admin info from modal
     var aa_username = $("#addadmin-username").val();
     var aa_adminrole = $("#addadmin-adminrole").val();
     var aa_password1 = $("#addadmin-password1").val();
@@ -641,12 +1094,14 @@ $(document).ready(function(){
     var aa_lastname = $("#addadmin-lastname").val();
     var aa_email = $("#addadmin-email").val();
 
+    //Validate input
     if(aa_username == "" || aa_password1 == "" || aa_password2 == "" || aa_firstname == "" || aa_lastname == "")
       $("#add-admin-error").html("Please enter fields");
     else if(aa_password1 != aa_password2)
       $("#add-admin-error").html("Passwords do not match");
     else
     {
+      //Create data object for request
       var aa_data = {
         'username' : aa_username,
         'password' : aa_password1,
@@ -669,6 +1124,7 @@ $(document).ready(function(){
         },
         success: function (){
           //Successful add admin
+          //Add admin card to page
           $.getJSON(urlpath + "/admin", function(data) {
             for (var i = 0; i < data.length; i++) {
               if(aa_username == data[i].username)
@@ -709,115 +1165,6 @@ $(document).ready(function(){
     $("#add-admin-error").html("");
   });
   
-	//--------------MODAL CODE FOR CHANGING USER ROLE--------------//
-  var selected_admin_id;
-  
-  $("#admin-content").on("click", ".changerolebutton", function(){
-    selected_admin_id = $(this).val();
-    
-    $('#modal-change-role').openModal({
-      complete: function() {
-        document.getElementById('change-role-form').reset();
-      }
-    });
-  });
- 
-  $('#change-role-submit').click(function() {
-    var selected_role_id = $('input[name = "role-group"]:checked').val();
-    
-    $.ajax
-    ({    
-      type: "POST",
-      url: urlpath + "/admin/" + selected_admin_id +  "/role",
-      data: {'role_id' : selected_role_id},
-      async: false,
-      beforeSend: function (xhr) {
-          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-      },
-      success: function (){
-        //Successful role update
-        var card_admin_role = "card_admin_role_" + selected_admin_id;
-        var card_role_name;
-        
-        switch(selected_role_id) {
-          case "1":
-            card_role_name = "Master admin";
-            break;
-          case "2":
-            card_role_name = "Content management admin";
-            break;
-          case "3":
-            card_role_name = "Business admin";
-            break;
-          case "4":
-            card_role_name = "Read-only admin";
-            break;
-        }
-        
-        document.getElementById(card_admin_role).innerHTML = card_role_name;
-        
-        if(selected_admin_id == admin_id)
-        {
-          role_id = selected_role_id;
-          login();
-        }
-        
-        document.getElementById('change-role-form').reset();
-        
-        $("#modal-change-role").closeModal();
-        
-        popup("Role updated");
-      }
-    });
-  });
- 
-  //Close add change role modal form with click of X icon
-  $('#modal-change-role .modalclosex').click(function() {
-  	$('#modal-change-role').closeModal({
-        out_duration: 200,
-  	});
-    document.getElementById('change-role-form').reset();
-  });
- 
- 	//--------------MODAL CODE FOR DELETING USER--------------//
-  $("#admin-content").on("click", ".deleteadminbutton", function(){
-    selected_admin_id = $(this).val();
-      
-    $('#modal-delete-user').openModal();
-  });
-
-  $('#delete-user-submit').click(function() {
-  
-    $.ajax
-    ({    
-      type: "DELETE",
-      url: urlpath + "/admin/" + selected_admin_id,
-      async: false,
-      beforeSend: function (xhr) {
-          xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-      },
-      success: function (){
-        //Successful delete
-        var card_admin_id = "card_admin_id_" + selected_admin_id;
-       
-        document.getElementById(card_admin_id).style.display = "none";
-        
-        if(selected_admin_id == admin_id)
-          logout();
-            
-        $("#modal-delete-user").closeModal();
-        
-        popup("Admin deleted");
-      }
-    });
-  });
-
-  $('#delete-user-cancel').click(function() {
-  	$('#modal-delete-user').closeModal({
-        out_duration: 200,
-  	});
-  });
-
 	//--------------MODAL CODE FOR ADDING SUBCATEGORY--------------//
   $("#add-subcategory-button").click(function() {
     $('#modal-add-subcategory').openModal({
@@ -828,9 +1175,11 @@ $(document).ready(function(){
     });
   });
   
+  //Submit action
   $('#add-subcategory-submit').click(function() {
     var new_subcategory = $("#addsub-subcategory").val();
     
+    //Validate input
     if(new_subcategory == "")
       $("#add-subcategory-error").html("Please enter subcategory");
     else
@@ -846,7 +1195,10 @@ $(document).ready(function(){
         },
         success: function (){
           //Successful add subcategory
-         
+          displaySubcategories();
+          populateSelectSubcategories();
+        
+          //Clear input
           document.getElementById('add-subcategory-form').reset();
           $("#add-subcategory-error").html("");
           
@@ -887,6 +1239,7 @@ $(document).ready(function(){
     }); 
     
     $("#add-business-submit").click(function() {
+      //Get business info from modal
       var ab_name = $("#addbusiness-name").val();
       var ab_phone = $("#addbusiness-phone").val();
       var ab_streetnumber = $("#addbusiness-streetnumber").val();
@@ -900,6 +1253,7 @@ $(document).ready(function(){
       var ab_subcategories = $("#addbusiness-subcategories").val();
       var ab_desc = $("#addbusiness-desc").val();
 
+      //Generate data object for request
       var ab_data = {
         'category_id' : ab_businesstype,
         'business_name' : ab_name
@@ -924,6 +1278,7 @@ $(document).ready(function(){
       if(ab_desc != "")
         ab_data['description'] = ab_desc;
 
+      //validate input
       if(ab_name == "" || ab_businesstype == null)
         $("#add-business-error").html("Please enter business name and type");
       else
@@ -939,7 +1294,8 @@ $(document).ready(function(){
           },
           success: function (){
             //Successful add business
-
+            displayBusinesses();
+            
             var businessid = 0;
             //Get business id and add subcategories
             $.getJSON(urlpath + "/businesses", function(data) {
@@ -955,8 +1311,6 @@ $(document).ready(function(){
               //Add subcategories
               if(ab_subcategories != "")
               {
-                              alert(businessid);
-                alert(ab_subcategories_str);
                 $.ajax
                 ({    
                   type: "POST",
@@ -970,7 +1324,6 @@ $(document).ready(function(){
                   },
                   success: function (){
                       //Successful add subcategories
-                    alert("SUCCESS");
                   }
                 });
               }           
@@ -999,33 +1352,5 @@ $(document).ready(function(){
       document.getElementById('add-business-form').reset();
       $("#add-business-error").html("");
     });
-
-
-
-
-
-	//------------------------SELECT MENU INITIALIZATIONS------------------------//
-	//$('.select').material_select();
-
-
-
-	/*$('.firstbox').click(function() {
-		
-		$.ajax({ 
-			url: "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses", 
-			dataType: "jsonp",
-			success: function(result) {
-				var pdata = jQuery.parseJSON(result);
-				var htmldata = "";
-				$.each(pdata, function(i, serverData) {
-					htmldata = htmldata + '-' + serverData.id + '<br>';
-				})
-				$('#dispfirstbox').html(htmldata);
-				//var id = result['id'];
-				//document.getElementById("dispfirstbox").innerHTML = id;
-			}
-		});
-
-	});*/
 
 });
