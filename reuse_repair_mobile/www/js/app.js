@@ -28,59 +28,84 @@ app.config(function($stateProvider, $urlRouterProvider){
     $stateProvider.state('categories', {
         url: '/categories',
         templateUrl: 'templates/categories.html',
-        controller: 'CategoryController',
+        controller: 'categoryController',
         factory: 'cat'
       })
       .state('subcategories',{
         url:'/categories/:id',
         templateUrl: 'templates/subcategories.html',
-        controller: 'SubcategoryController'
+        controller: 'subcategoryController'
       })
       .state('businesses',{
         url:'/:subcategory_id/businesses',
         templateUrl: 'templates/businesses.html',
-        controller: 'BusinessController'
+        controller: 'businessController'
       })
       .state('business_detail',{
       url:'/businesses/:business_id',
       templateUrl: 'templates/businesses.html',
-      controller: 'BusinessDetailController'
+      controller: 'businessDetailController'
     });
     $urlRouterProvider.otherwise('/categories');
 
   });
-/**********DO NOTE EARSE*********/
+
+// factory service calls out to api on server
+// run this mobile project *locally*
 app.factory('categoryService',function($http){
 var categories=[];
   return {
     getCategories: function(){
         return $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
           .then(function(response){
-          //users is an array of user objects
+
           categories = response.data;
           return categories;
         });
      }
     }
+})
+.factory('subcategoryService',function($http){
+  // the answer for how to get the id defined in this factory method is here I  believe
+  // http://stackoverflow.com/questions/21452537/ui-router-use-stateparams-in-service
+  var subcategories=[];
+  return {
+    getCategories: function(){
+      var url = "http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+id;
+      return $http.get(url)
+        .then(function(response){
+
+          subcategories = response.data;
+          return subcategories;
+        });
+    }
+  }
 });
 
-app.controller('CategoryController',function($scope,categoryService){
+// controllers, first copy the json object from the response in the browser, ( just make a simple api call
+// in the url bar ) then create a mock object similar to those below. After the app behavior is correct,
+// create a service and use the json retreived from that
+app.controller('categoryController',function($scope,categoryService){
 
     categoryService.getCategories().then(function(response){
       $scope.categories = response;
     });
 
 })
- /********DO NOT ERASE ***************/
+  .controller('subcategoryController',function($scope,subcategoryService){
 
-/***********MOCK CONTROLLERS********
+  subcategoryService.getCategories().then(function (response) {
+    $scope.subcategories = response;
+  });
+});
+ /********DO NOT ERASE **********************MOCK CONTROLLERS********
 
 app.controller('CategoryController',function($scope){
   $scope.categories=[{"id":"0","name":"Repair"},{"id":"1","name":"Reuse"}];
 
-})
- */
-  .controller('SubcategoryController',function($scope){
+});
+
+  app.controller('subcategoryController',function($scope){
     //  #/Reuse-and-Repair/web/index.php/subcategories/category/1
   //  console.log($scope);
     //if($scope.id == 1) {
@@ -129,3 +154,4 @@ app.controller('CategoryController',function($scope){
       }, {"id": "35", "name": "Vehicles\/Parts"}];
    // }
 });
+  */
