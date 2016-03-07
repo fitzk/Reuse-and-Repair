@@ -11,6 +11,15 @@
   display: none;
 }
 
+.filter-module {
+  padding: 20px 2% 20px 2%;
+}
+
+.viewbusinessbutton {
+  cursor: pointer;
+}
+
+
 .materialize-red.lighten-5 {
   background-color: #fdeaeb !important;
 }
@@ -2992,6 +3001,8 @@ td.alphaheader {
   padding-right: 20px;
   font-family: alphaheaderfont;
   font-size: 25px;
+  height: 45px;
+  width: 18px;
 }
 
 .datatable {
@@ -3568,6 +3579,7 @@ nav ul a span.badge {
 
 .mdi-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  /*filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);*/
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
@@ -8560,6 +8572,17 @@ a.waves-effect .waves-ripple {
   overflow: hidden;
 }
 
+/*EDITSUBCATEGORYMODAL CHANGES*/
+.modal.editsubcategorymodal {
+  width: 40%;
+  overflow: hidden;
+}
+
+/*DELETESUBCATEGORYMODAL CHANGES*/
+.modal.deletesubcategorymodal {
+  width: 40%;
+}
+
 /*DELETEUSERMODAL CHANGES*/
 .modal.deleteusermodal {
   width: 40%;
@@ -8571,10 +8594,26 @@ a.waves-effect .waves-ripple {
   overflow: hidden;
 }
 
-/*BUSINESSMODAL CHANGES*/
-.modal.businessmodal {
-  width: 1300px;
+/*VIEWBUSINESSMODAL CHANGES*/
+.modal.viewbusinessmodal {
+  width: 80%;
+}
+
+/*ADDBUSINESSMODAL CHANGES*/
+.modal.addbusinessmodal {
+  width: 80%;
   overflow: hidden;
+}
+
+/*EDITBUSINESSMODAL CHANGES*/
+.modal.editbusinessmodal {
+  width: 80%;
+  overflow: hidden;
+}
+
+/*DELETEBUSINESSMODAL CHANGES*/
+.modal.deletebusinessmodal {
+  width: 40%;
 }
 
 .modalheader {
@@ -8760,9 +8799,9 @@ a.waves-effect .waves-ripple {
 }
 
 .collapsible {
-  /*border-top: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  border-left: 1px solid #ddd*/
+  border-left: 1px solid #ddd;
   margin: 0.5rem 0 1rem 0;
 }
 
@@ -8774,16 +8813,25 @@ a.waves-effect .waves-ripple {
   line-height: 1.5rem;
   padding: 0;
   background-color: #fff;
-  /*border-bottom: 1px solid #ddd;*/
+  border-bottom: 1px solid #ddd;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
 }
 
-.collapsible-header.active {
-  border-right: 2px solid #ddd;
-  /*border-left: 2px solid #ddd;*/
-  border-top: 1px solid #ddd;
-  border-bottom: 0.5px solid #eeeeee;
+.tr.bizlist {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
 }
 
+.tbody.bodylist {
+  border: 0px;
+}
+
+.table.showlist {
+  border: 0px;
+}
 .collapsible-header i {
   width: 2rem;
   font-size: 1.6rem;
@@ -8794,30 +8842,22 @@ a.waves-effect .waves-ripple {
   margin-right: 1rem;
 }
 
-thead.hours {
-  border-bottom: none;
-  display: inline-block;
-}
 
 .arrowtate {
   transition: .4s ease all;
   transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
-  color: teal;
 }
 
 .arrowtate.active {
   transition: .4s ease all;
   transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
-  color: teal;
 }
 
 .collapsible-body {
   display: none;
-  border-bottom: 2px solid #ddd;
-  /*border-left: 2px solid #ddd;*/
-  border-right: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
   box-sizing: border-box;
 }
 
