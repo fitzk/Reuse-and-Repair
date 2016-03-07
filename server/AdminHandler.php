@@ -128,7 +128,7 @@ class AdminHandler extends Handler
         {
           // Check if username exists
           if ($this->usernameExist($object['username']))
-            return ['message' => 'Username already exists', 'status_code' => 404];
+            return ['message' => 'Username already exists', 'status_code' => 409];
           $admin_info['username'] = $object['username'];
         }
         if ($object['first_name'] != null)
@@ -137,6 +137,13 @@ class AdminHandler extends Handler
           $admin_info['last_name'] = $object['last_name'];
         if ($object['email'] != null)
           $admin_info['email'] = $object['email'];
+
+        if ($object['first_name'] == '')
+          $admin_info['first_name'] = null;
+        if ($object['last_name'] == '')
+          $admin_info['last_name'] = null;
+        if ($object['email'] == '')
+          $admin_info['email'] = null;
 
         // Update admin
         $sql = "UPDATE reuse_and_repair_db.Admin

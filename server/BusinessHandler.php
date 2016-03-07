@@ -74,7 +74,7 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
-                INNER JOIN reuse_and_repair_db.Category
+                LEFT JOIN reuse_and_repair_db.Category
                 ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 ORDER BY reuse_and_repair_db.Business.business_name;";
         $prepared = $this->db->link->prepare($sql);
@@ -136,7 +136,7 @@ class BusinessHandler extends Handler
                 ON reuse_and_repair_db.Business.fk_address_id = reuse_and_repair_db.Address.address_id
                 LEFT JOIN reuse_and_repair_db.Hours
                 ON reuse_and_repair_db.Business.fk_hours_id = reuse_and_repair_db.Hours.hours_id
-                INNER JOIN reuse_and_repair_db.Category
+                LEFT JOIN reuse_and_repair_db.Category
                 ON reuse_and_repair_db.Business.fk_category_id = reuse_and_repair_db.Category.category_id
                 WHERE reuse_and_repair_db.Business.business_id = ?
                 ORDER BY reuse_and_repair_db.Business.business_name;";
@@ -233,6 +233,30 @@ class BusinessHandler extends Handler
           $business_info['description'] = $object['description'];
         if ($object['website'] != null)
           $business_info['website'] = $object['website'];
+          
+        // Update business info in object
+        if ($object['street_number'] == '')
+          $business_info['address']['street_number'] = null;
+        if ($object['street_name'] == '')
+          $business_info['address']['street_name'] = null;
+        if ($object['city'] == '')
+          $business_info['address']['city'] = null;
+        if ($object['state'] == '')
+          $business_info['address']['state'] = null;
+        if ($object['zip'] == '')
+          $business_info['address']['zip'] = null;
+        if ($object['hours_entry'] == '')
+          $business_info['hours']['hours_entry'] = null;
+        if ($object['category_id'] == '')
+          $business_info['category']['category_id'] = null;
+        if ($object['business_name'] == '')
+          $business_info['name'] = null;
+        if ($object['phone'] == '')
+          $business_info['phone'] = null;
+        if ($object['description'] == '')
+          $business_info['description'] = null;
+        if ($object['website'] == '')
+          $business_info['website'] = null;
             
         // Check if address table needs to be updated
         if ($object['street_number'] != null || $object['street_name'] != null || $object['city'] != null || $object['state'] != null || $object['zip'] != null)
