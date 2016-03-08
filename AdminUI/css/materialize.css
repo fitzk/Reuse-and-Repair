@@ -4,8 +4,16 @@
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
  body {
-   overflow: auto !important;
+   overflow: auto;
+   height: 100%;
+   width: 100%;
+   padding: 0px;
  }
+ 
+html,body
+{
+    overflow-x: hidden; 
+}
  
 .hidden {
   display: none;
@@ -7473,13 +7481,29 @@ nav .button-collapse i {
   position: relative;
 }
 
+.namelimiter {
+  height: 64px;
+  display: inline-block;
+  max-width: 550px;
+  min-width: 375px;
+}
+
 nav .brand-logo {
   position: absolute;
   color: #fff;
   display: inline-block;
-  font-size: 2.1rem;
+  font-size: 2.0rem;/*2.1rem*/
   padding: 0;
   white-space: nowrap;
+  max-width: 550px;
+  min-width: 375px;
+}
+
+@media screen and (max-width: 450px) {
+    nav .brand-logo {
+        font-size: 1.5rem;
+        text-align: center;
+    }
 }
 
 nav .brand-logo.center {
