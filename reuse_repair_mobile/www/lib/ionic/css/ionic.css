@@ -3961,8 +3961,8 @@ a.subdued {
     .bar.bar-assertive.bar-footer {
       background-image: linear-gradient(180deg, #e42112, #e42112 50%, transparent 50%); }
   .bar.bar-balanced {
-    border-color: #28a54c;
-    background-color: #33cd5f;
+    border-color: #009688;
+    background-color: #009688;
     background-image: linear-gradient(0deg, #28a54c, #28a54c 50%, transparent 50%);
     color: #fff; }
     .bar.bar-balanced .title {
@@ -4007,10 +4007,10 @@ a.subdued {
     margin: 0 10px;
     min-width: 30px;
     height: 43px;
-    text-align: center;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 500;
     line-height: 44px; }
     .bar .title.title-left {

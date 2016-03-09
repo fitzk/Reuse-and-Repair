@@ -71,7 +71,7 @@ var categories=[];
   var subcategories=[];
   return {
     getCategories: function(){
-      var url = "http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+id;
+      var url = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/" +id;
       return $http.get(url)
         .then(function(response){
 
