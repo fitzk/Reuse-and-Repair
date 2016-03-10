@@ -205,12 +205,15 @@ class AdminHandler extends Handler
         if (!$this->adminExist($object['admin_id']))
           return ['message' => 'Admin does not exist', 'status_code' => 404];
 
+        // Hash password
+        $hash = password_hash($object['password'], PASSWORD_BCRYPT);
+
         // Update admin
         $sql = "UPDATE reuse_and_repair_db.Admin
             SET reuse_and_repair_db.Admin.password = ?
             WHERE reuse_and_repair_db.Admin.admin_id = ?;";
         $prepared = $this->db->link->prepare($sql);
-        $prepared->bindParam(1, $object['password']);
+        $prepared->bindParam(1, $hash);
         $prepared->bindParam(2, $object['admin_id']);
         $success = $prepared->execute();
 
@@ -231,12 +234,15 @@ class AdminHandler extends Handler
         // Check if username exists
         if ($this->usernameExist($object['username']))
           return ['message' => 'Username already exists', 'status_code' => 409];
-        
+
+        // Hash password
+        $hash = password_hash($object['password'], PASSWORD_BCRYPT);
+          
         $sql = "INSERT INTO reuse_and_repair_db.Admin (username, password, first_name, last_name, email, fk_role_id)
                VALUES (?, ?, ?, ?, ?, ?);";
         $prepared = $this->db->link->prepare($sql);
         $prepared->bindParam(1, $object['username']);
-        $prepared->bindParam(2, $object['password']);
+        $prepared->bindParam(2, $hash);
         $prepared->bindParam(3, $object['first_name']);
         $prepared->bindParam(4, $object['last_name']);
         $prepared->bindParam(5, $object['email']);

@@ -12,16 +12,20 @@ function authenticate($access_level, $admin_id)
   $db = new Database();
   
   $sql = "SELECT * FROM reuse_and_repair_db.Admin
-        WHERE reuse_and_repair_db.Admin.username = ? AND reuse_and_repair_db.Admin.password = ?;";
+        WHERE reuse_and_repair_db.Admin.username = ?";
   $prepared = $db->link->prepare($sql);
   $prepared->bindParam(1, $username);
-  $prepared->bindParam(2, $password);
   $success = $prepared->execute();
   $result = $prepared->fetchAll();
   
   if($prepared->rowCount() == 0)
     return false;
+
+  // Check password
+  if(!password_verify($password, $result[0]['password']))
+    return false;
   
+  // Check access level
   $result_role_id = $result[0]['fk_role_id'];
   $result_admin_id = $result[0]['admin_id'];
   
@@ -64,15 +68,18 @@ function getAdminIdByLogin()
   $db = new Database();
   
   $sql = "SELECT * FROM reuse_and_repair_db.Admin
-        WHERE reuse_and_repair_db.Admin.username = ? AND reuse_and_repair_db.Admin.password = ?;";
+        WHERE reuse_and_repair_db.Admin.username = ?;";
   $prepared = $db->link->prepare($sql);
   $prepared->bindParam(1, $username);
-  $prepared->bindParam(2, $password);
   $success = $prepared->execute();
   $result = $prepared->fetchAll();
   
   if($prepared->rowCount() == 0)
     return -1;
+  
+  // Check password
+  if(!password_verify($password, $result[0]['password']))
+    return -1;  
   
   return $result[0]['admin_id'];
 }
