@@ -6,6 +6,7 @@ require('../server/SubcategoryHandler.php');
 require('../server/BusinessHandler.php');
 require('../server/AdminHandler.php');
 require('../server/Authentication.php');
+require('../server/password.php');
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
