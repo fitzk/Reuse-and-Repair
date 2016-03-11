@@ -39,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider){
         controller: 'subcategoryController'
       })
       .state('businesses',{
-        url:'/:subcategory_id/businesses',
+        url:'/businesses/category/:category_id/subcategory/:subcategory_id',
         templateUrl: 'templates/businesses.html',
         controller: 'businessController'
       })
@@ -61,7 +61,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 // create a service and use the json retreived from that
 app.controller('categoryController',function($scope,$http){
 
-    $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
+    $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
       .then(function(response){
         $scope.categories = response.data;
       }, function(err){
@@ -70,13 +70,24 @@ app.controller('categoryController',function($scope,$http){
 
 }).controller('subcategoryController',function($scope,$http,$stateParams){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
-  $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+$stateParams.id)
+  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+$stateParams.id)
     .then(function(response){
+      $scope.category_id = $stateParams.id;
       $scope.subcategories = response.data;
     }, function(err){
       console.error('Error ',err);
     });
+
+}).controller('businessController',function($scope,$http,$stateParams){
+  // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
+  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/category/"+$stateParams.category_id+"/subcategory/"+$stateParams.subcategory_id)
+    .then(function(response){
+      $scope.businesses = response.data;
+    }, function(err){
+      console.error('Error ',err);
+    });
 });
+
  /********DO NOT ERASE **********************MOCK CONTROLLERS********
 
 app.controller('CategoryController',function($scope){
