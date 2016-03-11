@@ -23,6 +23,8 @@ app.run(function($ionicPlatform) {
     }
   });
 });
+
+//
 app.config(function($stateProvider, $urlRouterProvider){
 
     $stateProvider.state('categories', {
@@ -52,51 +54,28 @@ app.config(function($stateProvider, $urlRouterProvider){
 
 // factory service calls out to api on server
 // run this mobile project *locally*
-app.factory('categoryService',function($http){
-var categories=[];
-  return {
-    getCategories: function(){
-        return $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
-          .then(function(response){
 
-          categories = response.data;
-          return categories;
-        });
-     }
-    }
-})
-.factory('subcategoryService',function($http){
-  // the answer for how to get the id defined in this factory method is here I  believe
-  // http://stackoverflow.com/questions/21452537/ui-router-use-stateparams-in-service
-  var subcategories=[];
-  return {
-    getCategories: function(){
-      var url = "http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/" +id;
-      return $http.get(url)
-        .then(function(response){
-
-          subcategories = response.data;
-          return subcategories;
-        });
-    }
-  }
-});
 
 // controllers, first copy the json object from the response in the browser, ( just make a simple api call
 // in the url bar ) then create a mock object similar to those below. After the app behavior is correct,
 // create a service and use the json retreived from that
-app.controller('categoryController',function($scope,categoryService){
+app.controller('categoryController',function($scope,$http){
 
-    categoryService.getCategories().then(function(response){
-      $scope.categories = response;
+    $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
+      .then(function(response){
+        $scope.categories = response.data;
+      }, function(err){
+        console.error('Error ',err);
+      });
+
+}).controller('subcategoryController',function($scope,$http,$stateParams){
+  // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
+  $http.get("http://ec2-52-33-159-174.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+$stateParams.id)
+    .then(function(response){
+      $scope.subcategories = response.data;
+    }, function(err){
+      console.error('Error ',err);
     });
-
-})
-  .controller('subcategoryController',function($scope,subcategoryService){
-
-  subcategoryService.getCategories().then(function (response) {
-    $scope.subcategories = response;
-  });
 });
  /********DO NOT ERASE **********************MOCK CONTROLLERS********
 
