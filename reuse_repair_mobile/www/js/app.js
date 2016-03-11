@@ -45,7 +45,7 @@ app.config(function($stateProvider, $urlRouterProvider){
       })
       .state('business_detail',{
       url:'/businesses/:business_id',
-      templateUrl: 'templates/businesses.html',
+      templateUrl: 'templates/business_detail.html',
       controller: 'businessDetailController'
     });
     $urlRouterProvider.otherwise('/categories');
@@ -86,7 +86,16 @@ app.controller('categoryController',function($scope,$http){
     }, function(err){
       console.error('Error ',err);
     });
+}).controller('businessDetailController',function($scope,$http,$stateParams){
+  // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
+  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
+    .then(function(response){
+      $scope.business = response.data[0];
+    }, function(err){
+      console.error('Error ',err);
+    });
 });
+
 
  /********DO NOT ERASE **********************MOCK CONTROLLERS********
 
