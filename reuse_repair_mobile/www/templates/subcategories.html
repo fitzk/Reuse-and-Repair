@@ -1,4 +1,5 @@
 <ion-view title="Subcategories">
+	<div id="subcategories-spinner" class="bg-spinner"><ion-spinner icon="spiral"></ion-spinner></div>
 	<ion-list>
 	  <ion-item ng-repeat="x in subcategories", href="#/businesses/category/{{category_id}}/subcategory/{{x.id}}">
 	    {{x.name}}

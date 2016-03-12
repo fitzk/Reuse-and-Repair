@@ -1,4 +1,5 @@
 <ion-view title="Businesses">
+	<div id="businesses-spinner" class="bg-spinner"><ion-spinner icon="spiral"></ion-spinner></div>
 	<ion-list>
 	  <ion-item ng-repeat="x in businesses", href="#/businesses/{{x.id}}">
 	    {{x.name}}
