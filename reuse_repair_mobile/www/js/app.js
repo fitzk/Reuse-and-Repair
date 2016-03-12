@@ -83,6 +83,7 @@ app.controller('categoryController',function($scope,$http){
   $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/category/"+$stateParams.category_id+"/subcategory/"+$stateParams.subcategory_id)
     .then(function(response){
       $scope.businesses = response.data;
+
     }, function(err){
       console.error('Error ',err);
     });
@@ -90,12 +91,41 @@ app.controller('categoryController',function($scope,$http){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
   $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
     .then(function(response){
-      $scope.business = response.data[0];
+      
+      var business_info = response.data[0];
+      $scope.business = business_info;
+
+      document.getElementById("map").style.display = "none";
+
+      if(business_info.address.geolocation != null)
+      {
+        document.getElementById("map").style.display = "block";
+
+        var geo = business_info.address.geolocation.split(":");
+
+        var latlng = new google.maps.LatLng(geo[0], geo[1]);
+ 
+        var mapOptions = {
+            center: latlng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        new google.maps.Marker({
+            position: new google.maps.LatLng(geo[0], geo[1]),
+            map: map,
+            title: business_info.name
+        });
+
+        $scope.map = map;
+      }
+
     }, function(err){
       console.error('Error ',err);
     });
 });
-
 
  /********DO NOT ERASE **********************MOCK CONTROLLERS********
 
