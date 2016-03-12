@@ -1,7 +1,17 @@
-<ion-view title="Corvallis Reuse & Repair">
-    <ion-list>
-      <ion-item ng-repeat="x in categories",  href="#/categories/{{x.id}}">
-        {{x.name}}
-      </ion-item>
-    </ion-list>
+<ion-view title="Home" hide-nav-bar="true">
+	<a ng-repeat="x in categories" href="#/categories/{{x.id}}">
+		<button class="button button-full button-stable">
+			{{x.name}}
+		</button>
+	</a>
+	<a href="http://site.republicservices.com/site/corvallis-or/en/documents/corvallisrecycledepot.pdf">
+	  <button class="button button-full button-stable">
+	    Republic Recycling Depot
+	  </button>
+	</a>
+	<a href="http://site.republicservices.com/site/corvallis-or/en/documents/detailedrecyclingguide.pdf">
+	  <button class="button button-full button-stable">
+	    Recycle at curb
+	  </button>
+	</a>
 </ion-view>

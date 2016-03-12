@@ -1,9 +1,7 @@
 <ion-view title="Subcategories">
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="x in subcategories", href="#/businesses/category/{{category_id}}/subcategory/{{x.id}}">
-        {{x.name}}
-      </ion-item>
-    </ion-list>
-  </ion-content>
+	<ion-list>
+	  <ion-item ng-repeat="x in subcategories", href="#/businesses/category/{{category_id}}/subcategory/{{x.id}}">
+	    {{x.name}}
+	  </ion-item>
+	</ion-list>
 </ion-view>
