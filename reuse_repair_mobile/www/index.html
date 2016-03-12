@@ -23,15 +23,30 @@
 </head>
 <body ng-app="rrapp">
 
-    <ion-pane>
-    <ion-nav-bar class="bar bar-header bar-balanced">
-      <ion-nav-back-button class="button-clear">
+  <ion-pane>
+    <ion-header-bar class="bar-balanced">
+      <h1 class="title">Corvalis Reuse & Repair</h1>
+    </ion-header-bar>
+    <ion-nav-bar class="bar-subheader bar-stable">
+      <ion-nav-back-button>
         <i class="ion-chevron-left"></i>
       </ion-nav-back-button>
     </ion-nav-bar>
-      <ion-content scroll="false">
-        <ion-nav-view></ion-nav-view>
-      </ion-content>
-    </ion-pane>
-  </body>
+
+ <!--   <ion-nav-header class="bar bar-header bar-light">
+      <h1 class="title">bar-light</h1>
+    </ion-nav-header>
+    <ion-nav-bar class="bar bar-subheader bar-balanced">
+      <ion-nav-back-button class="button-clear">
+        <i class="ion-chevron-left"></i>
+      </ion-nav-back-button>
+    </ion-nav-bar>-->
+    <ion-content scroll="false" class="has-subheader">
+      <ion-nav-view> 
+
+      </ion-nav-view>
+    </ion-content>
+  </ion-pane>
+  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAd2_DENcgc7RGSHuHquV5CAW4gkCwKvaA"></script>
+</body>
 </html>
