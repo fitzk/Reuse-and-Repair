@@ -64,6 +64,9 @@ app.controller('categoryController',function($scope,$http){
     $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
       .then(function(response){
         $scope.categories = response.data;
+
+        document.getElementById("splash").style.display = "none";
+
       }, function(err){
         console.error('Error ',err);
       });
@@ -74,6 +77,9 @@ app.controller('categoryController',function($scope,$http){
     .then(function(response){
       $scope.category_id = $stateParams.id;
       $scope.subcategories = response.data;
+
+      document.getElementById("subcategories-spinner").style.visibility = "hidden";
+
     }, function(err){
       console.error('Error ',err);
     });
@@ -82,7 +88,26 @@ app.controller('categoryController',function($scope,$http){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
   $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/category/"+$stateParams.category_id+"/subcategory/"+$stateParams.subcategory_id)
     .then(function(response){
-      $scope.businesses = response.data;
+
+      var businesses = response.data;
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+
+        //geolocation sorting
+
+        document.getElementById("businesses-spinner").style.visibility = "hidden";
+        $scope.businesses = businesses;
+
+
+
+      }, function(error) {
+
+
+
+        document.getElementById("businesses-spinner").style.visibility = "hidden";
+        $scope.businesses = businesses;
+
+      },{timeout:2000});
 
     }, function(err){
       console.error('Error ',err);
