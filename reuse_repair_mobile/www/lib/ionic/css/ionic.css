@@ -4004,7 +4004,9 @@ a.subdued {
     left: 0;
     z-index: 0;
     overflow: hidden;
-    margin: 0 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
     min-width: 30px;
     height: 43px;
     text-align: left;
@@ -4083,8 +4085,16 @@ a.subdued {
     position: absolute;
     top: 5px;
     right: 5px;
-    bottom: 5px; }
-
+    bottom: 5px;
+    padding-right: 16px; }
+  .bar .csclogo {
+    height: 25px;
+    width: 41px;
+    padding-left: 16px;
+    margin-top: 5px;
+    position: absolute;
+    line-height: 90px;
+  }
 .platform-android .nav-bar-has-subheader .bar {
   background-image: none; }
 
