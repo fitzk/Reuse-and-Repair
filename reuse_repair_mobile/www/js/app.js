@@ -55,6 +55,18 @@ app.config(function($stateProvider, $urlRouterProvider){
 // factory service calls out to api on server
 // run this mobile project *locally*
 
+// calculate distance between two points
+function distance(lat1, lon1, lat2, lon2) {
+  var radlat1 = Math.PI * lat1/180;
+  var radlat2 = Math.PI * lat2/180;
+  var theta = lon1-lon2;
+  var radtheta = Math.PI * theta/180;
+  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist);
+  dist = dist * 180/Math.PI;
+  dist = dist * 60 * 1.1515;
+  return (Math.round(dist * 100) / 100);
+}
 
 // controllers, first copy the json object from the response in the browser, ( just make a simple api call
 // in the url bar ) then create a mock object similar to those below. After the app behavior is correct,
@@ -64,6 +76,7 @@ app.controller('categoryController',function($scope,$http){
     $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
       .then(function(response){
         $scope.categories = response.data;
+        $scope.$apply();
 
         document.getElementById("splash").style.display = "none";
 
@@ -77,6 +90,7 @@ app.controller('categoryController',function($scope,$http){
     .then(function(response){
       $scope.category_id = $stateParams.id;
       $scope.subcategories = response.data;
+      $scope.$apply();
 
       document.getElementById("subcategories-spinner").style.visibility = "hidden";
 
@@ -94,18 +108,35 @@ app.controller('categoryController',function($scope,$http){
       navigator.geolocation.getCurrentPosition(function(position) {
 
         //geolocation sorting
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        //calculate distance from current location
+        for(var i = 0; i < businesses.length; i++)
+        {
+          if(businesses[i].address.geolocation == null)
+            businesses[i]['dist'] = -1;
+          else
+          {
+            var geo = businesses[i].address.geolocation.split(":");
+            businesses[i]['dist'] = distance(latitude,longitude,geo[0],geo[1]);
+          }
+        }
+
+        //sort businesses by distance
+        businesses.sort(function(a, b) {
+            return parseFloat(a.dist) - parseFloat(b.dist);
+        });
 
         document.getElementById("businesses-spinner").style.visibility = "hidden";
         $scope.businesses = businesses;
-
-
+        $scope.$apply();
 
       }, function(error) {
 
-
-
         document.getElementById("businesses-spinner").style.visibility = "hidden";
         $scope.businesses = businesses;
+        $scope.$apply();
 
       },{timeout:2000});
 
@@ -116,7 +147,7 @@ app.controller('categoryController',function($scope,$http){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
   $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
     .then(function(response){
-
+      
       var business_info = response.data[0];
       $scope.business = business_info;
 
@@ -129,13 +160,13 @@ app.controller('categoryController',function($scope,$http){
         var geo = business_info.address.geolocation.split(":");
 
         var latlng = new google.maps.LatLng(geo[0], geo[1]);
-
+ 
         var mapOptions = {
             center: latlng,
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-
+ 
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
         new google.maps.Marker({
@@ -145,6 +176,7 @@ app.controller('categoryController',function($scope,$http){
         });
 
         $scope.map = map;
+        $scope.$apply();
       }
 
     }, function(err){
