@@ -17,6 +17,7 @@
 }
 
 #splash {
+	display: block;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -42,4 +43,13 @@
 	top: 30%;
     width: 100%;
     text-align: center;
+}
+
+.dist {
+	position: absolute;
+	color: lightGray;
+	right: 3%;
+	bottom: 1%;
+	text-align: right;
+	font-size: 80%;
 }
