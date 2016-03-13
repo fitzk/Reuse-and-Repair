@@ -191,14 +191,21 @@ app.controller('categoryController',function($scope,$http){
         $scope.description = business_info.description;
       }*/
 
+      var showMap = false;
+      if(business_info.address.geolocation != null)
+        showMap = true;
+
+      $scope.showMap = showMap;
+      
       document.getElementById("map").style.display = "none";
 
-      if(business_info.address.geolocation != null)
+      if(showMap)
       {
         document.getElementById("map").style.display = "block";
 
         var geo = business_info.address.geolocation.split(":");
-console.log(geo[0]);
+        $scope.geolink = geo[0] + "," + geo[1];
+
         var latlng = new google.maps.LatLng(geo[0], geo[1]);
 
         var mapOptions = {
