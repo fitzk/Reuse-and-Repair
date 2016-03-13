@@ -3005,9 +3005,21 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   vertical-align: baseline;
-  font: inherit;
-  font-size: 100%; }
+  font: inherit;  } /*font-size: 100%;*/
 
+.businesstitle {
+  font-size: 20px;
+}
+
+.businessinfo {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.detailicon {
+  font-size: 20px;
+  color: #009688;
+}
 ol, ul {
   list-style: none; }
 
@@ -3926,11 +3938,11 @@ a.subdued {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
     border-color: #b2b2b2;
-    background-color: #f8f8f8;
+    background-color: #26a69a;
     background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
     color: #444; }
     .bar.bar-stable .title {
-      color: #444; }
+      color: #ffffff; }
     .bar.bar-stable.bar-footer {
       background-image: linear-gradient(180deg, #b2b2b2, #b2b2b2 50%, transparent 50%); }
   .bar.bar-positive {
@@ -4015,8 +4027,10 @@ a.subdued {
     font-size: 19px;
     font-weight: 500;
     line-height: 44px; }
+
     .bar .title.title-left {
-      text-align: left; }
+      text-align: left;
+      margin-left: 10px;}
     .bar .title.title-right {
       text-align: right; }
   .bar .title a {
@@ -4055,7 +4069,10 @@ a.subdued {
       margin-right: 5px;
       padding: 0;
       white-space: nowrap;
-      font-weight: 400; }
+      font-weight: 400;
+      background-color: #26a69a;
+      color: #ffffff;
+      margin-left: 10px; }
     .bar .button.back-button.active, .bar .button.back-button.activated, .bar button.back-button.active, .bar button.back-button.activated {
       opacity: 0.2; }
   .bar .button-bar > .button,
@@ -4102,7 +4119,7 @@ a.subdued {
   font-size: 24px; }
 
 .platform-android .bar .title {
-  font-size: 19px;
+  font-size: 22px;
   line-height: 44px; }
 
 .bar-light .button {

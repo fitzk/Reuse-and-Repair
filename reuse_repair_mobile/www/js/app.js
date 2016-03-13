@@ -151,6 +151,26 @@ app.controller('categoryController',function($scope,$http){
       var business_info = response.data[0];
       $scope.business = business_info;
 
+      //Section displays "None" when business property has null
+      if (business_info.address.street_number == null && business_info.address.street_name == null && business_info.address.city == null) {
+        $scope.address = "None";
+      }
+      if (business_info.website == null) {
+        $scope.website = "None";
+      }
+      if (business_info.phone == null) {
+        $scope.phone = "None";
+      }
+      if (business_info.hours.hours_entry == null) {
+        $scope.hours = "None"
+      }
+      if (business_info.description == null) {
+        $scope.description = "None";
+      }
+      else {
+        $scope.description = business_info.description;
+      }
+
       document.getElementById("map").style.display = "none";
 
       if(business_info.address.geolocation != null)

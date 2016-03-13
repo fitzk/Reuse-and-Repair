@@ -1,16 +1,43 @@
 <ion-view>
-  <ion-nav-title>{{business.name}}</ion-nav-title>
+  <ion-nav-title class="businesstitle">{{business.name}}</ion-nav-title>
+  <ion-content>
 	<div id="map" data-tap-disabled="true"></div>
-    <div>
-    <i class="icon ion-android-pin detailicon"></i>
-    {{business.address.street_number}}
-    {{business.address.street_name}}
-    {{business.address.city}}
-    {{business.address.state}}
-    {{business.address.zip}}</div>
-    <div><i class="icon ion-android-globe detailicon"></i> {{business.website}}</div>
-    <div><i class="icon ion-android-call detailicon"></i> {{business.phone}}</div>
-
-    <div><i class="icon ion-android-time detailicon"></i> {{business.hours.hours_entry}}</div>
-
+    <br>
+    <div class="businessinfo">
+      <i class="icon ion-android-pin detailicon"></i>
+        {{address}}
+      {{business.address.street_number}}
+      {{business.address.street_name}}
+        <br>
+      {{business.address.city}}
+      {{business.address.state}}
+      {{business.address.zip}}
+    </div>
+    <br>
+    <div class="businessinfo"><i class="icon ion-android-globe detailicon"></i>
+      {{website}}
+      <a href="{{business.website}}">{{business.website}}</a>
+    </div>
+    <br>
+    <div class="businessinfo"><i class="icon ion-android-call detailicon"></i>
+      {{phone}}{{business.phone}}
+    </div>
+    <br>
+    <div class="businessinfo"><i class="icon ion-android-time detailicon"></i>
+      {{hours}} {{business.hours.hours_entry}}
+    </div>
+    <br>
+    <div ng-switch="business.category.name" class="businessinfo">
+      <i ng-switch-when="Reuse" class="icon ion-leaf detailicon"></i>
+      <i ng-switch-when="Repair" class="icon ion-wrench detailicon"></i>
+      Type:  {{business.category.name}}
+    </div>
+    <br>
+    <div class="businessinfo">
+      <i class="icon ion-android-list detailicon"></i>
+      Description:  {{description}}
+    </div>
+    <br>
+    <br>
+  </ion-content>
 </ion-view>
