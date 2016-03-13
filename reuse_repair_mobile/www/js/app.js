@@ -147,7 +147,7 @@ app.controller('categoryController',function($scope,$http){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
   $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
     .then(function(response){
-      
+
       var business_info = response.data[0];
       $scope.business = business_info;
 
@@ -160,13 +160,13 @@ app.controller('categoryController',function($scope,$http){
         var geo = business_info.address.geolocation.split(":");
 
         var latlng = new google.maps.LatLng(geo[0], geo[1]);
- 
+
         var mapOptions = {
             center: latlng,
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
- 
+
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
         new google.maps.Marker({

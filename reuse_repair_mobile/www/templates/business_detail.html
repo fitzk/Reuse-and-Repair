@@ -1,8 +1,16 @@
 <ion-view>
   <ion-nav-title>{{business.name}}</ion-nav-title>
 	<div id="map" data-tap-disabled="true"></div>
-    {{business.address}}
-    {{business.website}}
-    {{business.phone}}
-    {{business.hours}}
+    <div>
+    <i class="icon ion-android-pin detailicon"></i>
+    {{business.address.street_number}}
+    {{business.address.street_name}}
+    {{business.address.city}}
+    {{business.address.state}}
+    {{business.address.zip}}</div>
+    <div><i class="icon ion-android-globe detailicon"></i> {{business.website}}</div>
+    <div><i class="icon ion-android-call detailicon"></i> {{business.phone}}</div>
+
+    <div><i class="icon ion-android-time detailicon"></i> {{business.hours.hours_entry}}</div>
+
 </ion-view>
