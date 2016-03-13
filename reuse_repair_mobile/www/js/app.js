@@ -161,11 +161,15 @@ app.controller('categoryController',function($scope,$http){
         $scope.hours = business_info.hours.hours_entry.split(", ");
 
       //Parse phone number for link
-      var phonelink = business_info.phone.replace(/[^0-9]/g, "");
-      if(phonelink.length == 10)
-        phonelink = "1" + phonelink;
+      if(business_info.phone != null && business_info.phone != "")
+      {
+        var phonelink = business_info.phone.replace(/[^0-9]/g, "");
+        if(phonelink.length == 10)
+          phonelink = "1" + phonelink;
 
-      $scope.phonelink = phonelink;
+        $scope.phonelink = phonelink;
+      }
+     
 /*
       //Section displays "None" when business property has null
       if (business_info.address.street_number == null && business_info.address.street_name == null && business_info.address.city == null) {
@@ -194,7 +198,7 @@ app.controller('categoryController',function($scope,$http){
         document.getElementById("map").style.display = "block";
 
         var geo = business_info.address.geolocation.split(":");
-
+console.log(geo[0]);
         var latlng = new google.maps.LatLng(geo[0], geo[1]);
 
         var mapOptions = {
