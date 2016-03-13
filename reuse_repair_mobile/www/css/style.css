@@ -38,6 +38,11 @@
 	color: white;
 }
 
+#splash-csclogo {
+	height:90px;
+	width:90px;
+}
+
 .bg-spinner {
 	position: absolute;
 	top: 30%;
