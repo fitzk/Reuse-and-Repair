@@ -1,8 +1,11 @@
 <ion-view title="Businesses">
 	<div id="businesses-spinner" class="bg-spinner"><ion-spinner icon="spiral"></ion-spinner></div>
-	<ion-list>
-	  <ion-item ng-repeat="x in businesses", href="#/businesses/{{x.id}}">
-	    {{x.name}}
-	  </ion-item>
-	</ion-list>
+	<ion-content>
+		<ion-list>
+		  <ion-item ng-repeat="x in businesses", href="#/businesses/{{x.id}}">
+		    {{x.name}}
+		    <div ng-if="x.dist != -1 && x.dist != null" class="dist">{{x.dist}} mi</div>
+		  </ion-item>
+		</ion-list>
+	</ion-content>
 </ion-view>
