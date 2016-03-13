@@ -169,36 +169,16 @@ app.controller('categoryController',function($scope,$http){
 
         $scope.phonelink = phonelink;
       }
-     
-/*
-      //Section displays "None" when business property has null
-      if (business_info.address.street_number == null && business_info.address.street_name == null && business_info.address.city == null) {
-        $scope.address = "None";
-      }
-      if (business_info.website == null) {
-        $scope.website = "None";
-      }
-      if (business_info.phone == null) {
-        $scope.phone = "None";
-      }
-      if (business_info.hours.hours_entry == null) {
-        $scope.hours = "None"
-      }
-      if (business_info.description == null) {
-        $scope.description = "None";
-      }
-      else {
-        $scope.description = business_info.description;
-      }*/
 
       var showMap = false;
       if(business_info.address.geolocation != null)
         showMap = true;
 
       $scope.showMap = showMap;
-      
+
       document.getElementById("map").style.display = "none";
 
+      //Display map
       if(showMap)
       {
         document.getElementById("map").style.display = "block";
@@ -225,6 +205,30 @@ app.controller('categoryController',function($scope,$http){
         $scope.map = map;
         $scope.$apply();
       }
+
+      //Get list of subcategories
+      var subcategories = "";
+      if(response.data[0].category.name == "Reuse")
+        subcategories = "Accepts: ";
+      else if(response.data[0].category.name == "Repair")
+        subcategories = "Repairs: ";
+      else
+        subcategories = "Subcategories: ";
+
+      $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/business/"+$stateParams.business_id)
+        .then(function(response){
+
+          for(var i = 0; i < response.data.length; i++)
+          {
+            subcategories += response.data[i].name + ", ";
+          }
+
+          subcategories = subcategories.substring(0, subcategories.length - 2);
+
+          $scope.subcategories = subcategories;
+      }, function(err){
+        console.error('Error ',err);
+      });
 
     }, function(err){
       console.error('Error ',err);
