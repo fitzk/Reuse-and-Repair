@@ -151,6 +151,22 @@ app.controller('categoryController',function($scope,$http){
       var business_info = response.data[0];
       $scope.business = business_info;
 
+      if (business_info.address.street_number == null && business_info.address.street_name == null && business_info.address.city == null)
+        $scope.address = false;
+      else
+        $scope.address = true;
+
+      //Parse hours info
+      if(business_info.hours.hours_entry != null)
+        $scope.hours = business_info.hours.hours_entry.split(", ");
+
+      //Parse phone number for link
+      var phonelink = business_info.phone.replace(/[^0-9]/g, "");
+      if(phonelink.length == 10)
+        phonelink = "1" + phonelink;
+
+      $scope.phonelink = phonelink;
+/*
       //Section displays "None" when business property has null
       if (business_info.address.street_number == null && business_info.address.street_name == null && business_info.address.city == null) {
         $scope.address = "None";
@@ -169,7 +185,7 @@ app.controller('categoryController',function($scope,$http){
       }
       else {
         $scope.description = business_info.description;
-      }
+      }*/
 
       document.getElementById("map").style.display = "none";
 
