@@ -83,6 +83,10 @@ app.controller('categoryController',function($scope,$http){
       }, function(err){
         console.error('Error ',err);
       });
+      //open websites in system browser
+      $scope.openLink = function(link) {
+        window.open(link, '_system');
+      }
 
 }).controller('subcategoryController',function($scope,$http,$stateParams){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
@@ -156,6 +160,11 @@ app.controller('categoryController',function($scope,$http){
       else
         $scope.address = true;
 
+      //open websites in system browser
+      $scope.openLink = function(link) {
+        window.open(link, '_system');
+      }
+
       //Parse hours info
       if(business_info.hours.hours_entry != null)
         $scope.hours = business_info.hours.hours_entry.split(", ");
@@ -207,6 +216,9 @@ app.controller('categoryController',function($scope,$http){
 
         $scope.map = map;
         $scope.$apply();
+        $scope.openMap = function(url) {
+          window.open(url, '_system', 'location=yes');
+        }
       }
 
       //Get list of subcategories

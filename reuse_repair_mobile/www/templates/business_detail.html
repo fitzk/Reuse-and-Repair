@@ -3,7 +3,7 @@
   <ion-content>
 	<div id="map" data-tap-disabled="true"></div>
     <div id="business-content">
-      <a ng-if="showMap" ng-href="geo:{{geolink}}">
+      <a ng-if="showMap" ng-click="openMap('http://maps.google.com/maps?daddr='+geolink+'&dirflg=d')" ng-href="geo:{{geolink}}">
         <button id="dir-btn" class="button button-stable"><i class="icon ion-android-navigate detailicon"></i></button>
       </a>
 
@@ -28,7 +28,7 @@
           <i class="icon ion-android-globe detailicon"></i>
         </div>
         <div class="col col-90">
-          <a ng-href="{{business.website}}">Visit Website</a><br>
+          <a ng-click="openLink(business.website)">Visit Website</a><br>
         </div>
       </div>
 
