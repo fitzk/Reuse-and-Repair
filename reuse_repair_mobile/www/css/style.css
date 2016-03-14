@@ -71,5 +71,10 @@
   height: 60px;
   width: 60px;
   z-index: 99;
+  background-color: #009688;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.navbutton {
+  color: #ffffff;
 }
