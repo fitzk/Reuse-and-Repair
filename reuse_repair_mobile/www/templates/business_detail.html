@@ -12,7 +12,7 @@
         <div class="col col-10">
           <i class="icon ion-android-pin detailicon"></i>
         </div>
-        <div class="col col-90"> 
+        <div class="col col-90">
           {{business.address.street_number}}
           {{business.address.street_name}}
           <br>
@@ -27,20 +27,19 @@
         <div class="col col-10">
           <i class="icon ion-android-globe detailicon"></i>
         </div>
-        <div class="col col-90"> 
+        <div class="col col-90">
           <a ng-href="{{business.website}}">Visit Website</a><br>
         </div>
       </div>
-      
+
       <div ng-if="business.phone != null && business.phone != ''" class="businessinfo row">
         <div class="col col-10">
           <i class="icon ion-android-call detailicon"></i>
         </div>
         <div class="col col-90">
-          <a ng-href="tel:{{phonelink}}">{{business.phone}}</a><br>
+          <a ng-click="dialNumber(phonelink)" ng-href="tel:{{phonelink}}">{{business.phone}}</a><br>
         </div>
       </div>
-      
       <div ng-if="business.hours.hours_entry != null && business.hours.hours_entry != ''" class="businessinfo row">
         <div class="col col-10">
           <i class="icon ion-android-time detailicon"></i>
@@ -55,13 +54,13 @@
           {{hours[6]}}<br>
         </div>
       </div>
-      
+
       <!--<div ng-switch="business.category.name" class="businessinfo">
         <i ng-switch-when="Reuse" class="icon ion-leaf detailicon"></i>
         <i ng-switch-when="Repair" class="icon ion-wrench detailicon"></i>
         Type:  {{business.category.name}}<br><br>
       </div>-->
-      
+
       <div ng-if="business.description != null && business.description != ''" class="businessinfo row">
         <div class="col col-10">
           <i class="icon ion-android-list detailicon"></i>

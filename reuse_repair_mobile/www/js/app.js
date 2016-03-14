@@ -168,6 +168,9 @@ app.controller('categoryController',function($scope,$http){
           phonelink = "1" + phonelink;
 
         $scope.phonelink = phonelink;
+        $scope.dialNumber = function(number) {
+          window.open('tel:' + number, '_system');
+        }
       }
 
       var showMap = false;
