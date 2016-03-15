@@ -3940,9 +3940,10 @@ a.subdued {
     .bar.bar-light.bar-footer {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
-    border-color: #b2b2b2;
+    border-color: #26a69a;
     background-color: #26a69a;
     background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
     color: #444; }
     .bar.bar-stable .title {
       color: #ffffff; }
@@ -3978,7 +3979,7 @@ a.subdued {
   .bar.bar-balanced {
     border-color: #009688;
     background-color: #009688;
-    background-image: linear-gradient(0deg, #28a54c, #28a54c 50%, transparent 50%);
+    background-image: linear-gradient(0deg, #009688, #009688 50%, transparent 50%);
     color: #fff; }
     .bar.bar-balanced .title {
       color: #fff; }
@@ -4110,10 +4111,10 @@ a.subdued {
     bottom: 5px;
     padding-right: 16px; }
   .bar .csclogo {
-    height: 25px;
-    width: 41px;
+    height: 30px;
+    width: 46px;
     padding-left: 16px;
-    margin-top: 5px;
+    margin-top: 2px;
     position: absolute;
     line-height: 90px;
   }
