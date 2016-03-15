@@ -37,7 +37,7 @@
           <i class="icon ion-android-call detailicon"></i>
         </div>
         <div class="col col-90">
-          <a ng-click="dialNumber(phonelink)" ng-href="tel:{{phonelink}}">{{business.phone}}</a><br>
+          <a ng-click="dialNumber(phonelink)">{{business.phone}}</a><br>
         </div>
       </div>
       <div ng-if="business.hours.hours_entry != null && business.hours.hours_entry != ''" class="businessinfo row">
